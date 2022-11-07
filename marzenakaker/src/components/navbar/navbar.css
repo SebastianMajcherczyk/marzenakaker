@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+.nav-container {
+	display: flex;
+	justify-content: center;
+	padding: 10px 0;
+	height: 60px;
+    
+}
+.nav-link {
+	width: 80px;
+	text-decoration: none;
+	font-family: 'Raleway', sans-serif;
+	font-size: 18px;
+	background-color: rgba(0, 0, 0, 0);
+	color: #333;
+	padding: 20px;
+	transition: 0.5s;
+}
+
+.nav-link:hover {
+	color: orange;
+}
+@media (min-width: 600px) {
+	.nav-link {
+		font-size: 22px;
+	}
+}
