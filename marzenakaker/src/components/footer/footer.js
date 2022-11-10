@@ -8,7 +8,7 @@ export const Footer = ({changeLanguage}) => {
 	
 	return (
 		<footer className='footer'>
-			<div className='container'>
+			<div className='footer-container'>
 				<h4>Language/język:</h4>
 				<div className='flagbox'>
 					<button className='polish' onClick={() => changeLanguage('pl')} >
@@ -19,7 +19,7 @@ export const Footer = ({changeLanguage}) => {
 					</button>
 				</div>
 			</div>
-			
+	
 		</footer>
 	);
 };

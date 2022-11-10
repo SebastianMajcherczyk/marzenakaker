@@ -3,7 +3,7 @@ import './navbar.css';
 
 export const Navbar = ({ language }) => {
 	return (
-		<nav>
+		<nav className='nav-section'>
 			<div className='nav-container'>
 				{language === 'pl' && (
 					<div>

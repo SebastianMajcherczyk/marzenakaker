@@ -8,7 +8,7 @@ import { Instagram } from './instagram';
 export const Header = () => {
 	return (
 		<header className='header'>
-			<container className='logos'>
+			<div className=' logos'>
 				<a
 					href='https://www.facebook.com/profile.php?id=100011947786470'
 					target='_blank'>
@@ -21,7 +21,7 @@ export const Header = () => {
 					<Instagram />
 				</a>
 				<h4 className='title'>marzenakaker.no</h4>
-			</container>
+			</div>
 		</header>
 	);
 };

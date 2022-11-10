@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
 
+.nav-section{
+	/* position: relative;
+	top: 80px; */
+	margin-top: 60px;
+}
 .nav-container {
 	display: flex;
 	justify-content: center;
@@ -8,14 +13,14 @@
     
 }
 .nav-link {
+	line-height: 80px;
 	width: 80px;
 	text-decoration: none;
 	font-family: 'Raleway', sans-serif;
 	font-size: 18px;
-	background-color: rgba(0, 0, 0, 0);
 	color: #333;
-	padding: 20px;
-	transition: 0.5s;
+	padding:0  20px;
+	transition: 0.7s;
 }
 
 .nav-link:hover {
