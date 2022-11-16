@@ -8,6 +8,7 @@ import { Navbar } from './components/navbar/navbar';
 import ProductsList from './components/products-list/products-list';
 
 function App() {
+	const path = process.env.PUBLIC_URL;
 	const [language, setLanguage] = useState('en');
 	const changeLanguage = lang => {
 		setLanguage(lang);
@@ -28,6 +29,7 @@ function App() {
 			<About language={language} />
 			<Footer changeLanguage={changeLanguage} />
 			<ProductsList/>
+			
 		</div>
 	);
 }

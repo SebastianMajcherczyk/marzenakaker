@@ -7,9 +7,9 @@
 	background-color: #322c3a;
 	justify-content: center;
 	align-items: center;
-	position: fixed;
+	position: sticky;
 	top: 0;
-	z-index: 1;
+	z-index: 5;
 }
 
 .logos {

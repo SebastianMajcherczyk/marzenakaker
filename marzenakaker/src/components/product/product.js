@@ -1,13 +1,20 @@
+import './product.css';
+import solidHeart from './heart-solid.svg'
+
 const Product = ({ product }) => {
+	const path = process.env.PUBLIC_URL;
+    console.log(path);
 	return (
-		<div>
-			<div>
-				<img src={product.photo.src} alt={product.photo.alt} />
-				<div>{product.name}</div>
+		<div className='product-card'>
+			<div className='image-box'>
+           
+				<img src={path + product.photo.src} alt={product.photo.alt} />
 			</div>
-			<div>
-				<p>{product.description}</p>
-			</div>
+			<div className='text-box'>
+                <p className="p1">{product.name}</p>
+                <p className="p2">{product.description}</p>
+                <p className="p3"></p>
+            </div>
 		</div>
 	);
 };
