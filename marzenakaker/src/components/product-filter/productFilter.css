@@ -22,17 +22,22 @@
 
 .weight,
 .persons, 
-.category{
+.category
+.subcategory
+{
     width: 100%;
     margin-bottom: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-
+.btn-reset{
+	width: 80%;
+}
 @media (min-width: 768px) {
 	.filter-container {
-		
+		display: flex;
+		flex-direction: column;
 		width: 20%;
 	}
 }

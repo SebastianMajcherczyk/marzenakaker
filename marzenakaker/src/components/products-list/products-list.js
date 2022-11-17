@@ -3,255 +3,97 @@ import { ProductFilter } from '../product-filter/productFilter';
 import Product from '../product/product';
 import { getProductsByFilters } from './product-list.helpers';
 import './products-list.css';
-
-const initialData = [
-	{
-		photo: {
-			src: '/torty/tort1.jpg',
-			alt: 'alt',
-		},
-		name: 'Tort z kamperem',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 1,
-		persons: 3,
-	},
-	{
-		photo: {
-			src: '/torty/tort2.jpg',
-			alt: 'alt',
-		},
-		name: 'Golf',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
-		category: 'Sport',
-		subcategory: 'small',
-		weight: 2,
-		persons: 5,
-	},
-	{
-		photo: {
-			src: '/torty/tort3.jpg',
-			alt: 'alt',
-		},
-		name: 'Spidey',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Wedding',
-		subcategory: 'small',
-		weight: 3,
-		persons: 8,
-	},
-	{
-		photo: {
-			src: '/torty/tort4.jpg',
-			alt: 'alt',
-		},
-		name: 'Arsenal',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Sport',
-		subcategory: 'small',
-		weight: 4,
-		persons: 7,
-	},
-	{
-		photo: {
-			src: '/torty/tort5.jpg',
-			alt: 'alt',
-		},
-		name: 'Roblox',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 2,
-		persons: 6,
-	},
-	{
-		photo: {
-			src: '/torty/tort6.jpg',
-			alt: 'alt',
-		},
-		name: 'Suitcase',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 1,
-		persons: 5,
-	},
-	{
-		photo: {
-			src: '/torty/tort7.jpg',
-			alt: 'alt',
-		},
-		name: 'Anders',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 2,
-		persons: 10,
-	},
-	{
-		photo: {
-			src: '/torty/tort8.jpg',
-			alt: 'alt',
-		},
-		name: 'Franek',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 1,
-		persons: 13,
-	},
-	{
-		photo: {
-			src: '/torty/tort9.jpg',
-			alt: 'alt',
-		},
-		name: 'Kuba',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 5,
-		persons: 14,
-	},
-	{
-		photo: {
-			src: '/torty/tort10.jpg',
-			alt: 'alt',
-		},
-		name: 'Amelia',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 2,
-		persons: 11,
-	},
-	{
-		photo: {
-			src: '/torty/tort11.jpg',
-			alt: 'alt',
-		},
-		name: 'Aleksander',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 4,
-		persons: 9,
-	},
-	{
-		photo: {
-			src: '/torty/tort12.jpg',
-			alt: 'alt',
-		},
-		name: 'It`s a boy',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 3,
-		persons: 6,
-	},
-	{
-		photo: {
-			src: '/torty/tort13.jpg',
-			alt: 'alt',
-		},
-		name: 'SK',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Wedding',
-		subcategory: 'small',
-		weight: 3,
-		persons: 5,
-	},
-	{
-		photo: {
-			src: '/torty/tort14.jpg',
-			alt: 'alt',
-		},
-		name: 'Deimanas',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 3,
-		persons: 8,
-	},
-	{
-		photo: {
-			src: '/torty/tort15.jpg',
-			alt: 'alt',
-		},
-		name: 'Emilia',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 3,
-		persons: 11,
-	},
-	{
-		photo: {
-			src: '/torty/tort16.jpg',
-			alt: 'alt',
-		},
-		name: 'Bartek',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 3,
-		persons: 9,
-	},
-	{
-		photo: {
-			src: '/torty/tort17.jpg',
-			alt: 'alt',
-		},
-		name: 'Natalia',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 3,
-		persons: 7,
-	},
-	{
-		photo: {
-			src: '/torty/tort18.jpg',
-			alt: 'alt',
-		},
-		name: 'Vito Belle Show',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
-		category: 'Birthday',
-		subcategory: 'small',
-		weight: 3,
-		persons: 5,
-	},
-];
+import { initialData } from '../../initial-data';
 
 const ProductsList = () => {
 	const [filterCriteria, setFilterCriteria] = useState({
-		weight: '',
-		persons: '',
-		category: ''
+		// weight: '',
+		// persons: '',
+		// category: '',
+		// subcategory: {
+		// 	small: false,
+		// 	medium: false,
+		// 	large: false
+		// },
+		persons: {
+			type: 'VALUE',
+			value: '',
+		},
+		weight: {
+			type: 'VALUE',
+			value: '',
+		},
+		subcategory: {
+			type: 'CHOICE',
+			value: [],
+		},
+		category: {
+			type: 'CHOICE',
+			value: [],
+		},
 	});
 	const data = useMemo(
 		() => getProductsByFilters(initialData, filterCriteria),
 		[filterCriteria]
 	);
+	//const handleCheckbox = e => {
+	//	console.log(e);
+	//};
 
-	const handleChange = e => {
-		const { value, name } = e.target;
-		const tempState = {
-			...filterCriteria,
-			[name]: value,
-		};
-		setFilterCriteria(tempState);
+	const setValueToArray = (array, value) => {
+		if (array.includes(value)) {
+			return array.filter(val => val !== value);
+		} else {
+			return [...array, value];
+		}
 	};
-	const handleSelect = e => {
+
+	const removeFromArray = (array, value) => {
+		return array.filter(val => val !== value);
+	};
+
+	const addToArray = (array, value) => {
+		return [...new Set([...array, value])];
+	};
+	const handleChange = e => {
 		console.log(e);
-	}
-	const resetFilter = (e) => {
+		
+		const { value, name, tagName, checked } = e.target;
+		//const tempState = {
+		//	...filterCriteria,
+		//	[name]: value,
+		//	};
+		
+		const [filterName, filterValue] = name.split('-');
+		const currentFilterType = filterCriteria[filterName].type;
+
+		if (currentFilterType === 'VALUE') {
+			const tempState = {
+				...filterCriteria,
+				[filterName]: { ...filterCriteria[filterName], value },
+			};
+			setFilterCriteria(tempState);
+		} else if (currentFilterType === 'CHOICE') {
+			if (tagName === 'SELECT') {
+				///
+			} else if (tagName === 'INPUT') {
+				// To sa checkboxy - teoretycznie
+
+				const tempState = {
+					...filterCriteria,
+					[filterName]: {
+						...filterCriteria[filterName],
+						value: checked
+							? addToArray(filterCriteria[filterName].value, filterValue)
+							: removeFromArray(filterCriteria[filterName].value, filterValue),
+					},
+				};
+				setFilterCriteria(tempState);
+			}
+		}
+	};
+
+	const resetFilter = e => {
 		e.preventDefault();
 		setFilterCriteria({ weight: '', persons: '', category: '' });
 	};
@@ -261,7 +103,6 @@ const ProductsList = () => {
 				handleChange={handleChange}
 				filterCriteria={filterCriteria}
 				resetFilter={resetFilter}
-				
 			/>
 			<div className='products-container'>
 				{data.map(item => (

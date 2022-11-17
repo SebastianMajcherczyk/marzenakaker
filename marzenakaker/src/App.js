@@ -23,12 +23,13 @@ function App() {
 	}, [language]);
 	return (
 		<div className='App'>
-			<Header />
-			<Navbar language={language} />
-			<Banner />
-			<About language={language} />
-			<Footer changeLanguage={changeLanguage} />
-			<ProductsList/>
+			
+				<Header />
+				<Navbar language={language} />
+				<Banner />
+				<About language={language} />
+				<Footer changeLanguage={changeLanguage} />
+				<ProductsList />
 			
 		</div>
 	);

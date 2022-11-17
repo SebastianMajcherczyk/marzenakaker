@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './navbar.css';
 
+
+
 export const Navbar = ({ language }) => {
+	
 	return (
 		<nav className='nav-section'>
 			<div className='nav-container'>
