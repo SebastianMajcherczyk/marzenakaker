@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/marzenakaker/static/css/main.bbbf03e1.css",
-    "main.js": "/marzenakaker/static/js/main.74dda117.js",
+    "main.css": "/marzenakaker/static/css/main.42d75a3f.css",
+    "main.js": "/marzenakaker/static/js/main.27a04817.js",
     "static/js/787.e67d2bce.chunk.js": "/marzenakaker/static/js/787.e67d2bce.chunk.js",
     "static/media/54622531-0-10.png": "/marzenakaker/static/media/54622531-0-10.344013dedd511f572d0d.png",
     "static/media/pict1.jpg": "/marzenakaker/static/media/pict1.9fbd99c46116a8429680.jpg",
     "static/media/pict2.jpg": "/marzenakaker/static/media/pict2.0439217290d96435b8ba.jpg",
     "index.html": "/marzenakaker/index.html",
     "static/media/heart-solid.svg": "/marzenakaker/static/media/heart-solid.0683be34c6d035c43310a4718b5879d6.svg",
-    "main.bbbf03e1.css.map": "/marzenakaker/static/css/main.bbbf03e1.css.map",
-    "main.74dda117.js.map": "/marzenakaker/static/js/main.74dda117.js.map",
+    "main.42d75a3f.css.map": "/marzenakaker/static/css/main.42d75a3f.css.map",
+    "main.27a04817.js.map": "/marzenakaker/static/js/main.27a04817.js.map",
     "787.e67d2bce.chunk.js.map": "/marzenakaker/static/js/787.e67d2bce.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bbbf03e1.css",
-    "static/js/main.74dda117.js"
+    "static/css/main.42d75a3f.css",
+    "static/js/main.27a04817.js"
   ]
 }
