@@ -1,37 +1,79 @@
 .filter-container {
-
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 80%;
 	border: 2px solid black;
 	border-radius: 24px;
 	background: #e0e0e0;
 	box-shadow: 7px 7px 14px #bebebe, -7px -7px 14px #ffffff;
+	position: relative;
+	top: 20px;
+	overflow: hidden;
+}
+
+.leftUp,
+.rightUp {
+	font-size: 20px;
+	transition: transform 0.5s;
+	color: #322C3A
+
+}
+
+.leftUp.hidden {
+	transform: rotate(180deg);
+}
+.rightUp.hidden{
+	transform: rotate(-180deg);
+}
+
+.hide-btn {
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-color: #322C3A;
+	text-transform: uppercase;
+	font-size: 16px;
+	width: 50%;
+	margin: 2px;
+	border-radius: 10px;
+}
+.filter {
+	display: flex;
+	height: 230px;
+	transition: height 0.5s;
+}
+
+.filter.hidden {
+	height: 0px;
 }
 
 .filter {
 	display: flex;
 	flex-direction: column;
-    align-items: center;
-	padding: 10px;
+	align-items: center;
+
 	font-size: 12px;
 }
-
+fieldset{
+	margin: 5px 0;
+}
 .filter input {
 	width: 30px;
 	margin: 5px;
 }
 
 .weight,
-.persons, 
-.category
-.subcategory
-{
-    width: 100%;
-    margin-bottom: 10px;
+.persons,
+.category .subcategory {
+	width: 100%;
+	margin-bottom: 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-.btn-reset{
+.btn-reset {
 	width: 80%;
 }
 @media (min-width: 768px) {
@@ -39,5 +81,8 @@
 		display: flex;
 		flex-direction: column;
 		width: 20%;
+	}
+	.hide-btn{
+		width: 100%;
 	}
 }

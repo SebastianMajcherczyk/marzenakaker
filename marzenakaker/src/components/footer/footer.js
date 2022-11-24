@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import GB from './gb.png';
 import PL from './pl.png';
 import './footer.css';
 
-export const Footer = ({changeLanguage}) => {
-	
+import { LanguageContext } from '../../ContextProvider';
+
+export const Footer = () => {
+	const {changeLanguage} = useContext(LanguageContext)
 	
 	return (
 		<footer className='footer'>

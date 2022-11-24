@@ -1,0 +1,54 @@
+.product-card-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.arrow-box{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    position: relative;
+}
+.arrow-element{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.up-arrow{
+position: relative;
+top: -20px
+}
+.side-arrow{
+    position: relative;
+    top:10px
+}
+.arrow{
+    font-size: 40px;
+    color: #322c3a;
+    transition: 0.7s;
+    cursor: pointer;
+}
+
+.arrow:hover{
+    color: orange;
+    transform: scale(150%, 150%);
+
+}
+
+
+.productCard h3 {
+    text-transform: uppercase;
+    color: rgb(35, 80, 228);
+
+}
+
+.productCard p{
+
+    color: #322c3a;
+}
+

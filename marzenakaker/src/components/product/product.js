@@ -11,8 +11,7 @@ const Product = ({ product }) => {
 			</div>
 			<div className='text-box'>
 				<p className='p1'>{product.name}</p>
-				<p className='p2'>{product.description}</p>
-				<p className='p3'></p>
+				<p className='p2'>{product.description.substr(0, 105)}</p>
 			</div>
 		</div>
 	);

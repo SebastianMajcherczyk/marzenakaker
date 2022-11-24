@@ -1,52 +1,19 @@
-import { useMemo, useState } from 'react';
+import { useMemo} from 'react';
 import { ProductFilter } from '../product-filter/productFilter';
 import Product from '../product/product';
 import { getProductsByFilters } from './product-list.helpers';
 import './products-list.css';
 import { initialData } from '../../initial-data';
+import { useNavigate } from "react-router-dom";
 
-const ProductsList = () => {
-	const [filterCriteria, setFilterCriteria] = useState({
-		// weight: '',
-		// persons: '',
-		// category: '',
-		// subcategory: {
-		// 	small: false,
-		// 	medium: false,
-		// 	large: false
-		// },
-		persons: {
-			type: 'VALUE',
-			value: '',
-		},
-		weight: {
-			type: 'VALUE',
-			value: '',
-		},
-		subcategory: {
-			type: 'CHOICE',
-			value: [],
-		},
-		category: {
-			type: 'CHOICE',
-			value: [],
-		},
-	});
+const ProductsList = ({filterCriteria, setFilterCriteria, resetFilter}) => {
+	const navigate= useNavigate()
+
 	const data = useMemo(
 		() => getProductsByFilters(initialData, filterCriteria),
 		[filterCriteria]
 	);
-	//const handleCheckbox = e => {
-	//	console.log(e);
-	//};
 
-	const setValueToArray = (array, value) => {
-		if (array.includes(value)) {
-			return array.filter(val => val !== value);
-		} else {
-			return [...array, value];
-		}
-	};
 
 	const removeFromArray = (array, value) => {
 		return array.filter(val => val !== value);
@@ -93,10 +60,7 @@ const ProductsList = () => {
 		}
 	};
 
-	const resetFilter = e => {
-		e.preventDefault();
-		setFilterCriteria({ weight: '', persons: '', category: '' });
-	};
+
 	return (
 		<div className='products-wrapper'>
 			<ProductFilter
@@ -104,9 +68,12 @@ const ProductsList = () => {
 				filterCriteria={filterCriteria}
 				resetFilter={resetFilter}
 			/>
-			<div className='products-container'>
+			<div className='products-container'
+			>
 				{data.map(item => (
+					<div onClick={() => {navigate(`/products/${item.id}`)} }>
 					<Product product={item} />
+					</div>
 				))}
 			</div>
 		</div>

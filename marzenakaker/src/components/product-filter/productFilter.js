@@ -1,17 +1,26 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { FaChevronCircleUp } from 'react-icons/fa';
 import './productFilter.css';
 
 export const ProductFilter = ({
 	handleChange,
 	filterCriteria,
 	resetFilter,
-	
 }) => {
-	const handleFilter = () => {};
+	const [filterHidden, setfilterHidden] = useState(null);
+	const showHideFilter = e => {
+		console.log(e);
+		e.preventDefault();
+		setfilterHidden(filterHidden ? null : 'hidden');
+	};
 	return (
 		<div className='filter-container'>
-			<form className='filter'>
+			<button onClick={showHideFilter} className='hide-btn'>
+				{' '}
+				<FaChevronCircleUp className={`leftUp ${filterHidden}`} /> {filterHidden ? 'Show filter' : 'Hide filter' }
+				 <FaChevronCircleUp className={`rightUp ${filterHidden}`} />{' '}
+			</button>
+			<form className={`filter ${filterHidden}`}>
 				<div className='weight'>
 					<label htmlFor='weight'>Choose the weight: </label>
 					<input
@@ -37,7 +46,7 @@ export const ProductFilter = ({
 					/>
 				</div>
 
-				{/* <fieldset className='category'>
+				<fieldset className='category'>
 					<legend> Choose the category</legend>
 					<input
 						type='checkbox'
@@ -63,8 +72,7 @@ export const ProductFilter = ({
 						onChange={handleChange}
 					/>
 					<label htmlFor='large'>Sport</label>
-				</fieldset> */}
-				
+				</fieldset>
 
 				<fieldset className='subcategory'>
 					<legend> Choose the subcategory</legend>

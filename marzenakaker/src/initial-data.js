@@ -1,5 +1,6 @@
 export const initialData = [
 	{
+		id: 1,
 		photo: {
 			src: '/torty/tort1.jpg',
 			alt: 'alt',
@@ -10,8 +11,10 @@ export const initialData = [
 		subcategory: 'small',
 		weight: 1,
 		persons: 3,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 2,
 		photo: {
 			src: '/torty/tort2.jpg',
 			alt: 'alt',
@@ -22,8 +25,10 @@ export const initialData = [
 		subcategory: 'medium',
 		weight: 2,
 		persons: 5,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 3,
 		photo: {
 			src: '/torty/tort3.jpg',
 			alt: 'alt',
@@ -34,8 +39,10 @@ export const initialData = [
 		subcategory: 'medium',
 		weight: 3,
 		persons: 8,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 4,
 		photo: {
 			src: '/torty/tort4.jpg',
 			alt: 'alt',
@@ -47,8 +54,10 @@ export const initialData = [
 		subcategory: 'medium',
 		weight: 4,
 		persons: 7,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 5,
 		photo: {
 			src: '/torty/tort5.jpg',
 			alt: 'alt',
@@ -60,8 +69,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 3,
 		persons: 6,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 6,
 		photo: {
 			src: '/torty/tort6.jpg',
 			alt: 'alt',
@@ -73,8 +84,10 @@ export const initialData = [
 		subcategory: 'small',
 		weight: 2,
 		persons: 5,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 7,
 		photo: {
 			src: '/torty/tort7.jpg',
 			alt: 'alt',
@@ -86,8 +99,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 2,
 		persons: 10,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 8,
 		photo: {
 			src: '/torty/tort8.jpg',
 			alt: 'alt',
@@ -99,8 +114,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 1,
 		persons: 13,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 9,
 		photo: {
 			src: '/torty/tort9.jpg',
 			alt: 'alt',
@@ -112,8 +129,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 5,
 		persons: 14,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 10,
 		photo: {
 			src: '/torty/tort10.jpg',
 			alt: 'alt',
@@ -124,8 +143,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 2,
 		persons: 11,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 11,
 		photo: {
 			src: '/torty/tort11.jpg',
 			alt: 'alt',
@@ -136,8 +157,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 4,
 		persons: 9,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 12,
 		photo: {
 			src: '/torty/tort12.jpg',
 			alt: 'alt',
@@ -148,8 +171,10 @@ export const initialData = [
 		subcategory: 'small',
 		weight: 3,
 		persons: 6,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 13,
 		photo: {
 			src: '/torty/tort13.jpg',
 			alt: 'alt',
@@ -160,8 +185,10 @@ export const initialData = [
 		subcategory: 'small',
 		weight: 3,
 		persons: 5,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 14,
 		photo: {
 			src: '/torty/tort14.jpg',
 			alt: 'alt',
@@ -172,8 +199,10 @@ export const initialData = [
 		subcategory: 'medium',
 		weight: 3,
 		persons: 8,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 15,
 		photo: {
 			src: '/torty/tort15.jpg',
 			alt: 'alt',
@@ -184,8 +213,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 3,
 		persons: 11,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 16,
 		photo: {
 			src: '/torty/tort16.jpg',
 			alt: 'alt',
@@ -196,8 +227,10 @@ export const initialData = [
 		subcategory: 'large',
 		weight: 3,
 		persons: 9,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 17,
 		photo: {
 			src: '/torty/tort17.jpg',
 			alt: 'alt',
@@ -208,8 +241,10 @@ export const initialData = [
 		subcategory: 'medium',
 		weight: 3,
 		persons: 7,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 	{
+		id: 18,
 		photo: {
 			src: '/torty/tort18.jpg',
 			alt: 'alt',
@@ -220,6 +255,6 @@ export const initialData = [
 		subcategory: 'small',
 		weight: 3,
 		persons: 5,
+		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko']
 	},
 ];
-

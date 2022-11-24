@@ -7,6 +7,7 @@ export const getProductsByFilters = (products, filters) => {
         const isValid = filtersAsTouple.every(([filterKey, {type, value}]) => {
             if(type === 'VALUE'){ 
                 const currentProductAttribute = product[filterKey]
+           
                     return value ? currentProductAttribute  == value : true;
                     
                 }else if(type==='CHOICE'){

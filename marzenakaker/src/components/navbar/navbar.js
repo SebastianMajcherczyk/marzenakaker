@@ -1,31 +1,37 @@
 import React, { useContext } from 'react';
+import { LanguageContext } from '../../ContextProvider';
 import './navbar.css';
+import { Link } from 'react-router-dom';
 
-
-
-export const Navbar = ({ language }) => {
-	
+export const Navbar = () => {
+	const { language } = useContext(LanguageContext);
 	return (
 		<nav className='nav-section'>
 			<div className='nav-container'>
 				{language === 'pl' && (
-					<div>
-						<a href='/#about-me' className='nav-link'>
+					<div className='nav-links'>
+						<Link to='/'  className='nav-link'>
+							START
+						</Link>
+						<Link to='/#about-me'  className='nav-link'>
 							O MNIE
-						</a>
-						<a href='#' className='nav-link'>
+						</Link>
+						<Link to='/products' className='nav-link'>
 							OFERTA
-						</a>
+						</Link>
 					</div>
 				)}
 				{language === 'en' && (
-					<div>
-						<a href='/#about-me' className='nav-link'>
+					<div className='nav-links'>
+						<Link to='/'  className='nav-link'>
+							HOME
+						</Link>
+						<Link to='/#about-me'  className='nav-link'>
 							ABOUT ME
-						</a>
-						<a href='#' className='nav-link'>
+						</Link>
+						<Link to='/products' className='nav-link'>
 							OFFER
-						</a>
+						</Link>
 					</div>
 				)}
 			</div>
