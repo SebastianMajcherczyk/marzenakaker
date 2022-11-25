@@ -1,4 +1,15 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
 html{
     scroll-behavior: smooth;
     background-color: #e0e0e0;
+}
+
+body{
+    font-family: 'Raleway', sans-serif;
 }

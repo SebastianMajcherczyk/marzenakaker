@@ -6,8 +6,9 @@
 .nav-container {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	padding: 10px 0;
-	height: 60px;
+	height: 40px;
 }
 .nav-links {
 	width: 390px;

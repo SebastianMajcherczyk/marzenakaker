@@ -12,7 +12,7 @@ export const getProductsByFilters = (products, filters) => {
                     
                 }else if(type==='CHOICE'){
                     //debugger;
-                    const currentProductAttribute = product[filterKey]
+                    const currentProductAttribute = product[filterKey].toLowerCase()
                     return value.length !== 0 ? value.includes(currentProductAttribute) : true
                 }else {
                     return false

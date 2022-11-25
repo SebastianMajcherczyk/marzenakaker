@@ -1,19 +1,26 @@
-import { useMemo} from 'react';
+import { useContext, useMemo } from 'react';
 import { ProductFilter } from '../product-filter/productFilter';
 import Product from '../product/product';
 import { getProductsByFilters } from './product-list.helpers';
 import './products-list.css';
 import { initialData } from '../../initial-data';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { AppContext } from '../../ContextProvider';
 
-const ProductsList = ({filterCriteria, setFilterCriteria, resetFilter}) => {
-	const navigate= useNavigate()
+const ProductsList = ({ filterCriteria, setFilterCriteria, resetFilter }) => {
+	const { setFilteredProductIds } = useContext(AppContext);
+	const navigate = useNavigate();
 
-	const data = useMemo(
-		() => getProductsByFilters(initialData, filterCriteria),
-		[filterCriteria]
-	);
+	const { data, productIds } = useMemo(() => {
+		const products = getProductsByFilters(initialData, filterCriteria);
+		const ids = products.map(({ id }) => id);
+		return { data: products, productIds: ids };
+	}, [filterCriteria]);
 
+	useEffect(() => {
+		setFilteredProductIds?.(productIds);
+	}, [productIds, setFilteredProductIds]);
 
 	const removeFromArray = (array, value) => {
 		return array.filter(val => val !== value);
@@ -23,14 +30,9 @@ const ProductsList = ({filterCriteria, setFilterCriteria, resetFilter}) => {
 		return [...new Set([...array, value])];
 	};
 	const handleChange = e => {
-		console.log(e);
-		
+
 		const { value, name, tagName, checked } = e.target;
-		//const tempState = {
-		//	...filterCriteria,
-		//	[name]: value,
-		//	};
-		
+
 		const [filterName, filterValue] = name.split('-');
 		const currentFilterType = filterCriteria[filterName].type;
 
@@ -60,7 +62,6 @@ const ProductsList = ({filterCriteria, setFilterCriteria, resetFilter}) => {
 		}
 	};
 
-
 	return (
 		<div className='products-wrapper'>
 			<ProductFilter
@@ -68,11 +69,13 @@ const ProductsList = ({filterCriteria, setFilterCriteria, resetFilter}) => {
 				filterCriteria={filterCriteria}
 				resetFilter={resetFilter}
 			/>
-			<div className='products-container'
-			>
+			<div className='products-container'>
 				{data.map(item => (
-					<div onClick={() => {navigate(`/products/${item.id}`)} }>
-					<Product product={item} />
+					<div
+						onClick={() => {
+							navigate(`/products/${item.id}`);
+						}}>
+						<Product product={item} />
 					</div>
 				))}
 			</div>

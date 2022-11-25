@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
-import { LanguageContext } from '../../ContextProvider';
+import { AppContext } from '../../ContextProvider';
 import './navbar.css';
 import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
-	const { language } = useContext(LanguageContext);
+	const { language } = useContext(AppContext);
 	return (
 		<nav className='nav-section'>
 			<div className='nav-container'>
 				{language === 'pl' && (
 					<div className='nav-links'>
-						<Link to='/'  className='nav-link'>
+						<Link to='/' className='nav-link'>
 							START
 						</Link>
-						<Link to='/#about-me'  className='nav-link'>
+						<Link to='/#about-me' className='nav-link'>
 							O MNIE
 						</Link>
 						<Link to='/products' className='nav-link'>
@@ -23,10 +23,10 @@ export const Navbar = () => {
 				)}
 				{language === 'en' && (
 					<div className='nav-links'>
-						<Link to='/'  className='nav-link'>
+						<Link to='/' className='nav-link'>
 							HOME
 						</Link>
-						<Link to='/#about-me'  className='nav-link'>
+						<Link to='/#about-me' className='nav-link'>
 							ABOUT ME
 						</Link>
 						<Link to='/products' className='nav-link'>

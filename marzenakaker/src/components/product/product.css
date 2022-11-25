@@ -23,7 +23,7 @@
 	display: block;
 	object-fit: contain;
 }
-.product-card:hover {
+.product-card:hover{
 	transform: scale(110%, 110%);
 	border-radius: 50px;
 	background: #e0e0e0;

@@ -9,16 +9,17 @@ export const ProductFilter = ({
 }) => {
 	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
-		console.log(e);
 		e.preventDefault();
 		setfilterHidden(filterHidden ? null : 'hidden');
 	};
+
 	return (
 		<div className='filter-container'>
 			<button onClick={showHideFilter} className='hide-btn'>
 				{' '}
-				<FaChevronCircleUp className={`leftUp ${filterHidden}`} /> {filterHidden ? 'Show filter' : 'Hide filter' }
-				 <FaChevronCircleUp className={`rightUp ${filterHidden}`} />{' '}
+				<FaChevronCircleUp className={`leftUp ${filterHidden}`} />{' '}
+				{filterHidden ? 'Show filter' : 'Hide filter'}
+				<FaChevronCircleUp className={`rightUp ${filterHidden}`} />{' '}
 			</button>
 			<form className={`filter ${filterHidden}`}>
 				<div className='weight'>
@@ -54,24 +55,27 @@ export const ProductFilter = ({
 						name='category-birthday'
 						value='birthday'
 						onChange={handleChange}
+						checked={filterCriteria.category.value.includes('birthday')}
 					/>
-					<label htmlFor='small'>Birthday</label>
+					<label htmlFor='birthday'>Birthday</label>
 					<input
 						type='checkbox'
 						id='wedding'
 						name='category-wedding'
 						value='wedding'
 						onChange={handleChange}
+						checked={filterCriteria.category.value.includes('wedding')}
 					/>
-					<label htmlFor='medium'>Wedding</label>
+					<label htmlFor='wedding'>Wedding</label>
 					<input
 						type='checkbox'
 						id='sport'
 						name='category-sport'
 						value='sport'
 						onChange={handleChange}
+						checked={filterCriteria.category.value.includes('sport')}
 					/>
-					<label htmlFor='large'>Sport</label>
+					<label htmlFor='sport'>Sport</label>
 				</fieldset>
 
 				<fieldset className='subcategory'>
@@ -82,6 +86,7 @@ export const ProductFilter = ({
 						name='subcategory-small'
 						value='small'
 						onChange={handleChange}
+						checked={filterCriteria.subcategory.value.includes('small')}
 					/>
 					<label htmlFor='small'>Small</label>
 					<input
@@ -90,6 +95,7 @@ export const ProductFilter = ({
 						name='subcategory-medium'
 						value='medium'
 						onChange={handleChange}
+						checked={filterCriteria.subcategory.value.includes('medium')}
 					/>
 					<label htmlFor='medium'>Medium</label>
 					<input
@@ -98,11 +104,12 @@ export const ProductFilter = ({
 						name='subcategory-large'
 						value='large'
 						onChange={handleChange}
+						checked={filterCriteria.subcategory.value.includes('large')}
 					/>
 					<label htmlFor='large'>Large</label>
 				</fieldset>
 				<button className='btn-reset' onClick={resetFilter}>
-					Reset filter
+					RESET FILTER
 				</button>
 			</form>
 		</div>

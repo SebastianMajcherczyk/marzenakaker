@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { initialData } from '../../initial-data';
 import { useParams } from 'react-router-dom';
 import ImageGallery from 'react-image-gallery';
@@ -9,22 +9,25 @@ import {
 	FaChevronCircleRight,
 	FaChevronCircleUp,
 } from 'react-icons/fa';
+import { AppContext } from '../../ContextProvider';
 export const ProductCard = () => {
+	const { filteredProductIds } = useContext(AppContext);
 	const navigate = useNavigate();
 	let { id } = useParams();
-
+	const currentProductIndex = filteredProductIds.indexOf(+id);
 	const path = process.env.PUBLIC_URL;
-
 	const images = [{ original: path + initialData[id - 1].photo.src }];
 	return (
 		<div className='product-card-box'>
 			<div className='arrow-box'>
 				<div className='arrow-element side-arrow'>
 					<FaChevronCircleLeft
-          className='arrow'
+						className='arrow'
 						onClick={() => {
-							if (+id > 1) {
-								navigate(`/products/${+id - 1}`);
+							if (currentProductIndex > 0) {
+								navigate(
+									`/products/${filteredProductIds[currentProductIndex - 1]}`
+								);
 							}
 						}}
 					/>
@@ -38,18 +41,20 @@ export const ProductCard = () => {
 							navigate(`/products`);
 						}}
 					/>
-          <p>Return</p> 
+					<p>Return</p>
 				</div>
 				<div className='arrow-element side-arrow'>
 					<FaChevronCircleRight
-						className='arrow'
+						className='arrow '
 						onClick={() => {
-							if (+id < initialData.length) {
-								navigate(`/products/${+id + 1}`);
+							if (currentProductIndex < filteredProductIds.length - 1) {
+								navigate(
+									`/products/${filteredProductIds[currentProductIndex + 1]}`
+								);
 							}
 						}}
 					/>
-          <p>Next</p>
+					<p>Next</p>
 				</div>
 			</div>
 			<ImageGallery items={images} />
