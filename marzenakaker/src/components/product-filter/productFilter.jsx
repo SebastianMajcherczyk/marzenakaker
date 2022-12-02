@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaChevronCircleUp } from 'react-icons/fa';
+import { FaChevronCircleUp, FaCheck } from 'react-icons/fa';
 import './productFilter.css';
 
 export const ProductFilter = ({
@@ -56,7 +56,7 @@ export const ProductFilter = ({
 						value='birthday'
 						onChange={handleChange}
 						checked={filterCriteria.category.value.includes('birthday')}
-					/>
+					/><FaCheck className='check'/>
 					<label htmlFor='birthday'>Birthday</label>
 					<input
 						type='checkbox'

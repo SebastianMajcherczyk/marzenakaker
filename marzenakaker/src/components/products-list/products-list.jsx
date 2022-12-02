@@ -3,21 +3,28 @@ import { ProductFilter } from '../product-filter/productFilter';
 import Product from '../product/product';
 import { getProductsByFilters } from './product-list.helpers';
 import './products-list.css';
-import { initialData } from '../../initial-data';
+
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AppContext } from '../../ContextProvider';
+import { useState } from 'react';
+import { productsService } from '../../services/products.service';
 
 const ProductsList = ({ filterCriteria, setFilterCriteria, resetFilter }) => {
 	const { setFilteredProductIds } = useContext(AppContext);
 	const navigate = useNavigate();
-
+	const [products, setProducts] = useState([]);
 	const { data, productIds } = useMemo(() => {
-		const products = getProductsByFilters(initialData, filterCriteria);
-		const ids = products.map(({ id }) => id);
-		return { data: products, productIds: ids };
-	}, [filterCriteria]);
-
+		const filteredProducts = getProductsByFilters(products, filterCriteria);
+		const ids = filteredProducts.map(({ id }) => id);
+		return { data: filteredProducts, productIds: ids };
+	}, [filterCriteria, products]);
+	useEffect(() => {
+		(async () => {
+			const data = await productsService.getProducts();
+			setProducts(data);
+		})();
+	}, []);
 	useEffect(() => {
 		setFilteredProductIds?.(productIds);
 	}, [productIds, setFilteredProductIds]);
@@ -30,7 +37,6 @@ const ProductsList = ({ filterCriteria, setFilterCriteria, resetFilter }) => {
 		return [...new Set([...array, value])];
 	};
 	const handleChange = e => {
-
 		const { value, name, tagName, checked } = e.target;
 
 		const [filterName, filterValue] = name.split('-');

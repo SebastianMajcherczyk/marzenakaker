@@ -1,14 +1,13 @@
 export const getProductsByFilters = (products, filters) => {
     const filtersAsTouple = Object.entries(filters)
-    // debugger
-    // console.log(filtersAsTouple);
+
     return products.reduce((collector, product) => {
       
         const isValid = filtersAsTouple.every(([filterKey, {type, value}]) => {
             if(type === 'VALUE'){ 
                 const currentProductAttribute = product[filterKey]
            
-                    return value ? currentProductAttribute  == value : true;
+                    return value ? currentProductAttribute  === value : true;
                     
                 }else if(type==='CHOICE'){
                     //debugger;

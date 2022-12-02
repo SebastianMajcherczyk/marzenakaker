@@ -8,6 +8,7 @@
 
 .arrow-box{
     width: 70%;
+    height: 70px;
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
@@ -17,8 +18,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     
 }
+
+
 .up-arrow{
 position: relative;
 top: -20px
@@ -34,12 +38,25 @@ top: -20px
     cursor: pointer;
 }
 
+
 .arrow:hover{
     color: orange;
     transform: scale(150%, 150%);
 
 }
 
+.arrow-element button{
+    border: 0;
+    background-color: rgba(0,0,0,0);
+}
+
+.carousel-root{
+    width: 40%;
+}
+.thumbs{
+    display: flex;
+    justify-content: center;
+}
 
 .productCard h3 {
     text-transform: uppercase;

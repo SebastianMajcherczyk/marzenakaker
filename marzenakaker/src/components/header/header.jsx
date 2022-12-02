@@ -11,13 +11,13 @@ export const Header = () => {
 			<div className=' logos'>
 				<a
 					href='https://www.facebook.com/profile.php?id=100011947786470'
-					target='_blank'>
+					target='_blank' rel='noreferrer'>
 					<Facebook />
 				</a>
 
 				<a
 					href='https://instagram.com/marzenakaczmarek688?igshid=YmMyMTA2M2Y='
-					target='_blank'>
+					target='_blank' rel='noreferrer'>
 					<Instagram />
 				</a>
 				<h4 className='title'>marzenakaker.no</h4>
