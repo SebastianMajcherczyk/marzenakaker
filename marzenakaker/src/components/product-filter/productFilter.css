@@ -1,4 +1,5 @@
 .filter-container {
+	margin: 0 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -48,8 +49,9 @@
 	color: orange
 }
 .filter {
+	height: 250px;
+	padding: 0 5px;
 	display: flex;
-	height: 245px;
 	flex-direction: column;
 	align-items: center;
 	font-family: 'Raleway', sans-serif;
@@ -68,7 +70,7 @@ fieldset {
 	border-color: #322c3a;
 }
 .filter input {
-	width: 30px;
+	width: 45px;
 	margin: 5px;
 }
 

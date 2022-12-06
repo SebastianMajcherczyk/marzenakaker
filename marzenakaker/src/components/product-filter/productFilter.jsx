@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { FaChevronCircleUp, FaCheck } from 'react-icons/fa';
 import './productFilter.css';
-
+import { useTranslation } from 'react-i18next';
 export const ProductFilter = ({
 	handleChange,
 	filterCriteria,
 	resetFilter,
 }) => {
+
+	const { t } = useTranslation();
 	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
 		e.preventDefault();
@@ -17,13 +19,13 @@ export const ProductFilter = ({
 		<div className='filter-container'>
 			<button onClick={showHideFilter} className='hide-btn'>
 				{' '}
-				<FaChevronCircleUp className={`leftUp ${filterHidden}`} />{' '}
-				{filterHidden ? 'Show filter' : 'Hide filter'}
+				<FaChevronCircleUp className={`leftUp ${filterHidden}`} />
+				{ filterHidden? t("SHOW_FILTER") : t("HIDE")}
 				<FaChevronCircleUp className={`rightUp ${filterHidden}`} />{' '}
 			</button>
 			<form className={`filter ${filterHidden}`}>
 				<div className='weight'>
-					<label htmlFor='weight'>Choose the weight: </label>
+					<label htmlFor='weight'>{t("CHOOSE_WEIGHT")} </label>
 					<input
 						type='number'
 						id='weight'
@@ -35,7 +37,7 @@ export const ProductFilter = ({
 					/>
 				</div>
 				<div className='persons'>
-					<label htmlFor='persons'>No of persons: </label>
+					<label htmlFor='persons'>{t("NUMBER_OF_PERSONS")} </label>
 					<input
 						type='number'
 						id='persons'
@@ -48,7 +50,7 @@ export const ProductFilter = ({
 				</div>
 
 				<fieldset className='category'>
-					<legend> Choose the category</legend>
+					<legend> {t("CHOOSE_CATEGORY")}</legend>
 					<input
 						type='checkbox'
 						id='birthday'
@@ -79,7 +81,7 @@ export const ProductFilter = ({
 				</fieldset>
 
 				<fieldset className='subcategory'>
-					<legend> Choose the subcategory</legend>
+					<legend> {t("CHOOSE_SUBCATEGORY")}</legend>
 					<input
 						type='checkbox'
 						id='small'
@@ -109,7 +111,7 @@ export const ProductFilter = ({
 					<label htmlFor='large'>Large</label>
 				</fieldset>
 				<button className='btn-reset' onClick={resetFilter}>
-					RESET FILTER
+					{t("RESET")}
 				</button>
 			</form>
 		</div>

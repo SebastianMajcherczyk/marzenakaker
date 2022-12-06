@@ -12,11 +12,13 @@ import {
 import { AppContext } from '../../ContextProvider';
 import { useEffect } from 'react';
 import { productsService } from '../../services/products.service';
+import { useTranslation } from 'react-i18next';
 export const ProductCard = () => {
 	const { filteredProductIds } = useContext(AppContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const [product, setProduct] = useState(null);
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		(async () => {
@@ -27,7 +29,6 @@ export const ProductCard = () => {
 
 	const path = process.env.PUBLIC_URL;
 
-	//const product = useMemo(()=>  products.find(({ id: elId }) => id == elId), [products]);
 
 	const photos = useMemo(() => product?.photos || [], [product]);
 	const isNavigationBtnsActive = filteredProductIds.length > 0;
@@ -53,22 +54,23 @@ export const ProductCard = () => {
 								}
 							}}
 						/>
-						<p> Previous</p>
+						<p> {t("PREVIOUS")}</p>
 					</button>
 				</div>
 				<div className='arrow-element up-arrow'>
 					<button
-						disabled={!isNavigationBtnsActive && isLastInFilteredProductIds}>
+						disabled={!isNavigationBtnsActive}>
 						<FaChevronCircleUp
 							className='arrow'
 							onClick={() => {
 								navigate(`/products`);
 							}}
 						/>
-						<p>Return</p>
+						<p>{t("RETURN")}</p>
 					</button>
 				</div>
 				<div className='arrow-element side-arrow'>
+					<button disabled={!isNavigationBtnsActive && isLastInFilteredProductIds}>
 					<FaChevronCircleRight
 						className='arrow '
 						onClick={() => {
@@ -80,7 +82,8 @@ export const ProductCard = () => {
 							}
 						}}
 					/>
-					<p>Next</p>
+					<p>{t("NEXT")}</p>
+					</button>
 				</div>
 			</div>
 
@@ -92,18 +95,18 @@ export const ProductCard = () => {
 				showArrows={true}>
 				{photos.map(photo => (
 					<div>
-						<img src={path + photo.src} alt='cake'/>
+						<img src={path + photo.src} alt='cake' />
 					</div>
 				))}
 			</Carousel>
 			<div className='productCard'>
-				<h3>Name: {product?.name}</h3>
-				<p>Description: {product?.description}</p>
-				<p>Category: {product?.category}</p>
-				<p>Subategory: {product?.subcategory}</p>
-				<p>Weight: {product?.weight} kg</p>{' '}
-				<p>For {product?.persons} persons</p>
-				<p> Składniki: {product?.ingredients.join(', ')} </p>
+				<h3>{t("NAME")}: {product?.name}</h3>
+				<p>{t("DESCRIPTION")}: {product?.description}</p>
+				<p>{t("CATEGORY")}: {product?.category}</p>
+				<p>{t("SUBCATEGORY")}: {product?.subcategory}</p>
+				<p>{t("WEIGHT")}: {product?.weight} kg</p>{' '}
+				<p>{t("FOR")} {product?.persons} {t("PERSONS")}</p>
+				<p>{t("INGREDIENTS")}: {product?.ingredients.join(', ')} </p>
 			</div>
 		</div>
 	);

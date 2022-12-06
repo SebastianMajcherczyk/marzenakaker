@@ -38,6 +38,10 @@ top: -20px
     cursor: pointer;
 }
 
+.arrow p{
+    font-size: 16px;
+}
+
 
 .arrow:hover{
     color: orange;
@@ -49,6 +53,7 @@ top: -20px
     border: 0;
     background-color: rgba(0,0,0,0);
 }
+
 
 .carousel-root{
     width: 40%;
