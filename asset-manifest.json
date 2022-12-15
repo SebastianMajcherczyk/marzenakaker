@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.97bbe77d.css",
-    "main.js": "/static/js/main.c56f2a89.js",
-    "static/js/787.e67d2bce.chunk.js": "/static/js/787.e67d2bce.chunk.js",
-    "static/media/54622531-0-10.png": "/static/media/54622531-0-10.344013dedd511f572d0d.png",
-    "static/media/pict1.jpg": "/static/media/pict1.9fbd99c46116a8429680.jpg",
-    "static/media/pict2.jpg": "/static/media/pict2.0439217290d96435b8ba.jpg",
-    "index.html": "/index.html",
-    "main.97bbe77d.css.map": "/static/css/main.97bbe77d.css.map",
-    "main.c56f2a89.js.map": "/static/js/main.c56f2a89.js.map",
-    "787.e67d2bce.chunk.js.map": "/static/js/787.e67d2bce.chunk.js.map"
+    "main.css": "/marzenakaker/static/css/main.da3a3bd0.css",
+    "main.js": "/marzenakaker/static/js/main.ffa97529.js",
+    "static/js/787.e67d2bce.chunk.js": "/marzenakaker/static/js/787.e67d2bce.chunk.js",
+    "static/media/54622531-0-10.png": "/marzenakaker/static/media/54622531-0-10.344013dedd511f572d0d.png",
+    "static/media/pict1.jpg": "/marzenakaker/static/media/pict1.9fbd99c46116a8429680.jpg",
+    "static/media/pict2.jpg": "/marzenakaker/static/media/pict2.0439217290d96435b8ba.jpg",
+    "index.html": "/marzenakaker/index.html",
+    "main.da3a3bd0.css.map": "/marzenakaker/static/css/main.da3a3bd0.css.map",
+    "main.ffa97529.js.map": "/marzenakaker/static/js/main.ffa97529.js.map",
+    "787.e67d2bce.chunk.js.map": "/marzenakaker/static/js/787.e67d2bce.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.97bbe77d.css",
-    "static/js/main.c56f2a89.js"
+    "static/css/main.da3a3bd0.css",
+    "static/js/main.ffa97529.js"
   ]
 }
