@@ -11,7 +11,15 @@ export const AppContext = createContext({
 				type: 'VALUE',
 				value: '',
 			},
+			persons_max: {
+				type: 'VALUE',
+				value: '',
+			},
 			weight: {
+				type: 'VALUE',
+				value: '',
+			},
+			weight_max: {
 				type: 'VALUE',
 				value: '',
 			},

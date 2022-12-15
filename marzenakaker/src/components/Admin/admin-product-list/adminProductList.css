@@ -1,0 +1,16 @@
+.product-table {
+	width: 90%;
+	border: 2px solid black;
+	margin: 0 auto;
+}
+
+.product-table td {
+	border: 1px solid black;
+}
+.product-table .actions{
+    display: flex;
+    flex-direction: column;
+}
+.product-table .button {
+	margin: 2px ;
+}

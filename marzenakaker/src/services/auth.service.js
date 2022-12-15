@@ -5,6 +5,8 @@ const authServiceDef = () => {
 		try{
             const auth = getAuth()
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+            // debugger
+            console.log(userCredentials);
             return userCredentials.user
         }
         catch(error){
@@ -16,6 +18,7 @@ const authServiceDef = () => {
         try {
             const auth = getAuth()
             await signOut(auth)
+            console.log("user logged out");
         }
         catch(error){
             console.log(error)

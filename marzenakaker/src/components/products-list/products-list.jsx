@@ -70,6 +70,7 @@ const ProductsList = ({ filterCriteria, setFilterCriteria, resetFilter }) => {
 
 	return (
 		<div className='products-wrapper'>
+			
 			<ProductFilter
 				handleChange={handleChange}
 				filterCriteria={filterCriteria}

@@ -4,6 +4,7 @@
 	flex-direction: column;
 	align-items: center;
 	width: 80%;
+	min-width: 250px;
 	border: 2px solid black;
 	border-radius: 24px;
 	background: #e0e0e0;
@@ -12,8 +13,6 @@
 	top: 20px;
 	overflow: hidden;
 }
-
-
 
 .leftUp,
 .rightUp {
@@ -45,22 +44,22 @@
 	transition: color 0.7s;
 }
 
-.hide-btn:hover{
-	color: orange
+.hide-btn:hover {
+	color: orange;
 }
 .filter {
-	height: 250px;
+	max-height: 350px;
 	padding: 0 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	font-family: 'Raleway', sans-serif;
 	font-size: 12px;
-	transition: height 0.5s;
+	transition: max-height 0.5s;
 }
 
 .filter.hidden {
-	height: 0px;
+	max-height: 0px;
 }
 
 fieldset {
@@ -68,18 +67,25 @@ fieldset {
 	padding: 0 7px;
 	border-radius: 10px;
 	border-color: #322c3a;
+	display: flex;
+	flex-wrap: wrap;
 }
 .filter input {
 	width: 45px;
 	margin: 5px;
 }
-
-.check{
+.filter label {
+	width: 90px;
+}
+.category input,
+.subcategory input {
+	width: 20px;
+}
+.check {
 	position: relative;
 	left: -27px;
 	display: none;
 }
-
 
 .weight,
 .persons,
@@ -87,21 +93,24 @@ fieldset {
 	width: 100%;
 	margin-bottom: 10px;
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 }
+
 .btn-reset {
 	font-family: 'Raleway', sans-serif;
 	width: 80%;
+	margin-bottom: 5px;
 	border-radius: 15px;
 	border-color: #322c3a;
-	transition: color 0.7s
+	transition: color 0.7s;
 }
 
-.btn-reset:hover{
-	color: orange
+.btn-reset:hover {
+	color: orange;
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
 	.filter-container {
 		display: flex;
 		flex-direction: column;

@@ -7,23 +7,22 @@ import { MainPage } from './components/MainPage';
 import { Navbar } from './components/navbar/navbar';
 import ProductsList from './components/products-list/products-list';
 import { AppContext } from './ContextProvider';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { ProductCard } from './components/product-card/ProductCard';
 import { ErrorPage } from './components/error-page/ErrorPage';
 import { AdminPanel } from './components/Admin/AdminPanel';
-
-
+import { AdminProductForm } from './components/Admin/admin-product-form/adminProductForm';
 
 function App() {
-	
-	const context = useContext(AppContext)
+	const context = useContext(AppContext);
+	const location = useLocation();
 	const [language, setLanguage] = useState('');
 	const changeLanguage = lang => {
 		setLanguage(lang);
-		// localStorage.setItem("lang", lang)
+		localStorage.setItem('lang', lang);
 	};
 	const defaultCriteria = context.filterCriteria.filterCriteriaValue;
-	
+
 	const [filterCriteria, setFilterCriteria] = useState(defaultCriteria);
 
 	const [filteredProductIds, setFilteredProductIds] = useState([]);
@@ -38,6 +37,7 @@ function App() {
 			document.title = 'Custom made cakes';
 		}
 	}, [language]);
+	console.log(location.pathname);
 	return (
 		<div className='App'>
 			<AppContext.Provider
@@ -50,9 +50,14 @@ function App() {
 					setFilteredProductIds,
 				}}>
 				<Header />
-				<Navbar />
+				{location.pathname.includes('admin') ? '' : <Navbar />}
 				<Routes>
-					<Route path= '/admin' element={<AdminPanel/>}/>
+					<Route path='/admin' element={<AdminPanel />} />
+					<Route path='/admin/product/add' element={<AdminProductForm />} />
+					<Route
+						path='/admin/product/edit/:id'
+						element={<AdminProductForm />}
+					/>
 					<Route path='/marzenakaker' element={<Navigate to='/' />} />
 					<Route path='/' element={<MainPage />} />
 					<Route

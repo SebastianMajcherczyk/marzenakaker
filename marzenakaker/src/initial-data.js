@@ -1,4 +1,17 @@
+export const categoryDict = [
+	{
+		label: 'Urodzinowe',
+		value: 'Birthday'
+	},
+	{
+		label: 'Ślubne',
+		value: 'Wedding'
+	},{
+		label: 'Sportowe',
+		value: 'Sport'
+	}
 
+]
 
 export const initialData = [
 	{
