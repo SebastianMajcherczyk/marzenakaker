@@ -1,17 +1,63 @@
 export const categoryDict = [
 	{
 		label: 'Urodzinowe',
-		value: 'Birthday'
+		value: 'Birthday',
+		translationKey: "CATEGORY_DICT_BIRTHDAY"
 	},
 	{
 		label: 'Ślubne',
-		value: 'Wedding'
-	},{
-		label: 'Sportowe',
-		value: 'Sport'
-	}
+		value: 'Wedding',
+		translationKey: "CATEGORY_DICT_WEDDING"
+	},
+	{
+		label: 'Inne',
+		value: 'Other',
+		translationKey: "CATEGORY_DICT_OTHER"
+	},
+];
 
-]
+export const ingredientsDict = [
+	{
+		label: 'Jajka',
+		value: 'eggs',
+		translationKey: 'INGREDIENTS_DICT_EGGS'
+	},
+	{
+		label: 'Masło',
+		value: 'butter',
+		translationKey: 'INGREDIENTS_DICT_BUTTER'
+	},
+	{
+		label: 'Mąka',
+		value: 'flour',
+		translationKey: 'INGREDIENTS_DICT_FLOUR'
+	},
+	{
+		label: 'Mleko',
+		value: 'milk',
+		translationKey: 'INGREDIENTS_DICT_MILK'
+	},
+	{
+		label: 'Mascarpone',
+		value: 'mascarpone',
+		translationKey: 'INGREDIENTS_DICT_MASCARPONE'
+	},
+	{
+		label: 'Orzechy',
+		value: 'nuts',
+		translationKey: 'INGREDIENTS_DICT_NUTS'
+	},
+	{
+		label: 'Śmietana',
+		value: 'cream',
+		translationKey: 'INGREDIENTS_DICT_CREAM'
+	},
+	{
+		label: 'Biszkopt',
+		value: 'bisquit',
+		translationKey: "INGREDIENTS_DICT_BISQUIT"
+	},
+];
 
 export const initialData = [
 	{
@@ -33,13 +79,20 @@ export const initialData = [
 				type: 'standard',
 			},
 		],
-		name: 'Tort z kamperem',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+		name: {
+			pl: 'Tort z kamperem',
+			en: 'Cake with camper',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'Something in English',
+		},
 		category: 'Birthday',
 		subcategory: 'small',
 		weight: 1,
 		persons: 3,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk', 'nuts'],
+		state: 'active',
 	},
 	{
 		id: 2,
@@ -50,13 +103,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Golf',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
-		category: 'Sport',
+		name: {
+			pl: 'Golf',
+			en: 'Golf',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
+		category: 'Other',
 		subcategory: 'medium',
 		weight: 2,
 		persons: 5,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk', 'cream'],
+		state: 'active',
 	},
 	{
 		id: 3,
@@ -67,13 +127,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Spidey',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Spidey',
+			en: 'Spidey',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Wedding',
 		subcategory: 'medium',
 		weight: 3,
 		persons: 8,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk', 'eggs'],
+		state: 'active',
 	},
 	{
 		id: 4,
@@ -84,14 +151,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Arsenal',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
-		category: 'Sport',
+		name: {
+			pl: 'Arsenal',
+			en: 'Arsenal',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+			en: 'But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ',
+		},
+		category: 'Other',
 		subcategory: 'medium',
 		weight: 4,
 		persons: 7,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'eggs'],
+		state: 'active',
 	},
 	{
 		id: 5,
@@ -102,14 +175,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Roblox',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+		name: {
+			pl: 'Roblox',
+			en: 'Rolbox',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+			en: 'But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 3,
 		persons: 6,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'milk', 'cream'],
+		state: 'active',
 	},
 	{
 		id: 6,
@@ -120,14 +199,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Suitcase',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+		name: {
+			pl: 'Suitcase',
+			en: 'Suitcase',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+			en: 'But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ',
+		},
 		category: 'Birthday',
 		subcategory: 'small',
 		weight: 2,
 		persons: 5,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['butter', 'sugar', 'mascarpone'],
+		state: 'active',
 	},
 	{
 		id: 7,
@@ -138,14 +223,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Anders',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+		name: {
+			en: 'Anders',
+			pl: 'Anders',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+			en: 'But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 2,
 		persons: 10,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 8,
@@ -156,14 +247,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Franek',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+		name: {
+			pl: 'Franek',
+			en: 'Frank',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+			en: 'But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 1,
 		persons: 13,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 9,
@@ -174,14 +271,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Kuba',
-		description:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+		name: {
+			pl: 'Kuba',
+			en: 'James',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.',
+			en: 'But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 5,
 		persons: 14,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 10,
@@ -192,13 +295,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Amelia',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Amelia',
+			en: 'Amelia',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 2,
 		persons: 11,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['eggs', 'sugar', 'bisquit', 'milk', 'mascarpone'],
+		state: 'active',
 	},
 	{
 		id: 11,
@@ -209,13 +319,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Aleksander',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Aleksander',
+			en: 'Aleksander',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 4,
 		persons: 9,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 12,
@@ -226,13 +343,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'It`s a boy',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'To chłopiec',
+			en: "It's a boy",
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'small',
 		weight: 3,
 		persons: 6,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 13,
@@ -243,13 +367,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'SK',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'SK',
+			en: 'SK',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Wedding',
 		subcategory: 'small',
 		weight: 3,
 		persons: 5,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 14,
@@ -260,13 +391,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Deimanas',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Deimans',
+			en: 'Deimans',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'medium',
 		weight: 3,
 		persons: 8,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 15,
@@ -277,13 +415,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Emilia',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Emilia',
+			en: 'Emily',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 3,
 		persons: 11,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 16,
@@ -294,13 +439,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Bartek',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Bartek',
+			en: 'Bart',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'large',
 		weight: 3,
 		persons: 9,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 17,
@@ -311,13 +463,20 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Natalia',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			pl: 'Natalia',
+			en: 'Natalie',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'medium',
 		weight: 3,
 		persons: 7,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 	{
 		id: 18,
@@ -328,12 +487,19 @@ export const initialData = [
 				type: 'main',
 			},
 		],
-		name: 'Vito Belle Show',
-		description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
+		name: {
+			en: 'Vito Belle Show',
+			pl: 'Vito Belle Show',
+		},
+		description: {
+			pl: 'Lorem ipsum dolor sit amet consectetur adipisicing ',
+			en: 'This is another jing of cake',
+		},
 		category: 'Birthday',
 		subcategory: 'small',
 		weight: 3,
 		persons: 5,
-		ingredients: ['mąka', 'cukier', 'biszkopt', 'mleko'],
+		ingredients: ['flour', 'sugar', 'bisquit', 'milk'],
+		state: 'active',
 	},
 ];

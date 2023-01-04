@@ -21,5 +21,20 @@
 	"CHOOSE_WEIGHT": "Wybierz wagę:",
 	"NUMBER_OF_PERSONS": "Ilość osób:",
 	"CHOOSE_CATEGORY": "Wybierz kategorię",
-	"CHOOSE_SUBCATEGORY": "Wybierz podkategorię"
+	"BIRTHDAY": "Urodzinowe",
+	"WEDDING": "Ślubne",
+	"OTHER": "Inne",
+	"AND": "I",
+	"OR": "LUB",
+	"CHOOSE_SUBCATEGORY": "Wybierz podkategorię",
+	"CHOOSE INGREDIENTS": "Wybierz składniki",
+	"CHOOSE_FILTER_METHOD": "Wybierz sposób filtrowania składników",
+	"INGREDIENTS_DICT_EGGS": "Jajka",
+	"INGREDIENTS_DICT_BUTTER": "Masło",
+	"INGREDIENTS_DICT_FLOUR": "Mąka",
+	"INGREDIENTS_DICT_MILK": "Mleko",
+	"INGREDIENTS_DICT_MASCARPONE": "Mascarpone",
+	"INGREDIENTS_DICT_NUTS": "Orzechy",
+	"INGREDIENTS_DICT_CREAM": "Śmietana",
+	"INGREDIENTS_DICT_BISQUIT": "Biszkopt"
 }

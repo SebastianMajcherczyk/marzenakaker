@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import './App.css';
 
 import { Footer } from './components/footer/footer';
@@ -12,24 +12,32 @@ import { ProductCard } from './components/product-card/ProductCard';
 import { ErrorPage } from './components/error-page/ErrorPage';
 import { AdminPanel } from './components/Admin/AdminPanel';
 import { AdminProductForm } from './components/Admin/admin-product-form/adminProductForm';
+import { productsService } from './services/products.service';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
+import { filterCriteria as filterCriteriaDef } from './ContextProvider';
 
 function App() {
-	const context = useContext(AppContext);
+	const [loggedIn, setLoggedIn] = useState(false);
+
+	const [categories, setCategories] = useState([]);
+
 	const location = useLocation();
-	const [language, setLanguage] = useState('');
+
+	const browserLanguage = (navigator.language.slice(0,2));
+	const [language, setLanguage] = useState(
+		localStorage.getItem('lang') || browserLanguage || 'pl'
+	);
+
+	
 	const changeLanguage = lang => {
 		setLanguage(lang);
 		localStorage.setItem('lang', lang);
+		document.documentElement.setAttribute("lang", lang)
 	};
-	const defaultCriteria = context.filterCriteria.filterCriteriaValue;
 
-	const [filterCriteria, setFilterCriteria] = useState(defaultCriteria);
 
 	const [filteredProductIds, setFilteredProductIds] = useState([]);
-	const resetFilter = e => {
-		e.preventDefault();
-		setFilterCriteria(defaultCriteria);
-	};
+
 	useEffect(() => {
 		if (language === 'pl') {
 			document.title = 'Torty na zamówienie';
@@ -37,17 +45,38 @@ function App() {
 			document.title = 'Custom made cakes';
 		}
 	}, [language]);
-	console.log(location.pathname);
+	useEffect(() => {
+		const auth = getAuth();
+		onAuthStateChanged(auth, user => {
+			if (user) {
+				setLoggedIn(true);
+			} else {
+				setLoggedIn(false);
+				
+			}
+		});
+	}, []);
+	useEffect(() => {
+		(async () => {
+			const data = await productsService.getCategoryDictionary();
+			setCategories(data);
+		})();
+	}, []);
+
+
 	return (
 		<div className='App'>
 			<AppContext.Provider
 				value={{
 					language,
 					changeLanguage,
-					filterCriteria,
-					setFilterCriteria,
+					
 					filteredProductIds,
 					setFilteredProductIds,
+					loggedIn,
+					setLoggedIn,
+					categories,
+					filterCriteriaDef,
 				}}>
 				<Header />
 				{location.pathname.includes('admin') ? '' : <Navbar />}
@@ -58,21 +87,12 @@ function App() {
 						path='/admin/product/edit/:id'
 						element={<AdminProductForm />}
 					/>
-					<Route path='/marzenakaker' element={<Navigate to='/' />} />
+
 					<Route path='/' element={<MainPage />} />
-					<Route
-						path='/products'
-						element={
-							<ProductsList
-								filterCriteria={filterCriteria}
-								setFilterCriteria={setFilterCriteria}
-								resetFilter={resetFilter}
-							/>
-						}
-					/>
+					<Route path='/products' element={<ProductsList />} />
 					<Route path='/products/:id' element={<ProductCard />} />
 
-					<Route path='/*' element={<ErrorPage />} />
+					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>
 				<Footer />
 			</AppContext.Provider>

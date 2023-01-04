@@ -13,5 +13,6 @@ i18next.use(initReactI18next).init({
 			translation: pl
 		},
 	},
-	lng: localStorage.getItem('lang') || 'en',
+	lng: localStorage.getItem('lang') || 'pl',
+	fallbackLng: 'pl'
 });

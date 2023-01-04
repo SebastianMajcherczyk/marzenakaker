@@ -74,17 +74,19 @@ fieldset {
 	width: 45px;
 	margin: 5px;
 }
-.filter label {
-	width: 90px;
+.ingredients label {
+
+
+	text-transform: capitalize;
+	
+}
+.ingredients input{
+	margin: 0 17px 0 0;
+	width: 25px;
 }
 .category input,
 .subcategory input {
 	width: 20px;
-}
-.check {
-	position: relative;
-	left: -27px;
-	display: none;
 }
 
 .weight,
@@ -94,7 +96,7 @@ fieldset {
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 }
 

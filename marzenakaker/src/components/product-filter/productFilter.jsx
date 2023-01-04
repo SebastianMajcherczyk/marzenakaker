@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
-import { FaChevronCircleUp, FaCheck } from 'react-icons/fa';
+import React, { useState, useEffect, useContext } from 'react';
+import { FaChevronCircleUp} from 'react-icons/fa';
 import './productFilter.css';
 import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../ContextProvider';
+import { productsService } from '../../services/products.service';
+
 export const ProductFilter = ({
 	handleChange,
 	filterCriteria,
-	resetFilter,
+	setFilterCriteria
 }) => {
+	const {filterCriteriaDef} = useContext(AppContext)
+	const [ingredientsDictionary, setIngredientsDictionary] = useState([]);
 	const { t } = useTranslation();
 	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
 		e.preventDefault();
 		setfilterHidden(filterHidden ? null : 'hidden');
 	};
-
+	const resetFilter = e => {
+		e.preventDefault();
+		setFilterCriteria(filterCriteriaDef.filterCriteriaValue);
+	};
+	useEffect(() => {
+		(async () => {
+			const data = await productsService.getIngredientsDictionary();
+			setIngredientsDictionary(data);
+			
+		})();
+	});
 	return (
 		<div className='filter-container'>
 			<button onClick={showHideFilter} className='hide-btn'>
@@ -26,7 +41,7 @@ export const ProductFilter = ({
 				<div className='weight'>
 					<label htmlFor='weight'>{t('CHOOSE_WEIGHT')} </label>
 					<input
-					placeholder='od..'
+						placeholder='od..'
 						type='number'
 						id='weight'
 						name='weight'
@@ -37,7 +52,7 @@ export const ProductFilter = ({
 						onChange={handleChange}
 					/>
 					<input
-					placeholder='...do'
+						placeholder='...do'
 						type='number'
 						id='weight_max'
 						name='weight_max'
@@ -45,12 +60,13 @@ export const ProductFilter = ({
 						max='5'
 						value={filterCriteria.weight_max.value}
 						onChange={handleChange}
-					/> kg
+					/>{' '}
+					kg
 				</div>
 				<div className='persons'>
 					<label htmlFor='persons'>{t('NUMBER_OF_PERSONS')} </label>
 					<input
-					placeholder='od...'
+						placeholder='od...'
 						type='number'
 						id='persons'
 						name='persons'
@@ -59,7 +75,7 @@ export const ProductFilter = ({
 						value={filterCriteria.persons.value}
 						onChange={handleChange}
 					/>
-						<input
+					<input
 						placeholder='...do'
 						type='number'
 						id='persons_max'
@@ -75,6 +91,7 @@ export const ProductFilter = ({
 				<fieldset className='category'>
 					<legend> {t('CHOOSE_CATEGORY')}</legend>
 					<div>
+					<label htmlFor='birthday'>{t('BIRTHDAY')}</label>
 						<input
 							type='checkbox'
 							id='birthday'
@@ -83,10 +100,11 @@ export const ProductFilter = ({
 							onChange={handleChange}
 							checked={filterCriteria.category.value.includes('birthday')}
 						/>
-						<FaCheck className='check' />
-						<label htmlFor='birthday'>Birthday</label>
+						
+					
 					</div>
 					<div>
+					<label htmlFor='wedding'>{t('WEDDING')}</label>
 						<input
 							type='checkbox'
 							id='wedding'
@@ -95,22 +113,22 @@ export const ProductFilter = ({
 							onChange={handleChange}
 							checked={filterCriteria.category.value.includes('wedding')}
 						/>
-						<label htmlFor='wedding'>Wedding</label>
+						
 					</div>
 					<div>
+						<label htmlFor='other'>{t('OTHER')}</label>	
 						<input
 							type='checkbox'
-							id='sport'
-							name='category-sport'
-							value='sport'
+							id='other'
+							name='category-other'
+							value='other'
 							onChange={handleChange}
-							checked={filterCriteria.category.value.includes('sport')}
+							checked={filterCriteria.category.value.includes('other')}
 						/>
-						<label htmlFor='sport'>Sport</label>
 					</div>
 				</fieldset>
 
-				<fieldset className='subcategory'>
+				{/* <fieldset className='subcategory'>
 					<legend> {t('CHOOSE_SUBCATEGORY')}</legend>
 					<div>
 						<input
@@ -145,6 +163,41 @@ export const ProductFilter = ({
 						/>
 						<label htmlFor='large'>Large</label>
 					</div>
+				</fieldset> */}
+				<fieldset className='ingredients'>
+					<legend>{t('CHOOSE INGREDIENTS')}</legend>
+					{ingredientsDictionary.map(item => (
+						<div key={item.id}>
+							<label htmlFor={item.value}>
+								{t(item.translationKey) || item.label}
+							</label>
+							<input
+								type='checkbox'
+								id={item.value}
+								checked={filterCriteria?.ingredients.value.includes(item.value)}
+								name={'ingredients-' + item.value}
+								onChange={handleChange}
+							/>
+						</div>
+					))}
+					<fieldset>
+						<legend>{t('CHOOSE_FILTER_METHOD')}</legend>
+						<label htmlFor='OR'>{t('OR')}</label>
+						<input
+							type='radio'
+							id='OR'
+							value='OR'
+							name='filter_ingredients'
+							checked={true}
+						/>
+						<label htmlFor='AND'>{t('AND')}</label>
+						<input
+							type='radio'
+							id='AND'
+							value='AND'
+							name='filter_ingredients'
+						/>
+					</fieldset>
 				</fieldset>
 				<button className='btn-reset' onClick={resetFilter}>
 					{t('RESET')}

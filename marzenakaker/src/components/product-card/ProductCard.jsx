@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import { productsService } from '../../services/products.service';
 import { useTranslation } from 'react-i18next';
 export const ProductCard = () => {
-	const { filteredProductIds } = useContext(AppContext);
+	const { filteredProductIds, language } = useContext(AppContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const [product, setProduct] = useState(null);
@@ -100,8 +100,8 @@ export const ProductCard = () => {
 				))}
 			</Carousel>
 			<div className='productCard'>
-				<h3>{t("NAME")}: {product?.name}</h3>
-				<p>{t("DESCRIPTION")}: {product?.description}</p>
+				<h3>{t("NAME")}: {product?.name[language]}</h3>
+				<p>{t("DESCRIPTION")}: {product?.description[language]}</p>
 				<p>{t("CATEGORY")}: {product?.category}</p>
 				<p>{t("SUBCATEGORY")}: {product?.subcategory}</p>
 				<p>{t("WEIGHT")}: {product?.weight} kg</p>{' '}

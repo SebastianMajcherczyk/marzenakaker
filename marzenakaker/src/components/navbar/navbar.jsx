@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
+
 export const Navbar = () => {
 	const { language } = useContext(AppContext);
 	const { t, i18n } = useTranslation();
 
 	useEffect(() => {
 		i18n.changeLanguage(language);
-	}, [language]);
+	}, [language, i18n]);
 	return (
 		<nav className='nav-section'>
 			<div className='nav-container'>

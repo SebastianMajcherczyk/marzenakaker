@@ -1,7 +1,11 @@
+import { useContext } from 'react';
+import { AppContext } from '../../ContextProvider';
 import './product.css';
 
 
 const Product = ({ product }) => {
+
+	const { language } = useContext(AppContext);
 	const path = process.env.PUBLIC_URL;
 	const mainPhoto = product.photos.find(element => element.type === 'main')
 	
@@ -17,8 +21,8 @@ const Product = ({ product }) => {
 				
 			</div>
 			<div className='text-box'>
-				<p className='p1'>{product.name}</p>
-				<p className='p2'>{product.description.substr(0, 105)}</p>
+				<p className='p1'>{product.name[language]}</p>
+				<p className='p2'>{product.description[language]?.substr(0, 105)}</p>
 			</div>
 		</div>
 	);

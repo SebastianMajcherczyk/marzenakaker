@@ -1,11 +1,39 @@
-import React from 'react';
-import { useState } from 'react';
 
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../../ContextProvider';
+
+import { authService } from '../../services/auth.service';
 import './adminLoginForm.css';
 
-export const LoginForm = ({loggedIn, logIn, logout, handleChange, loginData}) => {
-	
+export const LoginForm = () => {
+	const {loggedIn} = useContext(AppContext)
+	const [loginData, setLoginData] = useState({
+		email: '',
+		password: '',
+	});
 
+	const logIn = async e => {
+		e.preventDefault();
+		const { email, password } = loginData;
+		const user = await authService.login(email, password);
+		if (!user) {
+			return;
+		}
+		
+		setLoginData({ email: '', password: '' });
+	};
+	const logout = async () => {
+		await authService.logout();
+		
+	};
+	const handleChange = e => {
+		const { value, name } = e.target;
+		const tempState = {
+			...loginData,
+			[name]: value,
+		};
+		setLoginData(tempState);
+	};
 
 	return (
 		<div>

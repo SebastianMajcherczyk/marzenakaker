@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { productsService } from '../../../services/products.service';
 import { AdminProductRow } from './admin-product-row/adminProductRow';
+import { Link } from 'react-router-dom';
 import './adminProductList.css';
 export const AdminProductList = () => {
 	const [products, setProducts] = useState([]);
+	const getProducts = async () => {
+		const data = await productsService.getProducts();
+		setProducts(data);
+	};
+	const onDelete = async id => {
+		await productsService.deleteProductById(id);
+		await getProducts();
+	};
 	useEffect(() => {
-		(async () => {
-			const data = await productsService.getProducts();
-			setProducts(data);
-		})();
+		getProducts();
 	}, []);
 
 	return (
-		
+		<div className='admin-prodlist-container'>
+			<Link to='/admin/product/add' className='add-btn'>
+				Dodaj nowy produkt
+			</Link>
 			<table className='product-table'>
 				<thead>
 					<tr>
@@ -24,10 +33,10 @@ export const AdminProductList = () => {
 				</thead>
 				<tbody>
 					{products.map(product => (
-						<AdminProductRow product={product} />
+						<AdminProductRow product={product} onDelete={onDelete} />
 					))}
 				</tbody>
 			</table>
-		
+		</div>
 	);
 };

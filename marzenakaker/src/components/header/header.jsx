@@ -2,7 +2,7 @@ import React from 'react';
 import './header.css';
 import { Facebook } from './facebook';
 import { Instagram } from './instagram';
-
+import { Link } from 'react-router-dom';
 
 
 export const Header = () => {
@@ -20,7 +20,7 @@ export const Header = () => {
 					target='_blank' rel='noreferrer'>
 					<Instagram />
 				</a>
-				<h4 className='title'>marzenakaker.no</h4>
+				<Link to={'/'} ><h4 className='title'>marzenakaker.no</h4></Link>
 			</div>
 		</header>
 	);
