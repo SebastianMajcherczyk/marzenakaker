@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import GB from './gb.png';
 import PL from './pl.png';
 import './footer.css';
@@ -20,6 +21,7 @@ export const Footer = () => {
 						<img src={GB} alt='British flag' className='flag' />
 					</button>
 				</div>
+				
 			</div>
 		</footer>
 	);

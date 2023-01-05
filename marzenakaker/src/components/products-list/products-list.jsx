@@ -10,38 +10,41 @@ import { AppContext } from '../../ContextProvider';
 import { useState } from 'react';
 import { productsService } from '../../services/products.service';
 
+const defaultFilterCriteria = {
+	persons: {
+		type: 'VALUE',
+		value: '',
+	},
+	persons_max: {
+		type: 'VALUE',
+		value: '',
+	},
+	weight: {
+		type: 'VALUE',
+		value: '',
+	},
+	weight_max: {
+		type: 'VALUE',
+		value: '',
+	},
+	subcategory: {
+		type: 'CHOICE',
+		value: [],
+	},
+	category: {
+		type: 'CHOICE',
+		value: [],
+	},
+	ingredients: {
+		type: 'CHOICE_FROM_ARRAY',
+		value: []
+	},
+	
+}
+
 const ProductsList = () => {
 
-	const defaultFilterCriteria = {
-		persons: {
-			type: 'VALUE',
-			value: '',
-		},
-		persons_max: {
-			type: 'VALUE',
-			value: '',
-		},
-		weight: {
-			type: 'VALUE',
-			value: '',
-		},
-		weight_max: {
-			type: 'VALUE',
-			value: '',
-		},
-		subcategory: {
-			type: 'CHOICE',
-			value: [],
-		},
-		category: {
-			type: 'CHOICE',
-			value: [],
-		},
-		ingredients: {
-			type: 'CHOICE_FROM_ARRAY',
-			value: []
-		}
-	}
+	const [ingredientsFilterMethod, setIngredientsFilterMethod] = useState('OR')
 	const [filterCriteria, setFilterCriteria] = useState(defaultFilterCriteria
 		
 	);
@@ -50,10 +53,10 @@ const ProductsList = () => {
 	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
 	const { data, productIds } = useMemo(() => {
-		const filteredProducts = getProductsByFilters(products, filterCriteria);
+		const filteredProducts = getProductsByFilters(products, filterCriteria, {ingredientsFilterMethod});
 		const ids = filteredProducts.map(({ id }) => id);
 		return { data: filteredProducts, productIds: ids };
-	}, [filterCriteria, products]);
+	}, [filterCriteria, products, ingredientsFilterMethod]);
 
 	useEffect(() => {
 		(async () => {
@@ -129,7 +132,7 @@ const ProductsList = () => {
 
 	return (
 		<div className='products-wrapper'>
-			<ProductFilter handleChange={handleChange} filterCriteria={filterCriteria} setFilterCriteria={setFilterCriteria} />
+			<ProductFilter handleChange={handleChange} filterCriteria={filterCriteria} setFilterCriteria={setFilterCriteria} setIngredientsFilterMethod={setIngredientsFilterMethod} ingredientsFilterMethod={ingredientsFilterMethod}/>
 			<div className='products-container'>
 				{data.map(item => ( 
 					<div key={item.id}

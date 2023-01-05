@@ -66,6 +66,8 @@
 	outline: 0;
 }
 
+
+
 .buttonColor {
 	background: #584d66;
 	text-shadow: 1px 1px 0 rgba(39, 110, 204, 0.5);
@@ -73,6 +75,7 @@
 
 .buttonColor:hover {
 	background: #322c3a;
+	color: orange
 }
 
 .logout-form {

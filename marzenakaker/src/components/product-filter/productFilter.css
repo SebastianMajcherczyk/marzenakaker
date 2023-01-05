@@ -70,16 +70,14 @@ fieldset {
 	display: flex;
 	flex-wrap: wrap;
 }
-.filter input {
-	width: 45px;
-	margin: 5px;
-}
-.ingredients label {
-
-
-	text-transform: capitalize;
+.filter input{
 	
+	width: 55px;
+	height: 20px;
+	margin: 5px;
+	font-size: 18px;
 }
+
 .ingredients input{
 	margin: 0 17px 0 0;
 	width: 25px;
@@ -91,7 +89,8 @@ fieldset {
 
 .weight,
 .persons,
-.category .subcategory {
+.category,
+.subcategory {
 	width: 100%;
 	margin-bottom: 10px;
 	display: flex;

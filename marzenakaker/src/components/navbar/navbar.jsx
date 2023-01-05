@@ -26,6 +26,7 @@ export const Navbar = () => {
 					<Link to='/products' className='nav-link'>
 						{t('OFFER')}
 					</Link>
+					<Link to='/admin' className='nav-link'>ADMIN</Link>
 				</div>
 			</div>
 		</nav>

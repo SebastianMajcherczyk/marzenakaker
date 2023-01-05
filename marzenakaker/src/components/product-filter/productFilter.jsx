@@ -8,11 +8,13 @@ import { productsService } from '../../services/products.service';
 export const ProductFilter = ({
 	handleChange,
 	filterCriteria,
-	setFilterCriteria
+	setFilterCriteria,
+	ingredientsFilterMethod,
+	setIngredientsFilterMethod
 }) => {
 	const {filterCriteriaDef} = useContext(AppContext)
 	const [ingredientsDictionary, setIngredientsDictionary] = useState([]);
-	const { t } = useTranslation();
+	const { t , i18n} = useTranslation();
 	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
 		e.preventDefault();
@@ -29,6 +31,10 @@ export const ProductFilter = ({
 			
 		})();
 	});
+
+	const getTranslatedLabel = (key, defaultValue) => i18n.exists(key) ? t(key) : defaultValue
+
+	console.log(ingredientsDictionary);
 	return (
 		<div className='filter-container'>
 			<button onClick={showHideFilter} className='hide-btn'>
@@ -169,7 +175,7 @@ export const ProductFilter = ({
 					{ingredientsDictionary.map(item => (
 						<div key={item.id}>
 							<label htmlFor={item.value}>
-								{t(item.translationKey) || item.label}
+								{getTranslatedLabel(item.translationKey, item.label)}
 							</label>
 							<input
 								type='checkbox'
@@ -188,7 +194,8 @@ export const ProductFilter = ({
 							id='OR'
 							value='OR'
 							name='filter_ingredients'
-							checked={true}
+							checked={ingredientsFilterMethod === 'OR'}
+							onChange={() => setIngredientsFilterMethod('OR')}
 						/>
 						<label htmlFor='AND'>{t('AND')}</label>
 						<input
@@ -196,6 +203,9 @@ export const ProductFilter = ({
 							id='AND'
 							value='AND'
 							name='filter_ingredients'
+							checked={ingredientsFilterMethod === 'AND'}
+							onChange={() => setIngredientsFilterMethod('AND')}
+
 						/>
 					</fieldset>
 				</fieldset>

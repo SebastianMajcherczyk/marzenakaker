@@ -1,13 +1,33 @@
-.admin-form-container{
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+.admin-form-container {
+	margin: 0 auto;
+	font-family: 'Raleway', sans-serif;
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-.admin-form div{
-    margin: 10px;
+.admin-form div {
+	margin: 10px;
 }
 
-.admin-form label{
-    margin: 5px 10px;
+.admin-form label {
+	margin: 5px 10px;
+}
+.admin-form textarea,
+input option {
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+}
+
+.admin-form .button {
+	display: block;
+	margin: 10px auto;
+	width: 50%;
 }

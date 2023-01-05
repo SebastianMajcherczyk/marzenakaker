@@ -19,7 +19,7 @@ export const AdminProductList = () => {
 
 	return (
 		<div className='admin-prodlist-container'>
-			<Link to='/admin/product/add' className='add-btn'>
+			<Link to='/admin/product/add' className='button add-btn'>
 				Dodaj nowy produkt
 			</Link>
 			<table className='product-table'>

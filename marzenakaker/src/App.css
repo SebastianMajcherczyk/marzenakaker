@@ -1,15 +1,36 @@
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+a {
+	text-decoration: none;
 }
 
-
-html{
-    scroll-behavior: smooth;
-    background-color: #e0e0e0;
-}
-
-body{
+.button {
     font-family: 'Raleway', sans-serif;
+	color: #ffffff;
+	background-color: #584d66;
+	font-size: 14px;
+	border-radius: 4px;
+	padding: 5px 5px;
+	text-align: center;
+	cursor: pointer;
+    line-height: normal;
+    border: 0;
+    margin: 2px;
+    transition: 0.5s;
+}
+.button:hover {
+	color: orange;
+    background-color: #322c3a;
+}
+
+html {
+	scroll-behavior: smooth;
+	background-color: #e0e0e0;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
 }

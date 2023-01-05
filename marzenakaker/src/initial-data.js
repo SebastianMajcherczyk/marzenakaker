@@ -2,17 +2,17 @@ export const categoryDict = [
 	{
 		label: 'Urodzinowe',
 		value: 'Birthday',
-		translationKey: "CATEGORY_DICT_BIRTHDAY"
+		translationKey: 'CATEGORY_DICT_BIRTHDAY',
 	},
 	{
 		label: 'Ślubne',
 		value: 'Wedding',
-		translationKey: "CATEGORY_DICT_WEDDING"
+		translationKey: 'CATEGORY_DICT_WEDDING',
 	},
 	{
 		label: 'Inne',
 		value: 'Other',
-		translationKey: "CATEGORY_DICT_OTHER"
+		translationKey: 'CATEGORY_DICT_OTHER',
 	},
 ];
 
@@ -20,42 +20,47 @@ export const ingredientsDict = [
 	{
 		label: 'Jajka',
 		value: 'eggs',
-		translationKey: 'INGREDIENTS_DICT_EGGS'
+		translationKey: 'INGREDIENTS_DICT_EGGS',
 	},
 	{
 		label: 'Masło',
 		value: 'butter',
-		translationKey: 'INGREDIENTS_DICT_BUTTER'
+		translationKey: 'INGREDIENTS_DICT_BUTTER',
 	},
 	{
 		label: 'Mąka',
 		value: 'flour',
-		translationKey: 'INGREDIENTS_DICT_FLOUR'
+		translationKey: 'INGREDIENTS_DICT_FLOUR',
 	},
 	{
 		label: 'Mleko',
 		value: 'milk',
-		translationKey: 'INGREDIENTS_DICT_MILK'
+		translationKey: 'INGREDIENTS_DICT_MILK',
 	},
 	{
 		label: 'Mascarpone',
 		value: 'mascarpone',
-		translationKey: 'INGREDIENTS_DICT_MASCARPONE'
+		translationKey: 'INGREDIENTS_DICT_MASCARPONE',
 	},
 	{
 		label: 'Orzechy',
 		value: 'nuts',
-		translationKey: 'INGREDIENTS_DICT_NUTS'
+		translationKey: 'INGREDIENTS_DICT_NUTS',
 	},
 	{
 		label: 'Śmietana',
 		value: 'cream',
-		translationKey: 'INGREDIENTS_DICT_CREAM'
+		translationKey: 'INGREDIENTS_DICT_CREAM',
 	},
 	{
 		label: 'Biszkopt',
 		value: 'bisquit',
-		translationKey: "INGREDIENTS_DICT_BISQUIT"
+		translationKey: 'INGREDIENTS_DICT_BISQUIT',
+	},
+	{
+		label: 'Cukier waniliowy',
+		value: 'vanilla sugar',
+		translationKey: 'INGREDIENTS_DICT_VANILLA_SUGAR',
 	},
 ];
 

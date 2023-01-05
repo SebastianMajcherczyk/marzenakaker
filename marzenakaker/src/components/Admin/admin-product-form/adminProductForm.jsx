@@ -4,7 +4,7 @@ import { AppContext } from '../../../ContextProvider';
 import { productsService } from '../../../services/products.service';
 import { useParams } from 'react-router-dom';
 import './admin-product-form.css';
-import { uid } from 'uid';
+import { Link } from 'react-router-dom';
 
 export const AdminProductForm = () => {
 	const { categories } = useContext(AppContext);
@@ -12,19 +12,17 @@ export const AdminProductForm = () => {
 	const { id } = useParams();
 	const isInEditMode = useMemo(() => id !== undefined, [id]);
 
-	
-
-	
 	const [product, setProduct] = useState({
 		name: '',
 		name_en: '',
 		description: '',
-		descriprion_en: '',
+		description_en: '',
 		weight: '',
 		persons: '',
 		category: '',
 		subcategory: '',
 		ingredients: [],
+		state: '',
 	});
 	useEffect(() => {
 		(async () => {
@@ -34,7 +32,6 @@ export const AdminProductForm = () => {
 	});
 	useEffect(() => {
 		if (isInEditMode) {
-			
 			(async () => {
 				const data = await productsService.getProductById(id);
 				setProduct({
@@ -50,8 +47,7 @@ export const AdminProductForm = () => {
 				});
 			})();
 		}
-	}, [isInEditMode]);
-	
+	}, [isInEditMode, id]);
 
 	const handleChange = e => {
 		const { value, name, checked } = e.target;
@@ -79,12 +75,16 @@ export const AdminProductForm = () => {
 	};
 	const onSubmit = e => {
 		e.preventDefault();
-		productsService.editProductById(id)
+		if (isInEditMode) {
+			productsService.editProductById(id);
+		} else {
+			productsService.addProduct(product);
+		}
 	};
 	return (
 		<div className='admin-form-container'>
 			<form className='admin-form' onSubmit={onSubmit}>
-				<div className='admin-form-name'>
+				<div className='section admin-form-name'>
 					<label htmlFor='name'>Nazwa</label>
 					<input
 						type='text'
@@ -94,7 +94,7 @@ export const AdminProductForm = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className='admin-form-name'>
+				<div className='section admin-form-name'>
 					<label htmlFor='name_en'>Name (English)</label>
 					<input
 						type='text'
@@ -104,7 +104,7 @@ export const AdminProductForm = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className='admin-form-description'>
+				<div className='section admin-form-description'>
 					<label htmlFor='description'> Opis</label>
 					<textarea
 						type='text'
@@ -115,7 +115,7 @@ export const AdminProductForm = () => {
 						value={product.description}
 						onChange={handleChange}></textarea>
 				</div>
-				<div className='admin-form-description'>
+				<div className='section admin-form-description'>
 					<label htmlFor='description_en'> Description (English)</label>
 					<textarea
 						type='text'
@@ -126,7 +126,7 @@ export const AdminProductForm = () => {
 						value={product.description_en}
 						onChange={handleChange}></textarea>
 				</div>
-				<div>
+				<div className='admin-form-weight'>
 					<label htmlFor='weiht'>Waga</label>
 					<input
 						type='number'
@@ -139,7 +139,7 @@ export const AdminProductForm = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div>
+				<div className='admin-form-persons'>
 					<label htmlFor='persons'>Ilośc osób</label>
 					<input
 						type='number'
@@ -155,9 +155,13 @@ export const AdminProductForm = () => {
 				<div className='admin-form-category'>
 					<label htmlFor='category'> Kategoria</label>
 					<select
+						name='category'
 						id='category'
 						value={product.category}
 						onChange={handleChange}>
+						<option disabled selected value=''>
+							Wybierz kategorię
+						</option>
 						{categories?.map(category => (
 							<option value={category.value}>{category.label}</option>
 						))}
@@ -166,12 +170,16 @@ export const AdminProductForm = () => {
 				<div className='admin-form-subcategory'>
 					<label htmlFor='subcategory'>Podkategoria</label>
 					<select
+						name='subcategory'
 						id='subcategory'
 						value={product.subcategory}
 						onChange={handleChange}>
-						<option value=''></option>
-						<option value=''></option>
-						<option value=''></option>
+						<option selected disabled value=''>
+							Wybierz subkategorię
+						</option>
+						<option value='A'>A</option>
+						<option value='B'>B</option>
+						<option value='C'>C</option>
 					</select>
 				</div>
 
@@ -190,8 +198,12 @@ export const AdminProductForm = () => {
 						</div>
 					))}
 				</fieldset>
-
-				<button type='submit'>Zapisz</button>
+				<Link to='/admin' className='button'>
+					Wróć bez zapisywania
+				</Link>
+				<Link to='/admin'>
+					<button type='submit' className='button'>Zapisz</button>
+				</Link>
 			</form>
 		</div>
 	);

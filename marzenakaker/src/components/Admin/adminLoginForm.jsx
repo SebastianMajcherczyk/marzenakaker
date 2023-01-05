@@ -40,7 +40,7 @@ export const LoginForm = () => {
 			{loggedIn ? (
 				<div className='logout-form'>
 					<span>Administrator zalogowany</span>
-					<button onClick={logout}>Wyloguj</button>
+					<button className='button' onClick={logout}>Wyloguj</button>
 				</div>
 			) : (
 				<form className='loginForm'>
