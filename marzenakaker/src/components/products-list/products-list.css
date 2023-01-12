@@ -3,6 +3,8 @@
     flex-direction: column;
     /* padding: 10px 10px;; */
     align-items: center;
+    width: 95%;
+    margin:auto;
 }
 .products-container{
     /* position: relative;
@@ -15,6 +17,9 @@
     width: 90%;
 }
 
+
+
+/* 
 @media(min-width: 1200px){
     .products-wrapper{
       
@@ -29,4 +34,4 @@
         margin:auto;
  
 }
-}
+} */

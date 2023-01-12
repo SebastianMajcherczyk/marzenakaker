@@ -6,12 +6,14 @@ import './footer.css';
 
 import { AppContext } from '../../ContextProvider';
 
-export const Footer = () => {
+export const Footer = ({isOnAdminPath}) => {
 	const { changeLanguage } = useContext(AppContext);
 
 	return (
 		<footer className='footer'>
-			<div className='footer-container'>
+
+		
+			<div className={`footer-container ${isOnAdminPath? 'admin-view' : ''} `}>
 				<h4>Language/język:</h4>
 				<div className='flagbox'>
 					<button className='polish' onClick={() => changeLanguage('pl')}>

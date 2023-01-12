@@ -59,8 +59,13 @@ export const ingredientsDict = [
 	},
 	{
 		label: 'Cukier waniliowy',
-		value: 'vanilla sugar',
+		value: 'vanillaSugar',
 		translationKey: 'INGREDIENTS_DICT_VANILLA_SUGAR',
+	},
+	{
+		label: 'Cukier',
+		value: 'sugar',
+		translationKey: 'INGREDIENTS_DICT_SUGAR',
 	},
 ];
 

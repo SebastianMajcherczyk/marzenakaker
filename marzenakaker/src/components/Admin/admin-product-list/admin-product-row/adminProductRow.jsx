@@ -14,10 +14,11 @@ export const AdminProductRow = ({ product, onDelete }) => {
 			<td>{product.name.pl}</td>
 			<td>{product.description.pl}</td>
 			<td className='actions'>
-				<Link className='button'
-					onClick={() => setIdToEdit(product.id)}>Edytuj
-					to={'product/edit/' + product.id}
-					
+				<Link
+					className='button'
+					onClick={() => setIdToEdit(product.id)}
+					to={'product/edit/' + product.id}>
+					Edytuj
 				</Link>
 				<button className='button btn-delete' onClick={deleteProduct}>
 					Usuń

@@ -1,5 +1,5 @@
 {
-	"homepage": "http://serwer2265613.home.pl/sebastian",
+	"homepage": "http://serwer2399543.home.pl",
 	"name": "marzenakaker",
 	"version": "0.1.0",
 	"private": true,
@@ -16,9 +16,12 @@
 		"react-i18next": "^12.0.0",
 		"react-icons": "^4.6.0",
 		"react-image-gallery": "^1.2.9",
+		"react-images-uploader": "^1.2.0-rc1",
+		"react-images-uploading": "^3.1.7",
 		"react-responsive-carousel": "^3.2.23",
 		"react-router-dom": "^6.4.3",
 		"react-scripts": "^5.0.1",
+		"react-slider": "^2.0.4",
 		"uid": "^2.0.1",
 		"web-vitals": "^2.1.4"
 	},

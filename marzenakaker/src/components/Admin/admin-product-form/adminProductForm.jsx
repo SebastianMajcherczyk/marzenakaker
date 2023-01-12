@@ -2,14 +2,23 @@ import React, { useContext, useState, useMemo } from 'react';
 import { useEffect } from 'react';
 import { AppContext } from '../../../ContextProvider';
 import { productsService } from '../../../services/products.service';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './admin-product-form.css';
 import { Link } from 'react-router-dom';
+import ImageUploading from 'react-images-uploading';
 
 export const AdminProductForm = () => {
+	const [images, setImages] = useState([]);
+	const onChange = (imageList, addUpdateIndex) => {
+		// data for submit
+		console.log(imageList, addUpdateIndex);
+		setImages(imageList);
+	};
+
 	const { categories } = useContext(AppContext);
 	const [ingredientsDictionary, setIngredientsDictionary] = useState([]);
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const isInEditMode = useMemo(() => id !== undefined, [id]);
 
 	const [product, setProduct] = useState({
@@ -44,6 +53,7 @@ export const AdminProductForm = () => {
 					category: data.category,
 					subcategory: data.subcategory,
 					ingredients: data.ingredients,
+					state: data.state,
 				});
 			})();
 		}
@@ -51,6 +61,7 @@ export const AdminProductForm = () => {
 
 	const handleChange = e => {
 		const { value, name, checked } = e.target;
+		console.log(e.target);
 		let tempState = {};
 		//To jest czeckbox
 		if (name?.includes('-')) {
@@ -73,13 +84,14 @@ export const AdminProductForm = () => {
 			...tempState,
 		});
 	};
-	const onSubmit = e => {
+	const onSubmit = async e => {
 		e.preventDefault();
 		if (isInEditMode) {
-			productsService.editProductById(id);
+			await productsService.editProductById(id);
 		} else {
-			productsService.addProduct(product);
+			await productsService.addProduct(product);
 		}
+		navigate('/admin');
 	};
 	return (
 		<div className='admin-form-container'>
@@ -159,7 +171,7 @@ export const AdminProductForm = () => {
 						id='category'
 						value={product.category}
 						onChange={handleChange}>
-						<option disabled selected value=''>
+						<option disabled defaultValue={true} value=''>
 							Wybierz kategorię
 						</option>
 						{categories?.map(category => (
@@ -174,7 +186,7 @@ export const AdminProductForm = () => {
 						id='subcategory'
 						value={product.subcategory}
 						onChange={handleChange}>
-						<option selected disabled value=''>
+						<option defaultValue={true} disabled value=''>
 							Wybierz subkategorię
 						</option>
 						<option value='A'>A</option>
@@ -198,12 +210,87 @@ export const AdminProductForm = () => {
 						</div>
 					))}
 				</fieldset>
+				<div>
+					<label htmlFor='state'>Pokaż na stronie</label>
+					<input
+						type='checkbox'
+						name='state'
+						id='state'
+						checked={product.state === 'active'}
+						onChange={e => {
+							const { checked } = e.target;
+							e.target.value = checked ? 'active' : 'inactive';
+							handleChange(e);
+						}}
+					/>
+				</div>
+
+				<ImageUploading
+					multiple
+					value={images}
+					onChange={onChange}
+					maxNumber={10}
+					dataURLKey='data_url'>
+					{({
+						imageList,
+						onImageUpload,
+						onImageRemoveAll,
+						onImageUpdate,
+						onImageRemove,
+						isDragging,
+						dragProps,
+					}) => (
+						// write your building UI
+						<div className='upload__image-wrapper'>
+							<button
+								style={isDragging ? { color: 'red' } : undefined}
+								onClick={e => {
+									e.preventDefault();
+									onImageUpload(e);
+								}}
+								{...dragProps}>
+								Click or Drop here
+							</button>
+							&nbsp;
+							<button
+								onClick={e => {
+									e.preventDefault();
+									onImageRemoveAll(e);
+								}}>
+								Remove all images
+							</button>
+							{imageList.map((image, index) => (
+								<div key={index} className='image-item'>
+									<img src={image['data_url']} alt='' width='100' />
+									<div className='image-item__btn-wrapper'>
+										<button
+											onClick={e => {
+												e.preventDefault();
+												onImageUpdate(index);
+											}}>
+											Update
+										</button>
+										<button
+											onClick={e => {
+												e.preventDefault();
+												onImageRemove(index);
+											}}>
+											Remove
+										</button>
+									</div>
+								</div>
+							))}
+						</div>
+					)}
+				</ImageUploading>
+
 				<Link to='/admin' className='button'>
 					Wróć bez zapisywania
 				</Link>
-				<Link to='/admin'>
-					<button type='submit' className='button'>Zapisz</button>
-				</Link>
+
+				<button type='submit' className='button'>
+					Zapisz
+				</button>
 			</form>
 		</div>
 	);

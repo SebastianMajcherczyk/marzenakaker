@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FaChevronCircleUp} from 'react-icons/fa';
+import { FaChevronCircleUp } from 'react-icons/fa';
 import './productFilter.css';
 import { useTranslation } from 'react-i18next';
 import { AppContext } from '../../ContextProvider';
 import { productsService } from '../../services/products.service';
+import ReactSlider from 'react-slider';
+import { getDefaultFilterCriteria } from '../../App';
 
 export const ProductFilter = ({
 	handleChange,
 	filterCriteria,
 	setFilterCriteria,
 	ingredientsFilterMethod,
-	setIngredientsFilterMethod
+	setIngredientsFilterMethod,
 }) => {
-	const {filterCriteriaDef} = useContext(AppContext)
+	//const { filterCriteria } = useContext(AppContext);
 	const [ingredientsDictionary, setIngredientsDictionary] = useState([]);
-	const { t , i18n} = useTranslation();
+	const { t, i18n } = useTranslation();
 	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
 		e.preventDefault();
@@ -22,95 +24,122 @@ export const ProductFilter = ({
 	};
 	const resetFilter = e => {
 		e.preventDefault();
-		setFilterCriteria(filterCriteriaDef.filterCriteriaValue);
+		setFilterCriteria(getDefaultFilterCriteria());
 	};
 	useEffect(() => {
 		(async () => {
 			const data = await productsService.getIngredientsDictionary();
 			setIngredientsDictionary(data);
-			
 		})();
 	});
 
-	const getTranslatedLabel = (key, defaultValue) => i18n.exists(key) ? t(key) : defaultValue
+	const getTranslatedLabel = (key, defaultValue) =>
+		i18n.exists(key) ? t(key) : defaultValue;
 
-	console.log(ingredientsDictionary);
 	return (
 		<div className='filter-container'>
-			<button onClick={showHideFilter} className='hide-btn'>
+			<button onClick={showHideFilter} className='btn-hide'>
 				{' '}
 				<FaChevronCircleUp className={`leftUp ${filterHidden}`} />
 				{filterHidden ? t('SHOW_FILTER') : t('HIDE')}
 				<FaChevronCircleUp className={`rightUp ${filterHidden}`} />{' '}
 			</button>
 			<form className={`filter ${filterHidden}`}>
-				<div className='weight'>
-					<label htmlFor='weight'>{t('CHOOSE_WEIGHT')} </label>
-					<input
-						placeholder='od..'
-						type='number'
-						id='weight'
-						name='weight'
-						min='0.5'
-						max='5'
-						step='0.5'
-						value={filterCriteria.weight.value}
-						onChange={handleChange}
-					/>
-					<input
-						placeholder='...do'
-						type='number'
-						id='weight_max'
-						name='weight_max'
-						min='1'
-						max='5'
-						value={filterCriteria.weight_max.value}
-						onChange={handleChange}
-					/>{' '}
-					kg
-				</div>
-				<div className='persons'>
-					<label htmlFor='persons'>{t('NUMBER_OF_PERSONS')} </label>
-					<input
-						placeholder='od...'
-						type='number'
-						id='persons'
-						name='persons'
-						min='3'
-						max='15'
-						value={filterCriteria.persons.value}
-						onChange={handleChange}
-					/>
-					<input
-						placeholder='...do'
-						type='number'
-						id='persons_max'
-						name='persons_max'
-						min='3'
-						max='15'
-						value={filterCriteria.persons_max.value}
-						onChange={handleChange}
-					/>
-					{t('PERSONS')}
-				</div>
+				<div className='slider-container'>
+					<section>
+						<p>{t('CHOOSE_WEIGHT')} (kg)</p>
+						<ReactSlider
+							className='horizontal-slider'
+							thumbClassName='thumb'
+							trackClassName='track'
+							min={0.5}
+							max={5}
+							defaultValue={[0.5, 5]}
+							ariaLabel={['Lower thumb', 'Upper thumb']}
+							ariaValuetext={state => `Thumb value ${state.valueNow}`}
+							renderThumb={(props, state) => (
+								<div {...props}>{state.valueNow}</div>
+							)}
+							step={0.5}
+							pearling
+							minDistance={0}
+							onChange={([min, max]) => {
+								const eventMin = {
+									target: {
+										name: 'weight',
+										value: min,
+									},
+								};
+								const filterCriteriaChanged = handleChange(eventMin);
 
+								const eventMax = {
+									target: {
+										name: 'weight_max',
+										value: max,
+									},
+								};
+
+								handleChange(eventMax, filterCriteriaChanged);
+							}}
+							withTracks={true}
+						/>
+					</section>
+					<section>
+						<p>{t('NUMBER_OF_PERSONS')}</p>
+						<ReactSlider
+							className='horizontal-slider'
+							thumbClassName='thumb'
+							trackClassName='track'
+							min={1}
+							max={15}
+							value={[
+								+filterCriteria?.persons?.value || 1,
+								+filterCriteria?.persons_max?.value || 15,
+							]}
+							ariaLabel={['Lower thumb', 'Upper thumb']}
+							ariaValuetext={state => `Thumb value ${state.valueNow}`}
+							renderThumb={(props, state) => (
+								<div {...props}>{state.valueNow}</div>
+							)}
+							step={1}
+							pearling
+							minDistance={0}
+							onChange={([min, max]) => {
+								const eventMin = {
+									target: {
+										name: 'persons',
+										value: min,
+									},
+								};
+								const filterCriteriaChanged = handleChange(eventMin);
+
+								const eventMax = {
+									target: {
+										name: 'persons_max',
+										value: max,
+									},
+								};
+								handleChange(eventMax, filterCriteriaChanged);
+							}}
+							withTracks={true}
+						/>
+					</section>
+				</div>
 				<fieldset className='category'>
 					<legend> {t('CHOOSE_CATEGORY')}</legend>
 					<div>
-					<label htmlFor='birthday'>{t('BIRTHDAY')}</label>
+						<label htmlFor='birthday'>{t('BIRTHDAY')}</label>
 						<input
 							type='checkbox'
 							id='birthday'
 							name='category-birthday'
 							value='birthday'
 							onChange={handleChange}
-							checked={filterCriteria.category.value.includes('birthday')}
+							checked={filterCriteria?.category?.value?.includes('birthday')}
 						/>
-						
-					
 					</div>
 					<div>
-					<label htmlFor='wedding'>{t('WEDDING')}</label>
+						<label htmlFor='wedding'>{t('WEDDING')}</label>
 						<input
 							type='checkbox'
 							id='wedding'
@@ -119,10 +148,9 @@ export const ProductFilter = ({
 							onChange={handleChange}
 							checked={filterCriteria.category.value.includes('wedding')}
 						/>
-						
 					</div>
 					<div>
-						<label htmlFor='other'>{t('OTHER')}</label>	
+						<label htmlFor='other'>{t('OTHER')}</label>
 						<input
 							type='checkbox'
 							id='other'
@@ -172,42 +200,51 @@ export const ProductFilter = ({
 				</fieldset> */}
 				<fieldset className='ingredients'>
 					<legend>{t('CHOOSE INGREDIENTS')}</legend>
-					{ingredientsDictionary.map(item => (
-						<div key={item.id}>
-							<label htmlFor={item.value}>
-								{getTranslatedLabel(item.translationKey, item.label)}
-							</label>
-							<input
-								type='checkbox'
-								id={item.value}
-								checked={filterCriteria?.ingredients.value.includes(item.value)}
-								name={'ingredients-' + item.value}
-								onChange={handleChange}
-							/>
+					<section className='section'>
+						<div className='list'>
+							{ingredientsDictionary.map(item => (
+								<div key={item.id} className='ingredients-checkbox'>
+									<label htmlFor={item.value}>
+										{getTranslatedLabel(item.translationKey, item.label)}
+									</label>
+									<input
+										type='checkbox'
+										id={item.value}
+										checked={filterCriteria?.ingredients.value.includes(
+											item.value
+										)}
+										name={'ingredients-' + item.value}
+										onChange={handleChange}
+									/>
+								</div>
+							))}
 						</div>
-					))}
-					<fieldset>
-						<legend>{t('CHOOSE_FILTER_METHOD')}</legend>
-						<label htmlFor='OR'>{t('OR')}</label>
-						<input
-							type='radio'
-							id='OR'
-							value='OR'
-							name='filter_ingredients'
-							checked={ingredientsFilterMethod === 'OR'}
-							onChange={() => setIngredientsFilterMethod('OR')}
-						/>
-						<label htmlFor='AND'>{t('AND')}</label>
-						<input
-							type='radio'
-							id='AND'
-							value='AND'
-							name='filter_ingredients'
-							checked={ingredientsFilterMethod === 'AND'}
-							onChange={() => setIngredientsFilterMethod('AND')}
-
-						/>
-					</fieldset>
+						<fieldset className='filter-method'>
+							<legend>{t('CHOOSE_FILTER_METHOD')}</legend>
+							<div className='method-checkbox'>
+								<label htmlFor='OR'>{t('OR')}</label>
+								<input
+									type='radio'
+									id='OR'
+									value='OR'
+									name='filter_ingredients'
+									checked={ingredientsFilterMethod === 'OR'}
+									onChange={() => setIngredientsFilterMethod('OR')}
+								/>
+							</div>
+							<div className='method-checkbox'>
+								<label htmlFor='AND'>{t('AND')}</label>
+								<input
+									type='radio'
+									id='AND'
+									value='AND'
+									name='filter_ingredients'
+									checked={ingredientsFilterMethod === 'AND'}
+									onChange={() => setIngredientsFilterMethod('AND')}
+								/>
+							</div>
+						</fieldset>
+					</section>
 				</fieldset>
 				<button className='btn-reset' onClick={resetFilter}>
 					{t('RESET')}

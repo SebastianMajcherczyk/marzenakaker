@@ -4,12 +4,24 @@ import {
 	ingredientsDict,
 } from '../initial-data';
 import { uid } from 'uid';
+import { collection, doc, getDocs, getFirestore, query, setDoc } from "firebase/firestore";
+import { db } from './../index';
+import { async } from '@firebase/util';
+
 
 let initialData = initialDataDef;
 
 const productsServiceDef = () => {
+	// variables
+	
+	
+
+	// end
 	const getProducts = async () => {
-		return new Promise(resolve => resolve(initialData));
+		const productRef = collection(db, 'products')
+		const snapshots = await getDocs(query(productRef))
+		return snapshots.docs.map(snap => snap.data())
+		
 	};
 
 	const getProductById = async id => {
@@ -37,6 +49,7 @@ const productsServiceDef = () => {
 	};
 
 	const addProduct = async product => {
+		
 		return new Promise(resolve => {
 			const newId = uid();
 			initialData.push({
@@ -74,6 +87,16 @@ const productsServiceDef = () => {
 	const getIngredientsDictionary = async () => {
 		return new Promise(resolve => resolve(ingredientsDict));
 	};
+
+	const createProductsMock = async () => {
+	
+		const productRef = collection(db, 'products')
+		for await (let product of initialData ) {
+				await setDoc(doc(productRef), product)
+		}
+	}
+
+
 	return {
 		editProductById,
 		deleteProductById,
@@ -82,6 +105,7 @@ const productsServiceDef = () => {
 		getCategoryDictionary,
 		getProducts,
 		getProductById,
+		createProductsMock
 	};
 };
 

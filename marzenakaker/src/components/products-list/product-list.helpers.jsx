@@ -17,18 +17,33 @@ export const getProductsByFilters = (
 				return value.length !== 0
 					? value.includes(currentProductAttribute)
 					: true;
+			} else if (type === 'VALUE_FROM_RANGE_MIN') {
+				const mainFilterKey = filterKey.split('_')[0];
+				const currentProductAttribute = product[mainFilterKey]
+
+				// if (filterKey === 'persons') debugger;
+
+				return value ? currentProductAttribute >= +value : true;
+			} else if (type === 'VALUE_FROM_RANGE_MAX') {
+				const mainFilterKey = filterKey.split('_')[0];
+				const currentProductAttribute = product[mainFilterKey];
+
+				return value ? currentProductAttribute <= +value : true;
 			} else if (type === 'CHOICE_FROM_ARRAY') {
 				// debugger;
+				const currentProductAttributes = product[filterKey];
 				if (ingredientsFilterMethod === 'OR') {
-					const currentProductAttributes = product[filterKey];
-
 					return value.length !== 0
 						? currentProductAttributes.some(attribute =>
 								value.includes(attribute)
 						  )
 						: true;
 				} else {
-					// to do
+					return value.length !== 0
+						? value.every(attribute =>
+								currentProductAttributes.includes(attribute)
+						  )
+						: true;
 				}
 			} else {
 				return false;
