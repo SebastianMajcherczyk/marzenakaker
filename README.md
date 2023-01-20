@@ -1,11 +1,6 @@
 # marzenakaker
 > Responsive web app of a person offering specially designed cakes
 
-## Content
-*[Information] (#information)
-*[Technologies] (#technologies)
-*[Screenshots](#screenshots)
-*[Status]
 
 ## Information
 - Web application of the person offering suctom made cakes. App contains a product flter allowing user to filter and sort items by different criteria.
@@ -29,3 +24,6 @@
 - react-slider
 - uid
 
+## Status
+
+- As the page is still under construction it is available only at the temporary address: https://serwer2399543.home.pl/
