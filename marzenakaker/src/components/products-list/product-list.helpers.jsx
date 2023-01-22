@@ -4,7 +4,6 @@ export const getProductsByFilters = (
 	{ ingredientsFilterMethod }
 ) => {
 	const filtersAsTouple = Object.entries(filters);
-	// debugger;
 	return products.reduce((collector, product) => {
 		const isValid = filtersAsTouple.every(([filterKey, { type, value }]) => {
 			if (type === 'VALUE') {
@@ -20,8 +19,6 @@ export const getProductsByFilters = (
 			} else if (type === 'VALUE_FROM_RANGE_MIN') {
 				const mainFilterKey = filterKey.split('_')[0];
 				const currentProductAttribute = product[mainFilterKey]
-
-				// if (filterKey === 'persons') debugger;
 
 				return value ? currentProductAttribute >= +value : true;
 			} else if (type === 'VALUE_FROM_RANGE_MAX') {
@@ -57,3 +54,4 @@ export const getProductsByFilters = (
 		}
 	}, []);
 };
+

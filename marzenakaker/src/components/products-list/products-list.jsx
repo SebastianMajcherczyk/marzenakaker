@@ -9,6 +9,10 @@ import { useEffect } from 'react';
 import { AppContext } from '../../ContextProvider';
 import { useState } from 'react';
 import { productsService } from '../../services/products.service';
+import { onSnapshot, collection } from 'firebase/firestore';
+import { db } from '../..';
+
+
 
 const ProductsList = () => {
 	const {
@@ -17,7 +21,10 @@ const ProductsList = () => {
 		setFilterCriteria,
 		ingredientsFilterMethod,
 		setIngredientsFilterMethod,
+		sortingCriteria,
+		setSortingCriteria
 	} = useContext(AppContext);
+
 	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
 	const { data, productIds } = useMemo(() => {
@@ -28,12 +35,19 @@ const ProductsList = () => {
 		return { data: filteredProducts, productIds: ids };
 	}, [filterCriteria, products, ingredientsFilterMethod]);
 
+	// useEffect(() => {
+	// 	(async () => {
+
+	// 		const data = await productsService.getProducts();
+	// 		setProducts(data);
+	// 	})();
+	// }, []);
+
 	useEffect(() => {
-		(async () => {
-			const data = await productsService.getProducts();
-			setProducts(data);
-		})();
-	}, []);
+		const collectionRef = collection(db, 'products');
+		onSnapshot(collectionRef,async  () => {const data = await  productsService.getProducts(sortingCriteria)
+		setProducts(data)});
+	}, [sortingCriteria]);
 
 	useEffect(() => {
 		setFilteredProductIds?.(productIds);
@@ -50,17 +64,17 @@ const ProductsList = () => {
 		//debugger
 		const { value, name, checked } = e.target;
 
-		const filterCriteriaVal = filterCriteriaChanged || filterCriteria
+		const filterCriteriaVal = filterCriteriaChanged || filterCriteria;
 
 		const [filterName, filterValue] = name.split('-');
 		const currentFilterType = filterCriteriaVal[filterName].type;
 
-		let tempState = {}
+		let tempState = {};
 		if (
 			currentFilterType === 'CHOICE' ||
 			currentFilterType === 'CHOICE_FROM_ARRAY'
 		) {
-			 tempState = {
+			tempState = {
 				...filterCriteriaVal,
 				[filterName]: {
 					...filterCriteriaVal[filterName],
@@ -72,15 +86,14 @@ const ProductsList = () => {
 			setFilterCriteria(tempState);
 			//}
 		} else {
-			 tempState = {
+			tempState = {
 				...filterCriteriaVal,
 				[filterName]: { ...filterCriteriaVal[filterName], value },
 			};
 			setFilterCriteria(tempState);
 		}
 
-
-		return tempState
+		return tempState;
 		// else if (currentFilterType === 'CHOICE') {
 		// 	//if (tagName === 'SELECT') {
 		// 	///
@@ -109,6 +122,8 @@ const ProductsList = () => {
 				setFilterCriteria={setFilterCriteria}
 				setIngredientsFilterMethod={setIngredientsFilterMethod}
 				ingredientsFilterMethod={ingredientsFilterMethod}
+				sortingCriteria={sortingCriteria}
+				setSortingCriteria={setSortingCriteria}
 			/>
 			<div className='products-container'>
 				{data.map(item => (

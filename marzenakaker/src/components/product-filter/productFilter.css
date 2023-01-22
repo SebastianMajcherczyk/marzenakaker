@@ -52,7 +52,7 @@
 	color: orange;
 }
 .filter {
-	max-height: 450px;
+	max-height: 490px;
 	padding: 0 5px;
 	display: flex;
 	flex-direction: column;
@@ -129,7 +129,9 @@ fieldset {
 	margin: auto;
 }
 .list{
+	width: 100%;
 	display: flex;
+	justify-content: space-evenly;
 	flex-wrap: wrap;
 }
 .ingredients-checkbox{

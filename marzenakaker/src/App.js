@@ -14,7 +14,8 @@ import { AdminPanel } from './components/Admin/AdminPanel';
 import { AdminProductForm } from './components/Admin/admin-product-form/adminProductForm';
 import { productsService } from './services/products.service';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { filterCriteria as filterCriteriaDef } from './ContextProvider';
+
+
 
 export const getDefaultFilterCriteria = () => ({
 	persons: {
@@ -45,6 +46,7 @@ export const getDefaultFilterCriteria = () => ({
 		type: 'CHOICE_FROM_ARRAY',
 		value: [],
 	},
+	// state: 'active'
 });
 
 function App() {
@@ -53,10 +55,16 @@ function App() {
 	);
 
 	const [ingredientsFilterMethod, setIngredientsFilterMethod] = useState('OR');
+
+	const [sortingCriteria, setSortingCriteria] = useState({
+		sortingValue: 'createdAt',
+		method: 'asc'
+	})
+
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [isConnected, setIsConnected] = useState(false);
 	const [categories, setCategories] = useState([]);
-
+		const [ingredients, setIngredients] = useState([])
 	const location = useLocation();
 
 	const browserLanguage = navigator.language.slice(0, 2);
@@ -96,7 +104,13 @@ function App() {
 			const data = await productsService.getCategoryDictionary();
 			setCategories(data);
 		})();
+		(async () => {
+			const data = await productsService.getIngredientsDictionary();
+			setIngredients(data);
+		})();
 	}, []);
+
+	
 
 	if (!isConnected) {
 		return <></>;
@@ -116,7 +130,9 @@ function App() {
 					loggedIn,
 					setLoggedIn,
 					categories,
-					filterCriteriaDef,
+					ingredients,
+					sortingCriteria,
+					setSortingCriteria
 				}}>
 				<Header />
 				{isOnAdminPath ? '' : <Navbar />}
@@ -136,12 +152,12 @@ function App() {
 				</Routes>
 				<Footer isOnAdminPath={isOnAdminPath} />
 			</AppContext.Provider>
-			<button
+			{/* <button
 				onClick={() => {
-					// productsService.createProductsMock()
+					productsService.createIngredientsDictMock()
 				}}>
 				Create mock
-			</button>
+			</button> */}
 		</div>
 	);
 }

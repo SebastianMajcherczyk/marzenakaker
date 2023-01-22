@@ -45,5 +45,7 @@ export const AppContext = createContext({
 	loggedIn: '',
 	isInEditMode: '',
 	idToEdit: '',
-	setIdToEdit: () => true
+	setIdToEdit: () => true,
+	sortingCriteria: '',
+	setSortingCriteria: () => true
 });

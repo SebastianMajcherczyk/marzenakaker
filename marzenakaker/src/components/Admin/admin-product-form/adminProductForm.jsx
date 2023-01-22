@@ -6,6 +6,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './admin-product-form.css';
 import { Link } from 'react-router-dom';
 import ImageUploading from 'react-images-uploading';
+import { uid } from 'uid';
+import { storageService } from '../../../services/storage.service';
 
 export const AdminProductForm = () => {
 	const [images, setImages] = useState([]);
@@ -15,8 +17,8 @@ export const AdminProductForm = () => {
 		setImages(imageList);
 	};
 
-	const { categories } = useContext(AppContext);
-	const [ingredientsDictionary, setIngredientsDictionary] = useState([]);
+	const { categories, ingredients } = useContext(AppContext);
+
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const isInEditMode = useMemo(() => id !== undefined, [id]);
@@ -33,12 +35,7 @@ export const AdminProductForm = () => {
 		ingredients: [],
 		state: '',
 	});
-	useEffect(() => {
-		(async () => {
-			const data = await productsService.getIngredientsDictionary();
-			setIngredientsDictionary(data);
-		})();
-	});
+
 	useEffect(() => {
 		if (isInEditMode) {
 			(async () => {
@@ -61,11 +58,9 @@ export const AdminProductForm = () => {
 
 	const handleChange = e => {
 		const { value, name, checked } = e.target;
-		console.log(e.target);
 		let tempState = {};
-		//To jest czeckbox
+
 		if (name?.includes('-')) {
-			// debugger
 			const [groupName, itemName] = name.split('-');
 			tempState = {
 				...product,
@@ -87,8 +82,24 @@ export const AdminProductForm = () => {
 	const onSubmit = async e => {
 		e.preventDefault();
 		if (isInEditMode) {
-			await productsService.editProductById(id);
+			await productsService.editProductById(id, product);
 		} else {
+			const productId = uid();
+			const productClone = {...product, id: productId, photos: []}
+			
+			for await (const imageData of images){
+				const {file} = imageData;
+				const id = uid();
+				const type = file.name.split('.').pop();
+				const photoId = `${id}.${type}`
+				const path = `${productId}/${photoId}`;
+				await storageService.addImage(path, file)
+				productClone.photos.push({
+					fileName: photoId,
+					name: 'Test',
+					type: images.indexOf(imageData) === 0 ? 'main' : 'standard'
+				})
+			}
 			await productsService.addProduct(product);
 		}
 		navigate('/admin');
@@ -122,7 +133,7 @@ export const AdminProductForm = () => {
 						type='text'
 						name='description'
 						id='description'
-						rows='10'
+						rows='8'
 						cols='50'
 						value={product.description}
 						onChange={handleChange}></textarea>
@@ -133,71 +144,72 @@ export const AdminProductForm = () => {
 						type='text'
 						name='description_en'
 						id='description_en'
-						rows='10'
+						rows='8'
 						cols='50'
 						value={product.description_en}
 						onChange={handleChange}></textarea>
 				</div>
-				<div className='admin-form-weight'>
-					<label htmlFor='weiht'>Waga</label>
-					<input
-						type='number'
-						min='0.5'
-						max='15'
-						step='0.5'
-						name='weight'
-						id='weight'
-						value={product.weight}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className='admin-form-persons'>
-					<label htmlFor='persons'>Ilośc osób</label>
-					<input
-						type='number'
-						min='1'
-						max='15'
-						step='1'
-						name='persons'
-						id='persons'
-						value={product.persons}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className='admin-form-category'>
-					<label htmlFor='category'> Kategoria</label>
-					<select
-						name='category'
-						id='category'
-						value={product.category}
-						onChange={handleChange}>
-						<option disabled defaultValue={true} value=''>
-							Wybierz kategorię
-						</option>
-						{categories?.map(category => (
-							<option value={category.value}>{category.label}</option>
-						))}
-					</select>
-				</div>
-				<div className='admin-form-subcategory'>
-					<label htmlFor='subcategory'>Podkategoria</label>
-					<select
-						name='subcategory'
-						id='subcategory'
-						value={product.subcategory}
-						onChange={handleChange}>
-						<option defaultValue={true} disabled value=''>
-							Wybierz subkategorię
-						</option>
-						<option value='A'>A</option>
-						<option value='B'>B</option>
-						<option value='C'>C</option>
-					</select>
-				</div>
-
+				<section className='short-inputs'>
+					<div className='short-input'>
+						<label htmlFor='weiht'>Waga</label>
+						<input
+							type='number'
+							min='0.5'
+							max='15'
+							step='0.5'
+							name='weight'
+							id='weight'
+							value={product.weight}
+							onChange={handleChange}
+						/>
+					</div>
+					<div className='short-input'>
+						<label htmlFor='persons'>Ilośc osób</label>
+						<input
+							type='number'
+							min='1'
+							max='15'
+							step='1'
+							name='persons'
+							id='persons'
+							value={product.persons}
+							onChange={handleChange}
+						/>
+					</div>
+					<div className='short-input'>
+						<label htmlFor='category'> Kategoria</label>
+						<select
+							name='category'
+							id='category'
+							value={product.category}
+							onChange={handleChange}>
+							<option disabled defaultValue={true} value=''>
+								Wybierz kategorię
+							</option>
+							{categories?.map(category => (
+								<option value={category.value}>{category.label}</option>
+							))}
+						</select>
+					</div>
+					<div className='short-input'>
+						<label htmlFor='subcategory'>Podkategoria</label>
+						<select
+							name='subcategory'
+							id='subcategory'
+							value={product.subcategory}
+							onChange={handleChange}>
+							<option defaultValue={true} disabled value=''>
+								Wybierz subkategorię
+							</option>
+							<option value='A'>A</option>
+							<option value='B'>B</option>
+							<option value='C'>C</option>
+						</select>
+					</div>
+				</section>
 				<fieldset className='admin-form-ingredients'>
 					<legend>Składniki</legend>
-					{ingredientsDictionary.map(item => (
+					{ingredients.map(item => (
 						<div>
 							<label htmlFor={item.value}>{item.label}</label>
 							<input
@@ -210,8 +222,79 @@ export const AdminProductForm = () => {
 						</div>
 					))}
 				</fieldset>
+
+				<fieldset>
+					<legend>Dodaj zdjęcia</legend>
+					<ImageUploading
+						multiple
+						value={images}
+						onChange={onChange}
+						maxNumber={10}
+						dataURLKey='data_url'>
+						{({
+							imageList,
+							onImageUpload,
+							onImageRemoveAll,
+							onImageUpdate,
+							onImageRemove,
+							isDragging,
+							dragProps,
+						}) => (
+							// write your building UI
+							<div className='upload__image-wrapper'>
+								<section className='add-buttons'>
+									<button
+										className='button add-img-btn'
+										style={isDragging ? { color: 'red' } : undefined}
+										onClick={e => {
+											e.preventDefault();
+											onImageUpload(e);
+										}}
+										{...dragProps}>
+										Dodaj zdjęcia lub przeciągnij je tutaj
+									</button>
+
+									<button
+										disabled={images.length == 0}
+										className='button'
+										onClick={e => {
+											e.preventDefault();
+											onImageRemoveAll(e);
+										}}>
+										Usuń wszystkie zdjecia
+									</button>
+								</section>
+								<section className='add-img'>
+									{imageList.map((image, index) => (
+										<div key={index} className='image-item'>
+											<img src={image['data_url']} alt='' width='100' />
+											<div className='image-item__btn-wrapper'>
+												<button
+													className='button'
+													onClick={e => {
+														e.preventDefault();
+														onImageUpdate(index);
+													}}>
+													Zaktualizuj
+												</button>
+												<button
+													className='button'
+													onClick={e => {
+														e.preventDefault();
+														onImageRemove(index);
+													}}>
+													Usuń
+												</button>
+											</div>
+										</div>
+									))}
+								</section>
+							</div>
+						)}
+					</ImageUploading>
+				</fieldset>
 				<div>
-					<label htmlFor='state'>Pokaż na stronie</label>
+					<label htmlFor='state'>Pokaż produkt na stronie</label>
 					<input
 						type='checkbox'
 						name='state'
@@ -224,66 +307,6 @@ export const AdminProductForm = () => {
 						}}
 					/>
 				</div>
-
-				<ImageUploading
-					multiple
-					value={images}
-					onChange={onChange}
-					maxNumber={10}
-					dataURLKey='data_url'>
-					{({
-						imageList,
-						onImageUpload,
-						onImageRemoveAll,
-						onImageUpdate,
-						onImageRemove,
-						isDragging,
-						dragProps,
-					}) => (
-						// write your building UI
-						<div className='upload__image-wrapper'>
-							<button
-								style={isDragging ? { color: 'red' } : undefined}
-								onClick={e => {
-									e.preventDefault();
-									onImageUpload(e);
-								}}
-								{...dragProps}>
-								Click or Drop here
-							</button>
-							&nbsp;
-							<button
-								onClick={e => {
-									e.preventDefault();
-									onImageRemoveAll(e);
-								}}>
-								Remove all images
-							</button>
-							{imageList.map((image, index) => (
-								<div key={index} className='image-item'>
-									<img src={image['data_url']} alt='' width='100' />
-									<div className='image-item__btn-wrapper'>
-										<button
-											onClick={e => {
-												e.preventDefault();
-												onImageUpdate(index);
-											}}>
-											Update
-										</button>
-										<button
-											onClick={e => {
-												e.preventDefault();
-												onImageRemove(index);
-											}}>
-											Remove
-										</button>
-									</div>
-								</div>
-							))}
-						</div>
-					)}
-				</ImageUploading>
-
 				<Link to='/admin' className='button'>
 					Wróć bez zapisywania
 				</Link>

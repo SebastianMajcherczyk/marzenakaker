@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { productsService } from '../../../services/products.service';
 import { AdminProductRow } from './admin-product-row/adminProductRow';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../../../ContextProvider';
 import './adminProductList.css';
 export const AdminProductList = () => {
+	const {sortingCriteria} = useContext(AppContext)
 	const [products, setProducts] = useState([]);
 	const getProducts = async () => {
-		const data = await productsService.getProducts();
+		const data = await productsService.getProducts(sortingCriteria, false);
 		setProducts(data);
 	};
 	const onDelete = async id => {
@@ -15,7 +17,7 @@ export const AdminProductList = () => {
 	};
 	useEffect(() => {
 		getProducts();
-	}, []);
+	}, [sortingCriteria]);
 
 	return (
 		<div className='admin-list-container'>

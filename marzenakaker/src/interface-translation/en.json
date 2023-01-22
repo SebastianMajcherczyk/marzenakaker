@@ -37,5 +37,8 @@
 	"INGREDIENTS_DICT_NUTS": "Nuts",
 	"INGREDIENTS_DICT_CREAM": "Cream",
 	"INGREDIENTS_DICT_BISQUIT": "Bisquit",
-	"INGREDIENTS_DICT_VANILLA_SUGAR": "Vanilla sugar"
+	"INGREDIENTS_DICT_VANILLA_SUGAR": "Vanilla sugar",
+	"CREATED_AT": "Created at",
+	"ASC": "Ascending",
+	"DESC": "Descending"
 }

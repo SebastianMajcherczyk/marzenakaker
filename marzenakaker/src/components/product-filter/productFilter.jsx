@@ -13,9 +13,9 @@ export const ProductFilter = ({
 	setFilterCriteria,
 	ingredientsFilterMethod,
 	setIngredientsFilterMethod,
+	
 }) => {
-	//const { filterCriteria } = useContext(AppContext);
-	const [ingredientsDictionary, setIngredientsDictionary] = useState([]);
+	const { ingredients, sortingCriteria, setSortingCriteria } = useContext(AppContext);
 	const { t, i18n } = useTranslation();
 	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
@@ -26,12 +26,6 @@ export const ProductFilter = ({
 		e.preventDefault();
 		setFilterCriteria(getDefaultFilterCriteria());
 	};
-	useEffect(() => {
-		(async () => {
-			const data = await productsService.getIngredientsDictionary();
-			setIngredientsDictionary(data);
-		})();
-	});
 
 	const getTranslatedLabel = (key, defaultValue) =>
 		i18n.exists(key) ? t(key) : defaultValue;
@@ -54,7 +48,10 @@ export const ProductFilter = ({
 							trackClassName='track'
 							min={0.5}
 							max={5}
-							defaultValue={[0.5, 5]}
+							value={[
+								+filterCriteria?.weight?.value || 0.5,
+								+filterCriteria?.weight_max.value || 5,
+							]}
 							ariaLabel={['Lower thumb', 'Upper thumb']}
 							ariaValuetext={state => `Thumb value ${state.valueNow}`}
 							renderThumb={(props, state) => (
@@ -202,7 +199,7 @@ export const ProductFilter = ({
 					<legend>{t('CHOOSE INGREDIENTS')}</legend>
 					<section className='section'>
 						<div className='list'>
-							{ingredientsDictionary.map(item => (
+							{ingredients.map(item => (
 								<div key={item.id} className='ingredients-checkbox'>
 									<label htmlFor={item.value}>
 										{getTranslatedLabel(item.translationKey, item.label)}
@@ -243,6 +240,94 @@ export const ProductFilter = ({
 									onChange={() => setIngredientsFilterMethod('AND')}
 								/>
 							</div>
+						</fieldset>
+						<fieldset>
+							<legend>Sortuj wg.:</legend>
+							<div className='list'>
+								<div>
+									<label htmlFor='createdAt'>{t('CREATED_AT')}</label>
+									<input
+										type='radio'
+										id='createdAt'
+										value='creatredAt'
+										name='sorting'
+										checked={sortingCriteria.sortingValue === 'createdAt'}
+										onChange={() =>
+											setSortingCriteria({
+												...sortingCriteria,
+												sortingValue: 'createdAt',
+											})
+										}
+									/>
+								</div>
+								<div>
+									<label htmlFor='weight'>{t('WEIGHT')}</label>
+									<input
+										type='radio'
+										id='weight'
+										value='weight'
+										name='sorting'
+										checked={sortingCriteria.sortingValue === 'weight'}
+										onChange={() =>
+											setSortingCriteria({
+												...sortingCriteria,
+												sortingValue: 'weight',
+											})
+										}
+									/>
+								</div>
+								<div>
+									<label htmlFor='persons'>{t('NUMBER_OF_PERSONS')}</label>
+									<input
+										type='radio'
+										id='persons'
+										value='persons'
+										name='sorting'
+										checked={sortingCriteria.sortingValue === 'persons'}
+										onChange={() =>
+											setSortingCriteria({
+												...sortingCriteria,
+												sortingValue: 'persons',
+											})
+										}
+									/>
+								</div>
+							</div>
+							<fieldset className='filter-method'>
+								<legend>Sortuj:</legend>
+								<div className='method-checkbox'>
+									<label htmlFor='createdAt'>{t('ASC')}</label>
+									<input
+										type='radio'
+										id='asc'
+										value='asc'
+										name='method'
+										checked={sortingCriteria.method === 'asc'}
+										onChange={() =>
+											setSortingCriteria({
+												...sortingCriteria,
+												method: 'asc',
+											})
+										}
+									/>
+								</div>
+								<div className='method-checkbox'>
+									<label htmlFor='desc'>{t('DESC')}</label>
+									<input
+										type='radio'
+										id='desc'
+										value='desc'
+										name='method'
+										checked={sortingCriteria.method === 'desc'}
+										onChange={() =>
+											setSortingCriteria({
+												...sortingCriteria,
+												method: 'desc',
+											})
+										}
+									/>
+								</div>
+							</fieldset>
 						</fieldset>
 					</section>
 				</fieldset>

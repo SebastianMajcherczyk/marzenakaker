@@ -7,7 +7,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 }
 .admin-form div {
 	margin: 10px;
@@ -23,23 +22,56 @@ input option {
 	font-size: 16px;
 }
 
-.admin-form>textarea:focus{
-	border-width: 5px;
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+	background-color: #eef;
 }
 
 .section {
 	display: flex;
 	flex-direction: column;
 }
-
+.short-inputs{
+	display: flex;
+	flex-wrap: wrap;
+}
 .admin-form .button {
 	display: block;
 	margin: 10px auto;
 	width: 50%;
 }
 
-@media (min-width: 992px){
-	.admin-form-container{
+.upload__image-wrapper{
+	width: 100%;
+
+}
+.add-buttons{
+width: 350px;	
+margin: auto;
+}
+.image-item{
+	display: flex;
+	flex-wrap: wrap;
+	border: 2px solid #eee;
+	padding: 5px;
+}
+
+.add-img-btn{
+	padding: 20px 0;
+}
+
+.image-item .button{
+	width: 100%;
+}
+.add-img{
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+@media (min-width: 992px) {
+	.admin-form-container {
 		width: 80%;
 	}
 }
