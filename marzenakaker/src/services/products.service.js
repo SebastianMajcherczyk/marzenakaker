@@ -29,15 +29,14 @@ let initialData = initialDataDef;
 const productsServiceDef = () => {
 	const getProducts = async (sortingCriteria, onlyActive = true) => {
 		const collectionRef = collection(db, 'products');
-		console.log(sortingCriteria);
-
-		const queryParams = []
-		
-		if(onlyActive){
-			queryParams.push(where('state', '==','active'))
+		const queryParams = [];
+		if (onlyActive) {
+			queryParams.push(where('state', '==', 'active'));
 		}
-		queryParams.push(orderBy(`${sortingCriteria.sortingValue}`, `${sortingCriteria.method}`))
-		const q = query(collectionRef,  ...queryParams)
+		queryParams.push(
+			orderBy(`${sortingCriteria.sortingValue}`, `${sortingCriteria.method}`)
+		);
+		const q = query(collectionRef, ...queryParams);
 
 		// const q = query(collectionRef, orderBy(`${sortingCriteria.sortingValue}`, `${sortingCriteria.method}`), where ('state', 'in', onlyActive ? ['active'] : ['active', 'inactive']))
 		const snapshots = await getDocs(q);
@@ -58,9 +57,11 @@ const productsServiceDef = () => {
 
 	const getProductById = async idValue => {
 		const collectionRef = collection(db, 'products');
-		const q = query(collectionRef, where('id', 'in', [Number(idValue), String(idValue)]));
+		const q = query(
+			collectionRef,
+			where('id', 'in', [Number(idValue), String(idValue)])
+		);
 		const snapshots = await getDocs(q);
-		console.log(snapshots.docs[0]);
 		return snapshots.docs[0].data();
 	};
 
@@ -108,7 +109,7 @@ const productsServiceDef = () => {
 		console.log(product);
 		try {
 			const collectionRef = collection(db, 'products');
-			
+
 			const data = {
 				id: product.id,
 				photos: [
