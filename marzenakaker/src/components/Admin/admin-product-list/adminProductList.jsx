@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 import { AppContext } from '../../../ContextProvider';
 import './adminProductList.css';
 export const AdminProductList = () => {
-	const {sortingCriteria} = useContext(AppContext)
+
 	const [products, setProducts] = useState([]);
 	const getProducts = async () => {
-		const data = await productsService.getProducts(sortingCriteria, false);
+		const data = await productsService.getProducts(false);
 		setProducts(data);
 	};
 	const onDelete = async id => {
-		await productsService.deleteProductById(id);
+		await productsService.deleteProductAndConnectedPhotosById(id);
 		await getProducts();
 	};
 	useEffect(() => {
 		getProducts();
-	}, [sortingCriteria]);
+	}, []);
 
 	return (
 		<div className='admin-list-container'>

@@ -1,4 +1,4 @@
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '..';
 
 const storageServiceDef = () => {
@@ -11,10 +11,14 @@ const storageServiceDef = () => {
 		const storageRef = ref(storage, path);
 		await uploadBytes(storageRef, file);
 	};
-
+	const deleteImage = async (path) => {
+		const storageRef = ref(storage, path);
+		await deleteObject(storageRef);
+	};
 	return {
 		getImageById,
-        addImage
+        addImage,
+		deleteImage
 	};
 };
 

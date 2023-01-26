@@ -27,6 +27,7 @@ const ProductsList = () => {
 
 	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
+	
 	const { data, productIds } = useMemo(() => {
 		const filteredProducts = getProductsByFilters(products, filterCriteria, {
 			ingredientsFilterMethod,
@@ -42,12 +43,27 @@ const ProductsList = () => {
 	// 		setProducts(data);
 	// 	})();
 	// }, []);
+	const sortedProducts = useMemo(() => {
+		const sorted = [...data].sort((a, b) => {
+			if (sortingCriteria.method === 'asc')
+				return (
+					a[sortingCriteria.sortingValue] - b[sortingCriteria.sortingValue]
+				);
+			else if (sortingCriteria.method === 'desc') {
+				return (
+					b[sortingCriteria.sortingValue] - a[sortingCriteria.sortingValue]
+				);
+			}
+		});
+		return sorted
+	}, [data, sortingCriteria]);
 
 	useEffect(() => {
-		const collectionRef = collection(db, 'products');
-		onSnapshot(collectionRef,async  () => {const data = await  productsService.getProducts(sortingCriteria)
-		setProducts(data)});
-	}, [sortingCriteria]);
+		(async () => {
+		const data = await  productsService.getProducts()
+		setProducts(data);
+		})()
+	}, []);
 
 	useEffect(() => {
 		setFilteredProductIds?.(productIds);
@@ -113,7 +129,6 @@ const ProductsList = () => {
 		// 	//}
 		// }
 	};
-
 	return (
 		<div className='products-wrapper'>
 			<ProductFilter
@@ -126,7 +141,7 @@ const ProductsList = () => {
 				setSortingCriteria={setSortingCriteria}
 			/>
 			<div className='products-container'>
-				{data.map(item => (
+				{sortedProducts.map(item => (
 					<div
 						key={item.id}
 						onClick={() => {

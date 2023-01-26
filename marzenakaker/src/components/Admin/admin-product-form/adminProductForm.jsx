@@ -33,7 +33,7 @@ export const AdminProductForm = () => {
 		category: '',
 		subcategory: '',
 		ingredients: [],
-		state: '',
+		state: 'inactive',
 	});
 
 	useEffect(() => {
@@ -100,7 +100,7 @@ export const AdminProductForm = () => {
 					type: images.indexOf(imageData) === 0 ? 'main' : 'standard'
 				})
 			}
-			await productsService.addProduct(product);
+			await productsService.addProduct(productClone);
 		}
 		navigate('/admin');
 	};
@@ -256,7 +256,7 @@ export const AdminProductForm = () => {
 
 									<button
 										disabled={images.length == 0}
-										className='button'
+										className={`button ${images.length == 0 ? 'invisible' : ''}`}
 										onClick={e => {
 											e.preventDefault();
 											onImageRemoveAll(e);

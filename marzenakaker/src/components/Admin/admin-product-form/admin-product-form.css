@@ -32,7 +32,7 @@ input option {
 	display: flex;
 	flex-direction: column;
 }
-.short-inputs{
+.short-inputs {
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -42,36 +42,41 @@ input option {
 	width: 50%;
 }
 
-.upload__image-wrapper{
+.upload__image-wrapper {
 	width: 100%;
-
 }
-.add-buttons{
-width: 350px;	
-margin: auto;
+.add-buttons {
+	width: 350px;
+	margin: auto;
 }
-.image-item{
+.image-item {
 	display: flex;
 	flex-wrap: wrap;
 	border: 2px solid #eee;
 	padding: 5px;
 }
 
-.add-img-btn{
+.add-img-btn {
 	padding: 20px 0;
 }
 
-.image-item .button{
+.image-item .button {
 	width: 100%;
 }
-.add-img{
+.add-img {
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 }
 
+
 @media (min-width: 992px) {
 	.admin-form-container {
 		width: 80%;
 	}
+}
+
+
+.admin-form  .invisible {
+	display: none;
 }
