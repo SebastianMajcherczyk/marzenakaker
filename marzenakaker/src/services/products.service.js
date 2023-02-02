@@ -10,16 +10,14 @@ import {
 	doc,
 	getDoc,
 	getDocs,
-	getFirestore,
 	query,
 	setDoc,
 	serverTimestamp,
-	orderBy,
 	where,
 	deleteDoc,
-	ref,
 	onSnapshot,
 	updateDoc,
+	arrayRemove,
 } from 'firebase/firestore';
 import { db } from './../index';
 import { async } from '@firebase/util';
@@ -34,9 +32,7 @@ const productsServiceDef = () => {
 		if (onlyActive) {
 			queryParams.push(where('state', '==', 'active'));
 		}
-		// queryParams.push(
-		// 	orderBy(`${sortingCriteria.sortingValue}`, `${sortingCriteria.method}`)
-		// );
+
 		const q = query(collectionRef, ...queryParams);
 
 		const snapshots = await getDocs(q);
@@ -65,14 +61,29 @@ const productsServiceDef = () => {
 			where('id', 'in', [Number(idValue), String(idValue)])
 		);
 		const snapshots = await getDocs(q);
-		return snapshots.docs[0].data();
+		const docSnap = snapshots.docs[0];
+		const data  = {
+			...docSnap.data(),
+			firebaseId: docSnap.id
+		} 
+
+		return data;
+		//return snapshots.docs[0].data();
 	};
-	//przerobić tak żeby korzystał z firestoreId
-	const deleteProductById = async idValue => {
+
+	const deletePhotoDataByIdAndFileName = async (idValue, imageName) => {
 		const collectionRef = collection(db, 'products');
 		const q = query(collectionRef, where('id', '==', idValue));
 		const snapshots = await getDocs(q);
-		deleteDoc(snapshots.docs[0].ref);
+		const productSnap = snapshots.docs[0];
+		const productRef = productSnap.ref;
+		const { photos } = productSnap.data();
+		const photo = photos.find(element => element.fileName === imageName);
+
+		
+		await updateDoc(productRef, {
+			photos: arrayRemove(photo),
+		});
 	};
 
 	const deleteProductAndConnectedPhotosById = async idValue => {
@@ -92,24 +103,36 @@ const productsServiceDef = () => {
 	};
 
 	const editProductById = async (idValue, product) => {
-		console.log(idValue, product);
 		const collectionRef = collection(db, 'products');
-		const q = query(collectionRef, where('id', '==', idValue));
+		const q = query(
+			collectionRef,
+			where('id', 'in', [Number(idValue), String(idValue)])
+		);
 		const snapshots = await getDocs(q);
+		const docHandler = snapshots.docs[0];
+
+		//const firestoreId = docHandler.id
+		const docRef = docHandler.ref;
+		//const currentProduct = docHandler.data();
+		//const docRef = doc(db, 'products', firestoreId)
 		const data = {
-			'name.pl': product.name,
-			'name.en': product.name_en,
-			'description.pl': product.description,
-			'description.en': product.description_en,
+			photos: [ ...product.photos],
+			name: {
+				pl: product.name,
+				en: product.name_en,
+			},
+			description: {
+				pl: product.description,
+				en: product.description_en,
+			},
 			weight: product.weight,
 			persons: product.persons,
 			category: product.category,
 			subcategory: product.subcategory,
 			ingredients: product.ingredients,
 			state: product.state,
-			createdAt: serverTimestamp(),
 		};
-		updateDoc(snapshots.docs[0].ref, data);
+		await updateDoc(docRef, data);
 	};
 
 	const addProduct = async product => {
@@ -168,7 +191,7 @@ const productsServiceDef = () => {
 		getCategoryDictionary,
 		getIngredientsDictionary,
 		getProductById,
-		deleteProductById,
+		deletePhotoDataByIdAndFileName,
 		deleteProductAndConnectedPhotosById,
 		editProductById,
 		addProduct,

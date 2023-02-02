@@ -1,0 +1,18 @@
+.ConfirmToast-module_container__HJqtg{
+background-color: #322C3a;
+width: 300px;
+text-align: center;
+}
+
+
+
+.ConfirmToast-module_button__CkwoM.ConfirmToast-module_button_no__fwzkG, 
+.ConfirmToast-module_button__CkwoM.ConfirmToast-module_button_yes__3iwcr{
+    background-color: #322c3a;
+} 
+
+
+
+.button{
+    min-width: 60px;
+}

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import ImageUploading from 'react-images-uploading';
 import { uid } from 'uid';
 import { storageService } from '../../../services/storage.service';
+import { ConfirmToast } from 'react-confirm-toast';
 
 export const AdminProductForm = () => {
 	const [images, setImages] = useState([]);
@@ -16,12 +17,13 @@ export const AdminProductForm = () => {
 		console.log(imageList, addUpdateIndex);
 		setImages(imageList);
 	};
-
+	const [urlsConfig, setUrlsConfig] = useState([]);
 	const { categories, ingredients } = useContext(AppContext);
 
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const isInEditMode = useMemo(() => id !== undefined, [id]);
+	const [originalProduct, setOriginalProduct] = useState(null);
 
 	const [product, setProduct] = useState({
 		name: '',
@@ -35,11 +37,12 @@ export const AdminProductForm = () => {
 		ingredients: [],
 		state: 'inactive',
 	});
-
+	const [activeFoto, setActiveFoto] = useState(null);
 	useEffect(() => {
 		if (isInEditMode) {
 			(async () => {
 				const data = await productsService.getProductById(id);
+				setOriginalProduct(data);
 				setProduct({
 					name: data.name.pl,
 					name_en: data.name.en,
@@ -51,10 +54,63 @@ export const AdminProductForm = () => {
 					subcategory: data.subcategory,
 					ingredients: data.ingredients,
 					state: data.state,
+					photos: data.photos,
+				});
+
+				const mainFoto = data.photos.find(({ type }) => type === 'main');
+
+				setActiveFoto({
+					type: 'from-server',
+					name: mainFoto.fileName,
 				});
 			})();
 		}
 	}, [isInEditMode, id]);
+	const photos = useMemo(() => product?.photos || [], [product]);
+
+	const getUrlByFileName = fileName => {
+		return urlsConfig.find(config => config.fileName === fileName)?.url;
+	};
+	const deleteImageAndData = async (productId, photo) => {
+		console.log(photo);
+		const path = `${productId}/${photo}`;
+		await storageService.deleteImage(path);
+		await productsService.deletePhotoDataByIdAndFileName(productId, photo);
+
+		const newPhotos = photos.filter(element => element.fileName != photo);
+
+		console.log(newPhotos);
+		setProduct({
+			...product,
+			photos: newPhotos,
+		});
+	};
+
+	useEffect(() => {
+		(async () => {
+			const promiseArray = [];
+			const photoFileNameArray = [];
+
+			product?.photos?.forEach(photo => {
+				if (photo.fileName) {
+					const path = `${id}/${photo.fileName}`;
+
+					//const photoId = photo.fileName.split('.')[0];
+					promiseArray.push(storageService.getImageById(path));
+					photoFileNameArray.push(photo.fileName);
+				}
+			});
+
+			const urls = await Promise.all(promiseArray);
+
+			const configs = urls.map((url, index) => ({
+				url,
+				fileName: photoFileNameArray[index],
+			}));
+
+			setUrlsConfig(configs);
+		})();
+	}, [product]);
 
 	const handleChange = e => {
 		const { value, name, checked } = e.target;
@@ -79,26 +135,60 @@ export const AdminProductForm = () => {
 			...tempState,
 		});
 	};
+
 	const onSubmit = async e => {
 		e.preventDefault();
 		if (isInEditMode) {
-			await productsService.editProductById(id, product);
-		} else {
-			const productId = uid();
-			const productClone = {...product, id: productId, photos: []}
-			
-			for await (const imageData of images){
-				const {file} = imageData;
-				const id = uid();
+			const productClone = { ...product, photos: [...originalProduct.photos] };
+
+			// sprawdenie w zbiorze obecnie istniejacych na serwerze fotek
+			productClone.photos = productClone.photos.map(photo => {
+				return {
+					...photo,
+					type:
+						activeFoto.type === 'from-server' &&
+						activeFoto.name === photo.fileName
+							? 'main'
+							: 'standard',
+				};
+			});
+			for await (const imageData of images) {
+				const { file } = imageData;
+				const uniqueId = uid(4);
 				const type = file.name.split('.').pop();
-				const photoId = `${id}.${type}`
+				const photoId = `${uniqueId}.${type}`;
+				const path = `${id}/${photoId}`;
+				await storageService.addImage(path, file);
+				productClone.photos.push({
+					fileName: photoId,
+					name: 'Cake',
+					// sprawdzenie w zbiorze nowych fotek
+					type:
+						activeFoto.type === 'new' &&
+						activeFoto.name === `${file.lastModified}-${file.name}`
+							? 'main'
+							: 'standard',
+				});
+			}
+
+			await productsService.editProductById(id, productClone);
+		} else {
+			const productId = uid(4);
+			const productClone = { ...product, id: productId, photos: [] };
+
+			for await (const imageData of images) {
+				const { file } = imageData;
+
+				const id = uid(4);
+				const type = file.name.split('.').pop();
+				const photoId = `${id}.${type}`;
 				const path = `${productId}/${photoId}`;
-				await storageService.addImage(path, file)
+				await storageService.addImage(path, file);
 				productClone.photos.push({
 					fileName: photoId,
 					name: 'Test',
-					type: images.indexOf(imageData) === 0 ? 'main' : 'standard'
-				})
+					type: images.indexOf(imageData) === 0 ? 'main' : 'standard',
+				});
 			}
 			await productsService.addProduct(productClone);
 		}
@@ -222,6 +312,53 @@ export const AdminProductForm = () => {
 						</div>
 					))}
 				</fieldset>
+				<fieldset>
+					<legend>Aktualne zdjecia produktu</legend>
+					<section className='add-img upload__image-wrapper'>
+						{photos.map(photo => (
+							<div className='image-item'>
+								<img
+									src={getUrlByFileName(photo.fileName)}
+									width='100'
+									alt='Cake'
+								/>
+								<div>
+									<input
+										type='radio'
+										id='main'
+										name='main'
+										checked={
+											activeFoto?.type === 'from-server' &&
+											activeFoto?.name === photo.fileName
+										}
+										onChange={() => {
+											const config = {
+												type: 'from-server',
+												name: photo.fileName,
+											};
+											setActiveFoto(config);
+										}}
+									/>
+									<label htmlFor='main'>Ustaw jako główne</label>
+									<div>
+										<ConfirmToast
+											asModal={true}
+											customCancel={'Nie usuwaj'}
+											customConfirm={'Usuń'}
+											message={'Czy na pewno chcesz usunąć zdjęcie'}
+											theme={'dark'}
+											showCloseIcon={false}
+											customFunction={() => {
+												deleteImageAndData(id, photo.fileName);
+											}}>
+											<p className='button'>Usuń</p>
+										</ConfirmToast>
+									</div>
+								</div>
+							</div>
+						))}
+					</section>
+				</fieldset>
 
 				<fieldset>
 					<legend>Dodaj zdjęcia</legend>
@@ -256,7 +393,9 @@ export const AdminProductForm = () => {
 
 									<button
 										disabled={images.length == 0}
-										className={`button ${images.length == 0 ? 'invisible' : ''}`}
+										className={`button ${
+											images.length == 0 ? 'invisible' : ''
+										}`}
 										onClick={e => {
 											e.preventDefault();
 											onImageRemoveAll(e);
@@ -265,29 +404,53 @@ export const AdminProductForm = () => {
 									</button>
 								</section>
 								<section className='add-img'>
-									{imageList.map((image, index) => (
-										<div key={index} className='image-item'>
-											<img src={image['data_url']} alt='' width='100' />
-											<div className='image-item__btn-wrapper'>
-												<button
-													className='button'
-													onClick={e => {
-														e.preventDefault();
-														onImageUpdate(index);
-													}}>
-													Zaktualizuj
-												</button>
-												<button
-													className='button'
-													onClick={e => {
-														e.preventDefault();
-														onImageRemove(index);
-													}}>
-													Usuń
-												</button>
+									{imageList.map((image, index) => {
+										const uidValue = uid(4);
+
+										return (
+											<div key={index} className='image-item'>
+												<img src={image['data_url']} alt='' width='100' />
+												<div className='image-item__btn-wrapper'>
+													<input
+														type='radio'
+														id={`main-${uidValue}`}
+														name='main'
+														checked={
+															activeFoto?.type === 'new' &&
+															activeFoto?.name ===
+																`${image.file.lastModified}-${image.file.name}`
+														}
+														onChange={() => {
+															const config = {
+																type: 'new',
+																name: `${image.file.lastModified}-${image.file.name}`,
+															};
+															setActiveFoto(config);
+														}}
+													/>
+													<label htmlFor={`main-${uidValue}`}>
+														Ustaw jako główne
+													</label>
+													<button
+														className='button'
+														onClick={e => {
+															e.preventDefault();
+															onImageUpdate(index);
+														}}>
+														Zmień
+													</button>
+													<button
+														className='button'
+														onClick={e => {
+															e.preventDefault();
+															onImageRemove(index);
+														}}>
+														Usuń
+													</button>
+												</div>
 											</div>
-										</div>
-									))}
+										);
+									})}
 								</section>
 							</div>
 						)}

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../../../../ContextProvider';
 import { Link } from 'react-router-dom';
-
+import { ConfirmToast } from 'react-confirm-toast';
+import './adminProductRow.css'
 export const AdminProductRow = ({ product, onDelete }) => {
-	const { setIdToEdit } = useContext(AppContext);
+	// const { setIdToEdit } = useContext(AppContext);
 	const deleteProduct = async () => {
 		await onDelete(product.id);
 	};
@@ -16,13 +17,23 @@ export const AdminProductRow = ({ product, onDelete }) => {
 			<td className='actions'>
 				<Link
 					className='button'
-					onClick={() => setIdToEdit(product.id)}
+					// onClick={() => setIdToEdit(product.id)}
 					to={'product/edit/' + product.id}>
 					Edytuj
 				</Link>
-				<button className='button btn-delete' onClick={deleteProduct}>
-					Usuń
-				</button>
+				<ConfirmToast 
+					asModal={true}
+					customCancel={'Nie usuwaj'}
+					customConfirm={'Usuń'}
+					message={'Czy na pewno chcesz usunąć produkt'}
+					theme={'dark'}
+					customFunction={deleteProduct}
+					
+				>
+					<button className='button btn-delete' >
+						Usuń
+					</button>
+				</ConfirmToast>
 			</td>
 		</tr>
 	);

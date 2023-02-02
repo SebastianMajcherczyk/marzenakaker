@@ -42,7 +42,10 @@ box-shadow:  6px 6px 12px #9d9d9d,
              -6px -6px 12px #ffffff;
                  overflow: hidden;
 }
+.image-container{
+	position: relative;
 
+}
 .arrow {
 	height: 100%;
 	width: 30px;

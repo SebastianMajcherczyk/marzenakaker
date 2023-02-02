@@ -50,7 +50,9 @@ input option {
 	margin: auto;
 }
 .image-item {
+	
 	display: flex;
+	align-items: center;
 	flex-wrap: wrap;
 	border: 2px solid #eee;
 	padding: 5px;

@@ -19,7 +19,7 @@ const Product = ({ product }) => {
 		: mainPhoto.src.startsWith('http')
 		? mainPhoto.src
 		: path + mainPhoto.src;
-
+	
 	useEffect(() => {
 		(async () => {
 			if (serverFilePath) {
@@ -28,7 +28,8 @@ const Product = ({ product }) => {
 			}
 		})();
 	}, [product]);
-
+console.log(serverFilePath);
+console.log(localFilePath);
 	return (
 		<div className='product-card'>
 			<div className='image-box'>

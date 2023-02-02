@@ -25,6 +25,10 @@ export const ProductFilter = ({
 	const resetFilter = e => {
 		e.preventDefault();
 		setFilterCriteria(getDefaultFilterCriteria());
+		setSortingCriteria({
+			sortingValue: 'createdAt',
+			method: 'asc'
+		})
 	};
 
 	const getTranslatedLabel = (key, defaultValue) =>
