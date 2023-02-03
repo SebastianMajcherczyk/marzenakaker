@@ -6,20 +6,12 @@ import './product.css';
 const Product = ({ product }) => {
 	const [url, setUrl] = useState(undefined);
 	const { language } = useContext(AppContext);
+	const mainPhoto =
+		product.photos.find(element => element.type === 'main') ||
+		product.photos.find(element => element.type === 'standard');
 
-	const path = process.env.PUBLIC_URL;
-	const mainPhoto = product.photos.find(element => element.type === 'main');
+	const serverFilePath = `${product.id}/${mainPhoto?.fileName}`;
 
-	const isFileFromServer = Boolean(mainPhoto?.fileName);
-	const serverFilePath = isFileFromServer
-		? `${product.id}/${mainPhoto?.fileName}`
-		: undefined;
-	const localFilePath = isFileFromServer
-		? undefined
-		: mainPhoto.src.startsWith('http')
-		? mainPhoto.src
-		: path + mainPhoto.src;
-	
 	useEffect(() => {
 		(async () => {
 			if (serverFilePath) {
@@ -28,22 +20,11 @@ const Product = ({ product }) => {
 			}
 		})();
 	}, [product]);
-console.log(serverFilePath);
-console.log(localFilePath);
+
 	return (
 		<div className='product-card'>
 			<div className='image-box'>
-				{mainPhoto && (
-					<img
-						// src={
-						// 	mainPhoto.src.startsWith('http')
-						// 		? mainPhoto.src
-						// 		: path + mainPhoto.src
-						// }
-						src={isFileFromServer ? url : localFilePath}
-						alt={mainPhoto.alt}
-					/>
-				)}
+				{mainPhoto && <img src={url} alt={mainPhoto.name} />}
 			</div>
 			<div className='text-box'>
 				<p className='p1'>{product.name[language]}</p>

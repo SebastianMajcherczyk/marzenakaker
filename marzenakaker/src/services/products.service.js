@@ -20,7 +20,7 @@ import {
 	arrayRemove,
 } from 'firebase/firestore';
 import { db } from './../index';
-import { async } from '@firebase/util';
+
 import { storageService } from './storage.service';
 
 let initialData = initialDataDef;
@@ -55,19 +55,23 @@ const productsServiceDef = () => {
 	};
 
 	const getProductById = async idValue => {
-		const collectionRef = collection(db, 'products');
-		const q = query(
-			collectionRef,
-			where('id', 'in', [Number(idValue), String(idValue)])
-		);
-		const snapshots = await getDocs(q);
-		const docSnap = snapshots.docs[0];
-		const data  = {
-			...docSnap.data(),
-			firebaseId: docSnap.id
-		} 
+		try {
+			const collectionRef = collection(db, 'products');
+			const q = query(
+				collectionRef,
+				where('id', 'in', [Number(idValue), String(idValue)])
+			);
+			const snapshots = await getDocs(q);
+			const docSnap = snapshots.docs[0];
+			const data = {
+				...docSnap.data(),
+				firestoreId: docSnap.id,
+			};
 
-		return data;
+			return data;
+		} catch (error) {
+			console.log(error);
+		}
 		//return snapshots.docs[0].data();
 	};
 
@@ -79,7 +83,6 @@ const productsServiceDef = () => {
 		const productRef = productSnap.ref;
 		const { photos } = productSnap.data();
 		const photo = photos.find(element => element.fileName === imageName);
-
 		
 		await updateDoc(productRef, {
 			photos: arrayRemove(photo),
@@ -102,21 +105,10 @@ const productsServiceDef = () => {
 		deleteDoc(productRef);
 	};
 
-	const editProductById = async (idValue, product) => {
-		const collectionRef = collection(db, 'products');
-		const q = query(
-			collectionRef,
-			where('id', 'in', [Number(idValue), String(idValue)])
-		);
-		const snapshots = await getDocs(q);
-		const docHandler = snapshots.docs[0];
-
-		//const firestoreId = docHandler.id
-		const docRef = docHandler.ref;
-		//const currentProduct = docHandler.data();
-		//const docRef = doc(db, 'products', firestoreId)
+	const editProductByFirestoreId = async (firestoreId, product) => {
+		const docRef = doc(db, 'products', firestoreId);
 		const data = {
-			photos: [ ...product.photos],
+			photos: [...product.photos],
 			name: {
 				pl: product.name,
 				en: product.name_en,
@@ -136,7 +128,7 @@ const productsServiceDef = () => {
 	};
 
 	const addProduct = async product => {
-		console.log(product);
+		
 		try {
 			const collectionRef = collection(db, 'products');
 
@@ -160,7 +152,7 @@ const productsServiceDef = () => {
 				createdAt: serverTimestamp(),
 			};
 			await addDoc(collection(db, 'products'), data);
-			console.log(collectionRef.id);
+		
 		} catch (error) {
 			console.log(error);
 		}
@@ -193,7 +185,7 @@ const productsServiceDef = () => {
 		getProductById,
 		deletePhotoDataByIdAndFileName,
 		deleteProductAndConnectedPhotosById,
-		editProductById,
+		editProductByFirestoreId,
 		addProduct,
 		createProductsMock,
 		createCategoryDictMock,

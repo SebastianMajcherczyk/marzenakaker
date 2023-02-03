@@ -14,7 +14,7 @@ export const AdminProductForm = () => {
 	const [images, setImages] = useState([]);
 	const onChange = (imageList, addUpdateIndex) => {
 		// data for submit
-		console.log(imageList, addUpdateIndex);
+		
 		setImages(imageList);
 	};
 	const [urlsConfig, setUrlsConfig] = useState([]);
@@ -38,6 +38,38 @@ export const AdminProductForm = () => {
 		state: 'inactive',
 	});
 	const [activeFoto, setActiveFoto] = useState(null);
+
+const loadProduct = async () => {
+
+			
+				const data = await productsService.getProductById(id);
+				setOriginalProduct(data);
+				setProduct({
+					name: data.name.pl,
+					name_en: data.name.en,
+					description: data.description.pl,
+					description_en: data.description.en,
+					weight: data.weight,
+					persons: data.persons,
+					category: data.category,
+					subcategory: data.subcategory,
+					ingredients: data.ingredients,
+					state: data.state,
+					photos: data.photos,
+				});
+
+				const mainFoto = data.photos.find(({ type }) => type === 'main');
+
+				setActiveFoto({
+					type: 'from-server',
+					name: mainFoto.fileName,
+				});
+			
+
+
+}
+
+
 	useEffect(() => {
 		if (isInEditMode) {
 			(async () => {
@@ -77,7 +109,7 @@ export const AdminProductForm = () => {
 		await storageService.deleteImage(path);
 		await productsService.deletePhotoDataByIdAndFileName(productId, photo);
 
-		const newPhotos = photos.filter(element => element.fileName != photo);
+		const newPhotos = photos.filter(element => element.fileName !== photo);
 
 		console.log(newPhotos);
 		setProduct({
@@ -136,12 +168,16 @@ export const AdminProductForm = () => {
 		});
 	};
 
-	const onSubmit = async e => {
+	const saveProduct = async e => {
 		e.preventDefault();
 		if (isInEditMode) {
-			const productClone = { ...product, photos: [...originalProduct.photos] };
 
-			// sprawdenie w zbiorze obecnie istniejacych na serwerze fotek
+	
+
+			const productClone = { ...product, photos: [...product.photos] };
+
+
+			// sprawdzenie w zbiorze obecnie istniejacych na serwerze fotek
 			productClone.photos = productClone.photos.map(photo => {
 				return {
 					...photo,
@@ -152,6 +188,7 @@ export const AdminProductForm = () => {
 							: 'standard',
 				};
 			});
+			
 			for await (const imageData of images) {
 				const { file } = imageData;
 				const uniqueId = uid(4);
@@ -171,7 +208,12 @@ export const AdminProductForm = () => {
 				});
 			}
 
-			await productsService.editProductById(id, productClone);
+			await productsService.editProductByFirestoreId(
+				originalProduct.firestoreId,
+				productClone
+			);
+			
+
 		} else {
 			const productId = uid(4);
 			const productClone = { ...product, id: productId, photos: [] };
@@ -191,12 +233,23 @@ export const AdminProductForm = () => {
 				});
 			}
 			await productsService.addProduct(productClone);
+			setImages([]);
 		}
-		navigate('/admin');
 	};
+	const saveAndStay = async (e) => {
+		await saveProduct(e);
+		await loadProduct()
+		setImages([])
+	}
+	const saveAndExit = (e) =>{
+		saveProduct(e);
+		navigate('/admin');
+
+	}
+
 	return (
 		<div className='admin-form-container'>
-			<form className='admin-form' onSubmit={onSubmit}>
+			<form className='admin-form' onSubmit={saveAndExit}>
 				<div className='section admin-form-name'>
 					<label htmlFor='name'>Nazwa</label>
 					<input
@@ -315,48 +368,51 @@ export const AdminProductForm = () => {
 				<fieldset>
 					<legend>Aktualne zdjecia produktu</legend>
 					<section className='add-img upload__image-wrapper'>
-						{photos.map(photo => (
-							<div className='image-item'>
-								<img
-									src={getUrlByFileName(photo.fileName)}
-									width='100'
-									alt='Cake'
-								/>
-								<div>
-									<input
-										type='radio'
-										id='main'
-										name='main'
-										checked={
-											activeFoto?.type === 'from-server' &&
-											activeFoto?.name === photo.fileName
-										}
-										onChange={() => {
-											const config = {
-												type: 'from-server',
-												name: photo.fileName,
-											};
-											setActiveFoto(config);
-										}}
+						{photos.map((photo, index) => {
+							const uidValue = uid(4);
+							return (
+								<div key={index} className='image-item'>
+									<img
+										src={getUrlByFileName(photo.fileName)}
+										width='100'
+										alt='Cake'
 									/>
-									<label htmlFor='main'>Ustaw jako główne</label>
 									<div>
-										<ConfirmToast
-											asModal={true}
-											customCancel={'Nie usuwaj'}
-											customConfirm={'Usuń'}
-											message={'Czy na pewno chcesz usunąć zdjęcie'}
-											theme={'dark'}
-											showCloseIcon={false}
-											customFunction={() => {
-												deleteImageAndData(id, photo.fileName);
-											}}>
-											<p className='button'>Usuń</p>
-										</ConfirmToast>
+										<input
+											type='radio'
+											id={`main--${uidValue}`}
+											name='main'
+											checked={
+												activeFoto?.type === 'from-server' &&
+												activeFoto?.name === photo.fileName
+											}
+											onChange={() => {
+												const config = {
+													type: 'from-server',
+													name: photo.fileName,
+												};
+												setActiveFoto(config);
+											}}
+										/>
+										<label htmlFor='main'>Ustaw jako główne</label>
+										<div>
+											<ConfirmToast
+												asModal={true}
+												customCancel={'Nie usuwaj'}
+												customConfirm={'Usuń'}
+												message={'Czy na pewno chcesz usunąć zdjęcie'}
+												theme={'dark'}
+												showCloseIcon={false}
+												customFunction={() => {
+													deleteImageAndData(id, photo.fileName);
+												}}>
+												<p className='button'>Usuń</p>
+											</ConfirmToast>
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
+							);
+						})}
 					</section>
 				</fieldset>
 
@@ -471,11 +527,11 @@ export const AdminProductForm = () => {
 					/>
 				</div>
 				<Link to='/admin' className='button'>
-					Wróć bez zapisywania
+					Wyjdź bez zapisywania
 				</Link>
-
+				<button className='button' onClick={saveAndStay}>Zapisz</button>
 				<button type='submit' className='button'>
-					Zapisz
+					Zapisz i wyjdź
 				</button>
 			</form>
 		</div>

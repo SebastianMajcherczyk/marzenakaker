@@ -34,8 +34,8 @@ export const AdminProductList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{products.map(product => (
-						<AdminProductRow product={product} onDelete={onDelete} />
+					{products.map((product, index) => (
+						<AdminProductRow key={index} product={product} onDelete={onDelete} />
 					))}
 				</tbody>
 			</table>

@@ -1,10 +1,15 @@
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useState, useMemo, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import './product-card.css';
 import { useNavigate } from 'react-router-dom';
-import { FaChevronLeft, FaChevronRight, FaChevronUp } from 'react-icons/fa';
+import {
+	FaChevronLeft,
+	FaChevronRight,
+	FaChevronUp,
+	FaHotdog,
+} from 'react-icons/fa';
 import { AppContext } from '../../ContextProvider';
 import { useEffect } from 'react';
 import { productsService } from '../../services/products.service';
@@ -12,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { storageService } from '../../services/storage.service';
 
 export const ProductCard = () => {
+	const ref = useRef();
 	const { filteredProductIds, language } = useContext(AppContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -49,26 +55,37 @@ export const ProductCard = () => {
 	const getUrlByFileName = fileName => {
 		return urlsConfig.find(config => config.fileName === fileName)?.url;
 	};
+	useEffect(() => {
+		//Force click on dot in react-responsive-carousel to start autoplay
 
+		if (ref.current) {
+			setTimeout(() => {
+				const dot = ref.current.querySelector('li.dot');
+				dot?.click();
+			}, 500);
+		}
+		//ref.current?.click();
+	}, []);
 	useEffect(() => {
 		(async () => {
-			const promiseArray = [];
-			const photoFileNameArray = [];
-			product.photos.forEach(photo => {
-				if (photo.fileName) {
-					const path = `${product.id}/${photo.fileName}`;
-					//const photoId = photo.fileName.split('.')[0];
-					promiseArray.push(storageService.getImageById(path));
-					photoFileNameArray.push(photo.fileName);
-				}
-			});
-			const urls = await Promise.all(promiseArray);
-			const configs = urls.map((url, index) => ({
-				url,
-				fileName: photoFileNameArray[index],
-			}));
+			if (product) {
+				const promiseArray = [];
+				const photoFileNameArray = [];
+				product.photos.forEach(photo => {
+					if (photo.fileName) {
+						const path = `${product.id}/${photo.fileName}`;
+						promiseArray.push(storageService.getImageById(path));
+						photoFileNameArray.push(photo.fileName);
+					}
+				});
+				const urls = await Promise.all(promiseArray);
+				const configs = urls.map((url, index) => ({
+					url,
+					fileName: photoFileNameArray[index],
+				}));
 
-			setUrlsConfig(configs);
+				setUrlsConfig(configs);
+			}
 		})();
 	}, [product]);
 	useEffect(() => {
@@ -96,7 +113,7 @@ export const ProductCard = () => {
 	};
 
 	const photos = useMemo(() => product?.photos || [], [product]);
-	console.log(photos);
+
 	const isNavigationBtnsActive = filteredProductIds.length > 0;
 	const isFirstInFilteredProductIds =
 		filteredProductIds.indexOf(product?.id) === 0;
@@ -104,7 +121,6 @@ export const ProductCard = () => {
 		filteredProductIds.indexOf(product?.id) === filteredProductIds.length - 1;
 
 	const disabledRight = !isNavigationBtnsActive || isLastInFilteredProductIds;
-
 	const disabledLeft = !isNavigationBtnsActive || isFirstInFilteredProductIds;
 
 	return (
@@ -124,22 +140,23 @@ export const ProductCard = () => {
 				onTouchStart={onTouchStart}
 				onTouchMove={onTouchMove}
 				onTouchEnd={onTouchEnd}>
-				<div className='image-container'>
+				<div className='image-container' ref={ref}>
 					<Carousel
-					autoFocus={true}
+						autoFocus={true}
 						selectedItem={-1}
 						showThumbs={false}
 						width='100%'
 						infiniteLoop={true}
 						autoPlay={true}
-						interval='2000'
+						interval={2000}
 						showArrows={false}
 						stopOnHover={false}
 						showStatus={false}
 						swipeable={false}
-						transitionTime='750'>
+						transitionTime={750}>
 						{photos.map(photo => (
-							<div>
+							<div key={photo.fileName}>
+								{' '}
 								{photo.fileName ? (
 									<img src={getUrlByFileName(photo.fileName)} alt='cake' />
 								) : (
