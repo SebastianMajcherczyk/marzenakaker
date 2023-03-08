@@ -24,8 +24,7 @@
 - react-slider
 - uid
 
-
-![Cake](https://firebasestorage.googleapis.com/v0/b/marzenakaker.appspot.com/o/f1bb5d2cd25%2F1bb5d2cd25c.jpg?alt=media&token=219c4eb5-2feb-458f-8cae-38f02fea32fa)
+![Screenshot1(https://firebasestorage.googleapis.com/v0/b/fir-scratchpad-2541f.appspot.com/o/Github%20images%2FScreenshot%20from%202023-03-08%2013-03-53.png?alt=media&token=253b1df5-3da6-49c6-92b5-c567e0cbcc02)
 ## Status
 
 - As the page is still under construction it is available only at the temporary address: www.tortymarzeny.pl
