@@ -11,7 +11,7 @@ export const AdminPanel = () => {
 
 
 	return (
-		<>
+		<div >
 			<div className='admin-header'>
 				<h2>Panel administracyjny</h2>
 				<LoginForm
@@ -26,6 +26,6 @@ export const AdminPanel = () => {
 			) : (
 				''
 			)}
-		</>
+		</div>
 	);
 };

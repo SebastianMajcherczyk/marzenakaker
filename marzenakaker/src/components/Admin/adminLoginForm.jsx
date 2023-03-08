@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import { AppContext } from '../../ContextProvider';
 
 import { authService } from '../../services/auth.service';
+import { AdminIngredientsForm } from './admin-ingredients-form/adminIngredientsForm';
 import './adminLoginForm.css';
 
 export const LoginForm = () => {
@@ -73,6 +74,7 @@ export const LoginForm = () => {
 					</div>
 				</form>
 			)}
+		
 		</div>
 	);
 };

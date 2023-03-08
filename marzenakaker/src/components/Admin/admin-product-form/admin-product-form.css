@@ -7,9 +7,11 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	position: relative;
 }
-.admin-form div {
-	margin: 10px;
+
+.admin-form {
+	width: 98%;
 }
 
 .admin-form label {
@@ -17,7 +19,7 @@
 }
 .admin-form textarea,
 input option {
-	width: 100%;
+	width: 98%;
 	font-family: 'Raleway', sans-serif;
 	font-size: 16px;
 }
@@ -38,8 +40,8 @@ input option {
 }
 .admin-form .button {
 	display: block;
-	margin: 10px auto;
-	width: 50%;
+	margin: 2px auto;
+	width: 47%;
 }
 
 .upload__image-wrapper {
@@ -50,7 +52,6 @@ input option {
 	margin: auto;
 }
 .image-item {
-	
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
@@ -71,14 +72,28 @@ input option {
 	flex-wrap: wrap;
 }
 
-
 @media (min-width: 992px) {
 	.admin-form-container {
 		width: 80%;
 	}
 }
 
-
-.admin-form  .invisible {
+.admin-form .invisible {
 	display: none;
+}
+.admin-form-ingredients {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.ingred-list {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+}
+.ingredient {
+	border: 1px solid #eee;
+	padding: 2px;
+	border-radius: 3px;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useMemo } from 'react';
+import { useState, useEffect} from 'react';
 import './App.css';
 
 import { Footer } from './components/footer/footer';
@@ -14,8 +14,7 @@ import { AdminPanel } from './components/Admin/AdminPanel';
 import { AdminProductForm } from './components/Admin/admin-product-form/adminProductForm';
 import { productsService } from './services/products.service';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
-
-
+import { AdminWrapper } from './components/AdminWrapper';
 
 export const getDefaultFilterCriteria = () => ({
 	persons: {
@@ -58,13 +57,13 @@ function App() {
 
 	const [sortingCriteria, setSortingCriteria] = useState({
 		sortingValue: 'createdAt',
-		method: 'asc'
-	})
+		method: 'asc',
+	});
 
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [isConnected, setIsConnected] = useState(false);
 	const [categories, setCategories] = useState([]);
-		const [ingredients, setIngredients] = useState([])
+	const [ingredients, setIngredients] = useState([]);
 	const location = useLocation();
 
 	const browserLanguage = navigator.language.slice(0, 2);
@@ -110,8 +109,6 @@ function App() {
 		})();
 	}, []);
 
-	
-
 	if (!isConnected) {
 		return <></>;
 	}
@@ -131,22 +128,22 @@ function App() {
 					setLoggedIn,
 					categories,
 					ingredients,
+					setIngredients,
 					sortingCriteria,
-					setSortingCriteria
+					setSortingCriteria,
 				}}>
 				<Header />
 				{isOnAdminPath ? '' : <Navbar />}
 				<Routes>
-					<Route path='/admin' element={<AdminPanel />} />
-					<Route path='/admin/product/add' element={<AdminProductForm />} />
-					<Route
-						path='/admin/product/edit/:id'
-						element={<AdminProductForm />}
-					/>
+					<Route path='' element={<MainPage />} />
+					<Route path='products' element={<ProductsList />} />
+					<Route path='products/:id' element={<ProductCard />} />
 
-					<Route path='/' element={<MainPage />} />
-					<Route path='/products' element={<ProductsList />} />
-					<Route path='/products/:id' element={<ProductCard />} />
+					<Route path='admin' element={<AdminWrapper />}>
+						<Route index element={<AdminPanel />} />
+						<Route path='product/add' element={<AdminProductForm />} />
+						<Route path='product/edit/:id' element={<AdminProductForm />} />
+					</Route>
 
 					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>

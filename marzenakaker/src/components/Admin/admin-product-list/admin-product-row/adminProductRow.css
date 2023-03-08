@@ -1,18 +1,32 @@
-.ConfirmToast-module_container__HJqtg{
-background-color: #322C3a;
-width: 300px;
-text-align: center;
+.ConfirmToast-module_container__HJqtg {
+	background-color: #322c3a;
+	width: 300px;
+	text-align: center;
 }
 
-
-
-.ConfirmToast-module_button__CkwoM.ConfirmToast-module_button_no__fwzkG, 
-.ConfirmToast-module_button__CkwoM.ConfirmToast-module_button_yes__3iwcr{
-    background-color: #322c3a;
-} 
-
-
-
-.button{
-    min-width: 60px;
+.ConfirmToast-module_button__CkwoM.ConfirmToast-module_button_no__fwzkG,
+.ConfirmToast-module_button__CkwoM.ConfirmToast-module_button_yes__3iwcr {
+	background-color: #322c3a;
 }
+
+.button {
+	min-width: 60px;
+}
+
+.description{
+
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media (min-width: 768px){
+    .description{
+        max-width: 300px;
+    }
+}
+/* @media (min-width: 992px){
+    .description{
+        max-width: 400px;
+    }
+} */

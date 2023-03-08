@@ -1,6 +1,5 @@
-import React, { useContext, useState, useMemo } from 'react';
-import { useEffect } from 'react';
-import { AppContext } from '../../../ContextProvider';
+import React, { useContext, useState, useMemo, useEffect } from 'react';
+import { AdminContext, AppContext } from '../../../ContextProvider';
 import { productsService } from '../../../services/products.service';
 import { useParams, useNavigate } from 'react-router-dom';
 import './admin-product-form.css';
@@ -9,16 +8,20 @@ import ImageUploading from 'react-images-uploading';
 import { uid } from 'uid';
 import { storageService } from '../../../services/storage.service';
 import { ConfirmToast } from 'react-confirm-toast';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { AdminIngredientsForm } from '../admin-ingredients-form/adminIngredientsForm';
 
 export const AdminProductForm = () => {
 	const [images, setImages] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const onChange = (imageList, addUpdateIndex) => {
 		// data for submit
-		
+
 		setImages(imageList);
 	};
 	const [urlsConfig, setUrlsConfig] = useState([]);
 	const { categories, ingredients } = useContext(AppContext);
+	const { getProducts } = useContext(AdminContext);
 
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -38,37 +41,31 @@ export const AdminProductForm = () => {
 		state: 'inactive',
 	});
 	const [activeFoto, setActiveFoto] = useState(null);
+	const [addIngerientActive, setAddIngredientActive] = useState(false);
+	const loadProduct = async () => {
+		const data = await productsService.getProductById(id);
+		setOriginalProduct(data);
+		setProduct({
+			name: data.name.pl,
+			name_en: data.name.en,
+			description: data.description.pl,
+			description_en: data.description.en,
+			weight: data.weight,
+			persons: data.persons,
+			category: data.category,
+			subcategory: data.subcategory,
+			ingredients: data.ingredients,
+			state: data.state,
+			photos: data.photos,
+		});
 
-const loadProduct = async () => {
+		const mainFoto = data.photos.find(({ type }) => type === 'main');
 
-			
-				const data = await productsService.getProductById(id);
-				setOriginalProduct(data);
-				setProduct({
-					name: data.name.pl,
-					name_en: data.name.en,
-					description: data.description.pl,
-					description_en: data.description.en,
-					weight: data.weight,
-					persons: data.persons,
-					category: data.category,
-					subcategory: data.subcategory,
-					ingredients: data.ingredients,
-					state: data.state,
-					photos: data.photos,
-				});
-
-				const mainFoto = data.photos.find(({ type }) => type === 'main');
-
-				setActiveFoto({
-					type: 'from-server',
-					name: mainFoto.fileName,
-				});
-			
-
-
-}
-
+		setActiveFoto({
+			type: 'from-server',
+			name: mainFoto.fileName,
+		});
+	};
 
 	useEffect(() => {
 		if (isInEditMode) {
@@ -104,14 +101,11 @@ const loadProduct = async () => {
 		return urlsConfig.find(config => config.fileName === fileName)?.url;
 	};
 	const deleteImageAndData = async (productId, photo) => {
-		console.log(photo);
 		const path = `${productId}/${photo}`;
 		await storageService.deleteImage(path);
 		await productsService.deletePhotoDataByIdAndFileName(productId, photo);
 
 		const newPhotos = photos.filter(element => element.fileName !== photo);
-
-		console.log(newPhotos);
 		setProduct({
 			...product,
 			photos: newPhotos,
@@ -170,14 +164,11 @@ const loadProduct = async () => {
 
 	const saveProduct = async e => {
 		e.preventDefault();
+		setLoading(true);
 		if (isInEditMode) {
-
-	
-
 			const productClone = { ...product, photos: [...product.photos] };
 
-
-			// sprawdzenie w zbiorze obecnie istniejacych na serwerze fotek
+			// check in the photo list from server
 			productClone.photos = productClone.photos.map(photo => {
 				return {
 					...photo,
@@ -188,7 +179,7 @@ const loadProduct = async () => {
 							: 'standard',
 				};
 			});
-			
+
 			for await (const imageData of images) {
 				const { file } = imageData;
 				const uniqueId = uid(4);
@@ -199,7 +190,7 @@ const loadProduct = async () => {
 				productClone.photos.push({
 					fileName: photoId,
 					name: 'Cake',
-					// sprawdzenie w zbiorze nowych fotek
+					// check in a new added photo list
 					type:
 						activeFoto.type === 'new' &&
 						activeFoto.name === `${file.lastModified}-${file.name}`
@@ -212,8 +203,6 @@ const loadProduct = async () => {
 				originalProduct.firestoreId,
 				productClone
 			);
-			
-
 		} else {
 			const productId = uid(4);
 			const productClone = { ...product, id: productId, photos: [] };
@@ -235,20 +224,31 @@ const loadProduct = async () => {
 			await productsService.addProduct(productClone);
 			setImages([]);
 		}
+		getProducts();
 	};
-	const saveAndStay = async (e) => {
+	const saveAndStay = async e => {
 		await saveProduct(e);
-		await loadProduct()
-		setImages([])
-	}
-	const saveAndExit = (e) =>{
-		saveProduct(e);
+		await loadProduct();
+		setImages([]);
+		debugger;
+		setLoading(false);
+	};
+	const saveAndExit = async e => {
+		await saveProduct(e);
+		setLoading(false);
 		navigate('/admin');
-
-	}
+	};
 
 	return (
 		<div className='admin-form-container'>
+			<ClipLoader
+				className='loader'
+				color='orange'
+				loading={loading}
+				size={270}
+				aria-label='Loading Spinner'
+				data-testid='loader'
+			/>
 			<form className='admin-form' onSubmit={saveAndExit}>
 				<div className='section admin-form-name'>
 					<label htmlFor='name'>Nazwa</label>
@@ -298,7 +298,7 @@ const loadProduct = async () => {
 						<input
 							type='number'
 							min='0.5'
-							max='15'
+							max='100'
 							step='0.5'
 							name='weight'
 							id='weight'
@@ -311,7 +311,7 @@ const loadProduct = async () => {
 						<input
 							type='number'
 							min='1'
-							max='15'
+							max='100'
 							step='1'
 							name='persons'
 							id='persons'
@@ -352,18 +352,21 @@ const loadProduct = async () => {
 				</section>
 				<fieldset className='admin-form-ingredients'>
 					<legend>Składniki</legend>
-					{ingredients.map(item => (
-						<div>
-							<label htmlFor={item.value}>{item.label}</label>
-							<input
-								type='checkbox'
-								id={item.value}
-								checked={product.ingredients?.indexOf(item.value) > -1}
-								name={'ingredients-' + item.value}
-								onChange={handleChange}
-							/>
-						</div>
-					))}
+					<div className='ingred-list'>
+						{ingredients.map(item => (
+							<div className='ingredient'>
+								<label htmlFor={item.value}>{item.label}</label>
+								<input
+									type='checkbox'
+									id={item.value}
+									checked={product.ingredients?.indexOf(item.value) > -1}
+									name={'ingredients-' + item.value}
+									onChange={handleChange}
+								/>
+							</div>
+						))}
+					</div>
+					{/* <AdminIngredientsForm /> */}
 				</fieldset>
 				<fieldset>
 					<legend>Aktualne zdjecia produktu</legend>
@@ -450,7 +453,7 @@ const loadProduct = async () => {
 									<button
 										disabled={images.length == 0}
 										className={`button ${
-											images.length == 0 ? 'invisible' : ''
+											images.length === 0 ? 'invisible' : ''
 										}`}
 										onClick={e => {
 											e.preventDefault();
@@ -529,7 +532,10 @@ const loadProduct = async () => {
 				<Link to='/admin' className='button'>
 					Wyjdź bez zapisywania
 				</Link>
-				<button className='button' onClick={saveAndStay}>Zapisz</button>
+
+				<button className='button' onClick={saveAndStay}>
+					Zapisz
+				</button>
 				<button type='submit' className='button'>
 					Zapisz i wyjdź
 				</button>

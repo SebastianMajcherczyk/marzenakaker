@@ -151,6 +151,7 @@ const ProductsList = () => {
 					</div>
 				))}
 			</div>
+			{/* <button onClick={productsService.createlanguageMock}>Zaciągnij dane</button> */}
 		</div>
 	);
 };

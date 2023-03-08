@@ -45,5 +45,12 @@ export const AppContext = createContext({
 	loggedIn: '',
 	isInEditMode: '',
 	sortingCriteria: '',
-	setSortingCriteria: () => true
+	setSortingCriteria: () => true,
+	ingredients: '',
+	setIngredents: () => true
 });
+
+export const AdminContext = createContext({
+	products: [],
+	ingredients: []
+})

@@ -1,15 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
 
-.container {
-	display: flex;
-	flex-direction: column;
-	width: 70%;
-	align-items: center;
-	margin: auto;
-	margin-top: 20px;
-}
 
+#about-me{
+
+
+}
 .h3 {
 	font-family: 'Kaushan Script', cursive;
 	font-size: 32px;
@@ -38,7 +34,7 @@
 }
 
 @media (min-width: 768px) {
-	.container {
+	#about-me {
 		flex-direction: row;
 	}
 	.about-right {

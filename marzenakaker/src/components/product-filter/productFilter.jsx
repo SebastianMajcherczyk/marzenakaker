@@ -51,10 +51,10 @@ export const ProductFilter = ({
 							thumbClassName='thumb'
 							trackClassName='track'
 							min={0.5}
-							max={5}
+							max={100}
 							value={[
 								+filterCriteria?.weight?.value || 0.5,
-								+filterCriteria?.weight_max.value || 5,
+								+filterCriteria?.weight_max.value || 100,
 							]}
 							ariaLabel={['Lower thumb', 'Upper thumb']}
 							ariaValuetext={state => `Thumb value ${state.valueNow}`}
@@ -92,10 +92,10 @@ export const ProductFilter = ({
 							thumbClassName='thumb'
 							trackClassName='track'
 							min={1}
-							max={15}
+							max={100}
 							value={[
 								+filterCriteria?.persons?.value || 1,
-								+filterCriteria?.persons_max?.value || 15,
+								+filterCriteria?.persons_max?.value || 100,
 							]}
 							ariaLabel={['Lower thumb', 'Upper thumb']}
 							ariaValuetext={state => `Thumb value ${state.valueNow}`}

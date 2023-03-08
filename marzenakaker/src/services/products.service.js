@@ -22,6 +22,8 @@ import {
 import { db } from './../index';
 
 import { storageService } from './storage.service';
+import polish from '../interface-translation/pl.json';
+import english from '../interface-translation/en.json';
 
 let initialData = initialDataDef;
 
@@ -51,9 +53,43 @@ const productsServiceDef = () => {
 	const getIngredientsDictionary = async () => {
 		const ingredientsRef = collection(db, 'ingredientsDict');
 		const snapshots = await getDocs(query(ingredientsRef));
-		return snapshots.docs.map(snap => snap.data());
+		return snapshots.docs.map(snap => ({
+			...snap.data(),
+			firestoreId: snap.id,
+		}));
 	};
+	const addIngredient = async ingredient => {
+		try {
+			const collectionRef = collection(db, 'ingredientsDict');
 
+			const removedSpace = ingredient.value.replaceAll(' ', '_');
+			const valueUpperCase = removedSpace.toUpperCase();
+			const data = {
+				label: ingredient.label,
+				translationKey: 'INGREDIENTS_DICT_' + valueUpperCase,
+				value: removedSpace,
+			};
+			await addDoc(collectionRef, data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+const editIngredientById = async (id, ingredient) => {
+	const ingredientRef = doc(db, 'ingredientsDict', id);
+	const removedSpace = ingredient.value.replaceAll(' ', '_');
+	const valueUpperCase = removedSpace.toUpperCase();
+	const data = {
+		label: ingredient.label,
+		translationKey: 'INGREDIENTS_DICT_' + valueUpperCase,
+		value: removedSpace,
+	};
+	updateDoc(ingredientRef, data)
+
+}
+	const deleteIngredient = async id => {
+		const ingredientRef = doc(db, 'ingredientsDict', id);
+		await deleteDoc(ingredientRef);
+	};
 	const getProductById = async idValue => {
 		try {
 			const collectionRef = collection(db, 'products');
@@ -83,7 +119,7 @@ const productsServiceDef = () => {
 		const productRef = productSnap.ref;
 		const { photos } = productSnap.data();
 		const photo = photos.find(element => element.fileName === imageName);
-		
+
 		await updateDoc(productRef, {
 			photos: arrayRemove(photo),
 		});
@@ -128,7 +164,6 @@ const productsServiceDef = () => {
 	};
 
 	const addProduct = async product => {
-		
 		try {
 			const collectionRef = collection(db, 'products');
 
@@ -151,8 +186,19 @@ const productsServiceDef = () => {
 				state: product.state,
 				createdAt: serverTimestamp(),
 			};
-			await addDoc(collection(db, 'products'), data);
-		
+			await addDoc(collectionRef, data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getLanguageVersions = async () => {
+		try {
+			const appRef = doc(db, 'app', 'config');
+			const snapshots = await getDoc(appRef);
+			const data = snapshots.data();
+			console.log(data);
+			return snapshots.data();
 		} catch (error) {
 			console.log(error);
 		}
@@ -177,19 +223,33 @@ const productsServiceDef = () => {
 			await setDoc(doc(productRef), ingredient);
 		}
 	};
+	const createlanguageMock = async () => {
+		const appRef = doc(db, 'app', 'config');
+		const translations = {
+			pl: polish,
+			en: english,
+		};
+
+		await setDoc(appRef, { translations });
+	};
 
 	return {
 		getProducts,
 		getCategoryDictionary,
 		getIngredientsDictionary,
+		addIngredient,
+		editIngredientById, 
+		deleteIngredient,
 		getProductById,
 		deletePhotoDataByIdAndFileName,
 		deleteProductAndConnectedPhotosById,
 		editProductByFirestoreId,
 		addProduct,
+		getLanguageVersions,
 		createProductsMock,
 		createCategoryDictMock,
 		createIngredientsDictMock,
+		createlanguageMock,
 	};
 };
 

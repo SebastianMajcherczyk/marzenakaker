@@ -1,0 +1,171 @@
+.addIngredForm form,
+.ingredients-form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.addIngredForm{
+	max-height: 0px;
+	transition: 1.2s;
+	overflow: hidden;
+
+}
+.ingredients-table {
+	max-height: 0px;
+	/* height: auto; */
+	margin: 0 auto;
+	transition: 1.2s;
+	background-color: rgba(0,0,0,0);
+	overflow: hidden;
+}
+
+
+.open-ingredients{
+	max-height: 1800px;
+}
+
+.open .loading {
+	filter: opacity(10%);
+}
+
+/* react-responsive-modal style start */
+.react-responsive-modal-root {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+}
+
+.react-responsive-modal-overlay,
+.react-confirm-alert-overlay {
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+}
+
+.react-responsive-modal-container {
+	height: 100%;
+	outline: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-align: center;
+}
+.react-responsive-modal-modal,
+.react-confirm-alert h1 {
+	font-family: 'Raleway', sans-serif;
+	font-size: 16px;
+	border-radius: 10px;
+	color: #fff;
+	font-weight: normal;
+}
+
+/* Used to trick the browser to center the modal content properly  */
+.react-responsive-modal-containerCenter:after {
+	width: 0;
+	height: 100%;
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.react-responsive-modal-modal,
+.confirm > div > div {
+	/* color: orange; */
+	max-width: 600px;
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	background: #322c3a;
+	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+	margin: 1.2rem;
+	padding: 2rem;
+	position: relative;
+	overflow-y: auto;
+}
+.react-responsive-modal-modal li {
+	list-style-position: inside;
+}
+
+.react-responsive-modal-closeButton {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	background-color: transparent;
+	display: flex;
+}
+.react-responsive-modal-closeButton svg {
+	stroke: crimson;
+	fill: crimson;
+}
+
+@keyframes react-responsive-modal-overlay-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes react-responsive-modal-overlay-out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes react-responsive-modal-modal-in {
+	0% {
+		transform: scale(0.96);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(100%);
+		opacity: 1;
+	}
+}
+
+@keyframes react-responsive-modal-modal-out {
+	0% {
+		transform: scale(100%);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(0.96);
+		opacity: 0;
+	}
+}
+/* react-responsive-modal style end */
+
+.confirm {
+	background: rgba(0, 0, 0, 0.5);
+}
+.react-confirm-alert-button-group button:first-child {
+	color: #2e8b57;
+}
+.confirm .react-confirm-alert-button-group button:nth-child(2) {
+	color: #ff0000;
+}
+
+.confirm .react-confirm-alert-button-group > button {
+	background-color: rgba(0, 0, 0, 0);
+	font-size: 14px;
+	font-weight: bold;
+}
+.actions{
+	justify-content: space-evenly;
+	display: flex;
+	flex-wrap: wrap;
+	
+}
