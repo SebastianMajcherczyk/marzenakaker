@@ -23,7 +23,7 @@
 - react-router-dom@6.4.3
 - react-slider
 - uid
-
+![Cake](https://firebasestorage.googleapis.com/v0/b/marzenakaker.appspot.com/o/f1bb5d2cd25%2F1bb5d2cd25c.jpg?alt=media&token=219c4eb5-2feb-458f-8cae-38f02fea32fa)
 ## Status
 
 - As the page is still under construction it is available only at the temporary address: www.tortymarzeny.pl
