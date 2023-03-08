@@ -26,4 +26,4 @@
 
 ## Status
 
-- As the page is still under construction it is available only at the temporary address: https://serwer2399543.home.pl/
+- As the page is still under construction it is available only at the temporary address: www.tortymarzeny.pl
