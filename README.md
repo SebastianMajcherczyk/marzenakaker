@@ -3,7 +3,7 @@
 
 
 ## Information
-- Web application of the person offering suctom made cakes. App contains a product flter allowing user to filter and sort items by different criteria.
+- Web application of the person offering cuctom made cakes. App contains a product flter allowing user to filter and sort items by different criteria.
 - It contains also admin panel where the admin can add, remove and edit the products. 
 - Project is using Firebase for authentication (admin), data and files storage.
 - Website has 2 language version: Polish and English
