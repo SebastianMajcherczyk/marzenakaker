@@ -25,6 +25,5 @@
 - uid
 
 ## Status
-![stack Overflow](http://lmsotfy.com/so.png)
 
 - As the page is still under construction it is available only at the temporary address: www.tortymarzeny.pl
