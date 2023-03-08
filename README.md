@@ -16,13 +16,17 @@
 - Firebase
 
 ## Installed React packages
-- i18next for language versions
-- react-icons
+- firebase@9.14.0
+- react-icons@4.6.0
+- react-icons@4.6.0
 - react-images-uploading
 - react-rsponsive-carousel
 - react-router-dom@6.4.3
-- react-slider
-- uid
+- react-slider@2.0.4
+- uid@2.0.1
+- react-confirm-alert@3.0.6
+- react-responsive-modal@6.4.1
+- react-spinners@0.13.8
 
 ## Screenshots
 ![Screenshot1](https://firebasestorage.googleapis.com/v0/b/fir-scratchpad-2541f.appspot.com/o/Github%20images%2FScreenshot%20from%202023-03-08%2013-53-51.png?alt=media&token=36560298-6048-40f8-a0eb-53a08f07b364)
