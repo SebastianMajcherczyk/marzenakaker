@@ -9,18 +9,17 @@ export const AdminWrapper = () => {
 		const data = await productsService.getProducts(false);
 		setProducts(data);
 	};
-    useEffect(() => {
+	useEffect(() => {
 		getProducts();
 	}, []);
+
 	return (
 		<AdminContext.Provider
 			value={{
 				products,
-                getProducts
+				getProducts,
 			}}>
-			
-				<Outlet />
-			
+			<Outlet />
 		</AdminContext.Provider>
 	);
 };

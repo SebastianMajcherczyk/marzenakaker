@@ -31,6 +31,16 @@ export const AdminIngredientsForm = () => {
 		setNewIngredient({ ...tempState });
 	};
 	const localIngredients = useMemo(() => ingredients, [ingredients]);
+	const checkIngredientDuplicates = ingredient => {
+		if (localIngredients.some(item => item.label.toLowerCase() === ingredient.label.toLowerCase())) {
+			setModalContent({
+				h2: `Istnieje już składnik o takiej samej polskiej nazwie`,
+				list: '',
+			});
+			onOpenModal();
+			return;
+		}
+	};
 	const onSubmit = async e => {
 		e.preventDefault();
 		if (newIngredient.firestoreId) {
@@ -52,11 +62,36 @@ export const AdminIngredientsForm = () => {
 			const data = await productsService.getIngredientsDictionary();
 			setIngredients(data);
 		} else if (newIngredient.label !== '' && newIngredient.value !== '') {
-			setLoading(true);
-			await productsService.addIngredient(newIngredient);
-			setNewIngredient({ label: '', value: '' });
-			// setAddIngredientActive(false);
-			setLoading(false);
+			// checkIngredientDuplicates(newIngredient)
+			if (
+				localIngredients.some(
+					item =>
+						item.label.toLowerCase() === newIngredient.label.toLocaleLowerCase()
+				)
+			) {
+				setModalContent({
+					h2: `Istnieje już składnik o takiej samej polskiej nazwie`,
+				});
+				onOpenModal();
+				return;
+			} else if (
+				localIngredients.some(
+					item =>
+						item.value.toLowerCase() === newIngredient.value.toLocaleLowerCase()
+				)
+			) {
+				setModalContent({
+					h2: `Istnieje już składnik o takiej samej angielskiej nazwie`,
+				});
+				onOpenModal();
+				return;
+			} else {
+				setLoading(true);
+				await productsService.addIngredient(newIngredient);
+				setNewIngredient({ label: '', value: '' });
+				// setAddIngredientActive(false);
+				setLoading(false);
+			}
 		}
 		const data = await productsService.getIngredientsDictionary();
 		setIngredients(data);
@@ -68,16 +103,15 @@ export const AdminIngredientsForm = () => {
 		if (ingredientChecked.length !== 0) {
 			const listToRemove = ingredientChecked.map(item => (
 				<li>{item.name.pl}</li>
-				));
-				console.log(listToRemove);
+			));
+			console.log(listToRemove);
 
 			setModalContent({
 				h2: `Nie możesz edytować tego składnika ponieważ został on użyty w produktach. Przed edycją tego składnika usuń go najpierw z następujących produktów:`,
 				list: listToRemove,
 			});
-			onOpenModal()
+			onOpenModal();
 		} else {
-			
 			const ingredientToEdit = ingredients.filter(
 				item => item.firestoreId === ingredientId
 			);
@@ -86,8 +120,6 @@ export const AdminIngredientsForm = () => {
 				value: ingredientToEdit[0].value,
 				firestoreId: ingredientToEdit[0].firestoreId,
 			});
-			
-			
 		}
 	};
 
@@ -227,7 +259,7 @@ export const AdminIngredientsForm = () => {
 										.join(' ')
 										.replaceAll('_', ' ')}
 								</td>
-								<td className='actions' >
+								<td className='actions'>
 									<button
 										className='button'
 										onClick={() => editItem(item.firestoreId)}>

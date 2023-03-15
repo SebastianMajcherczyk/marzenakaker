@@ -39,3 +39,13 @@ margin-bottom: 10px;
 	margin: 1px ;
 }
 td{border: 1px solid black;}
+
+.sorting-header{
+    cursor: pointer;
+
+}
+
+.sorting-header svg{
+    position: relative;
+    top: 2px
+}

@@ -23,10 +23,15 @@ export const AdminProductRow = ({ product, onDelete }) => {
 	const deleteProduct = async () => {
 		await onDelete(product.id);
 	};
-
+const convertToDate = (time) => {
+	const fireBaseTime = new Date(time.seconds * 1000 + time.nanoseconds / 1000000)
+	const date = fireBaseTime.toLocaleDateString()
+	return date
+}
 	return (
 		<tr className='row'>
-			<td className='row'>{product.id}</td>
+			<td>{product.id}</td>
+			<td>{convertToDate(product.createdAt)}</td>
 			<td>{product.name.pl}</td>
 			<td className='description'>{product.description.pl}</td>
 			<td>

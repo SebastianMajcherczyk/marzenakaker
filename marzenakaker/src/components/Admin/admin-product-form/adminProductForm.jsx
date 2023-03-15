@@ -366,7 +366,6 @@ export const AdminProductForm = () => {
 							</div>
 						))}
 					</div>
-					{/* <AdminIngredientsForm /> */}
 				</fieldset>
 				<fieldset>
 					<legend>Aktualne zdjecia produktu</legend>
@@ -540,6 +539,7 @@ export const AdminProductForm = () => {
 					Zapisz i wyjdź
 				</button>
 			</form>
+			{/* <AdminIngredientsForm /> */}
 		</div>
 	);
 };

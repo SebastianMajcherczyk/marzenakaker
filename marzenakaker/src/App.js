@@ -15,6 +15,7 @@ import { AdminProductForm } from './components/Admin/admin-product-form/adminPro
 import { productsService } from './services/products.service';
 import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { AdminWrapper } from './components/AdminWrapper';
+import { getTranslations } from './interface-translation/i18next';
 
 export const getDefaultFilterCriteria = () => ({
 	persons: {
@@ -108,7 +109,10 @@ function App() {
 			setIngredients(data);
 		})();
 	}, []);
+useEffect(() => {
+getTranslations()
 
+}, [])
 	if (!isConnected) {
 		return <></>;
 	}

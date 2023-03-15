@@ -8,7 +8,6 @@ import {
 	FaChevronLeft,
 	FaChevronRight,
 	FaChevronUp,
-	FaHotdog,
 } from 'react-icons/fa';
 import { AppContext } from '../../ContextProvider';
 import { useEffect } from 'react';
