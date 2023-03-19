@@ -7,6 +7,8 @@ import { AdminIngredientsForm } from '../admin-ingredients-form/adminIngredients
 import { AdminContext, AppContext } from '../../../ContextProvider';
 import { useMemo, useState } from 'react';
 import { BsChevronExpand } from 'react-icons/bs';
+import { TablePagination } from '@mui/material';
+
 export const AdminProductList = () => {
 	const { language } = useContext(AppContext);
 	const { products, getProducts } = useContext(AdminContext);
@@ -15,6 +17,22 @@ export const AdminProductList = () => {
 		order: null,
 		type: null /*text || date*/,
 	});
+
+	//Pagination start//
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
+
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+	};
+
+	const handleChangeRowsPerPage = event => {
+		setRowsPerPage(parseInt(event.target.value, 10));
+		setPage(0);
+	};
+
+	//Pagination end//
+
 	const onDelete = async id => {
 		await productsService.deleteProductAndConnectedPhotosById(id);
 		await getProducts();
@@ -43,6 +61,10 @@ export const AdminProductList = () => {
 		});
 	}, [products, sortingConfig]);
 
+	const productsOnPage = useMemo(() => {
+		return sortedProducts.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+	}, [page, rowsPerPage, sortedProducts]);
+	
 	const changeSortingOrder = newSortingConfig => {
 		const isSameColumn = newSortingConfig.column === sortingConfig.column;
 
@@ -108,7 +130,7 @@ export const AdminProductList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{sortedProducts.map((product, index) => (
+					{productsOnPage.map((product, index) => (
 						<AdminProductRow
 							key={index}
 							product={product}
@@ -117,6 +139,14 @@ export const AdminProductList = () => {
 					))}
 				</tbody>
 			</table>
+			<TablePagination
+				component='div'
+				count={sortedProducts.length}
+				page={page}
+				onPageChange={handleChangePage}
+				rowsPerPage={rowsPerPage}
+				onRowsPerPageChange={handleChangeRowsPerPage}
+			/>
 		</div>
 	);
 };

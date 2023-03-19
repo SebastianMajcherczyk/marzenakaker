@@ -11,8 +11,7 @@ import { useState } from 'react';
 import { productsService } from '../../services/products.service';
 import { onSnapshot, collection } from 'firebase/firestore';
 import { db } from '../..';
-
-
+import { TablePagination } from '@mui/material';
 
 const ProductsList = () => {
 	const {
@@ -22,12 +21,12 @@ const ProductsList = () => {
 		ingredientsFilterMethod,
 		setIngredientsFilterMethod,
 		sortingCriteria,
-		setSortingCriteria
+		setSortingCriteria,
 	} = useContext(AppContext);
 
 	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
-	
+
 	const { data, productIds } = useMemo(() => {
 		const filteredProducts = getProductsByFilters(products, filterCriteria, {
 			ingredientsFilterMethod,
@@ -36,13 +35,21 @@ const ProductsList = () => {
 		return { data: filteredProducts, productIds: ids };
 	}, [filterCriteria, products, ingredientsFilterMethod]);
 
-	// useEffect(() => {
-	// 	(async () => {
+	//Pagination start//
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
 
-	// 		const data = await productsService.getProducts();
-	// 		setProducts(data);
-	// 	})();
-	// }, []);
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+	};
+
+	const handleChangeRowsPerPage = event => {
+		setRowsPerPage(parseInt(event.target.value, 10));
+		setPage(0);
+	};
+
+	//Pagination end//
+
 	const sortedProducts = useMemo(() => {
 		const sorted = [...data].sort((a, b) => {
 			if (sortingCriteria.method === 'asc')
@@ -55,14 +62,18 @@ const ProductsList = () => {
 				);
 			}
 		});
-		return sorted
+		return sorted;
 	}, [data, sortingCriteria]);
+
+	const productsOnPage = useMemo(() => {
+		return sortedProducts.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+	}, [page, rowsPerPage, sortedProducts]);
 
 	useEffect(() => {
 		(async () => {
-		const data = await  productsService.getProducts()
-		setProducts(data);
-		})()
+			const data = await productsService.getProducts();
+			setProducts(data);
+		})();
 	}, []);
 
 	useEffect(() => {
@@ -141,7 +152,7 @@ const ProductsList = () => {
 				setSortingCriteria={setSortingCriteria}
 			/>
 			<div className='products-container'>
-				{sortedProducts.map(item => (
+				{productsOnPage.map(item => (
 					<div
 						key={item.id}
 						onClick={() => {
@@ -151,7 +162,14 @@ const ProductsList = () => {
 					</div>
 				))}
 			</div>
-			{/* <button onClick={productsService.createlanguageMock}>Zaciągnij dane</button> */}
+			<TablePagination
+				component='div'
+				count={sortedProducts.length}
+				page={page}
+				onPageChange={handleChangePage}
+				rowsPerPage={rowsPerPage}
+				onRowsPerPageChange={handleChangeRowsPerPage}
+			/>
 		</div>
 	);
 };
