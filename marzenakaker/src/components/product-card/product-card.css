@@ -40,6 +40,15 @@
 }
 .image-container {
 	position: relative;
+	min-width: 351px;
+	min-height: 468px;
+}
+
+@media(min-width: 576px){
+	.image-container {
+		min-width: 500px;
+		min-height: 600px;
+	}
 }
 .arrow {
 	height: 100%;

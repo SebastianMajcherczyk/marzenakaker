@@ -9,6 +9,8 @@ import { useMemo, useState } from 'react';
 import { BsChevronExpand } from 'react-icons/bs';
 import { TablePagination } from '@mui/material';
 
+
+
 export const AdminProductList = () => {
 	const { language } = useContext(AppContext);
 	const { products, getProducts } = useContext(AdminContext);
@@ -17,7 +19,7 @@ export const AdminProductList = () => {
 		order: null,
 		type: null /*text || date*/,
 	});
-
+	
 	//Pagination start//
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -143,6 +145,7 @@ export const AdminProductList = () => {
 				component='div'
 				count={sortedProducts.length}
 				page={page}
+				labelRowsPerPage={'Wierszy na stronie:'}
 				onPageChange={handleChangePage}
 				rowsPerPage={rowsPerPage}
 				onRowsPerPageChange={handleChangeRowsPerPage}

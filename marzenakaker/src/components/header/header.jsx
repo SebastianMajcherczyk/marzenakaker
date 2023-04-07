@@ -20,7 +20,7 @@ export const Header = () => {
 					target='_blank' rel='noreferrer'>
 					<Instagram />
 				</a>
-				<Link to={'/'} ><h4 className='title'>marzenakaker.no</h4></Link>
+				<Link to={'/'} ><h4 className='title'>tortymarzeny.pl</h4></Link>
 			</div>
 		</header>
 	);

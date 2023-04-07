@@ -13,7 +13,7 @@
 .nav-links {
 	width: 390px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 .nav-link {
 	text-transform: uppercase;

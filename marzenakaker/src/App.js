@@ -20,19 +20,19 @@ import { getTranslations } from './interface-translation/i18next';
 export const getDefaultFilterCriteria = () => ({
 	persons: {
 		type: 'VALUE_FROM_RANGE_MIN',
-		value: '',
+		value: 1,
 	},
 	persons_max: {
 		type: 'VALUE_FROM_RANGE_MAX',
-		value: '',
+		value: 100,
 	},
 	weight: {
 		type: 'VALUE_FROM_RANGE_MIN',
-		value: '',
+		value: 0.5,
 	},
 	weight_max: {
 		type: 'VALUE_FROM_RANGE_MAX',
-		value: '',
+		value: 100,
 	},
 	subcategory: {
 		type: 'CHOICE',

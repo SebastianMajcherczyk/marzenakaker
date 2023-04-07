@@ -20,13 +20,13 @@ export const Navbar = () => {
 					<Link to='/' className='nav-link'>
 						{t('HOME')}
 					</Link>
-					<Link to='/#about-me' className='nav-link'>
+					{/* <Link to='/#about-me' className='nav-link'>
 						{t('ABOUT')}
-					</Link>
+					</Link> */}
 					<Link to='/products' className='nav-link'>
 						{t('OFFER')}
 					</Link>
-					<Link to='/admin' className='nav-link'>ADMIN</Link>
+					{/* <Link to='/admin' className='nav-link'>ADMIN</Link> */}
 				</div>
 			</div>
 		</nav>

@@ -1,10 +1,25 @@
+/* Works for Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Works for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+
+
 .filter-container {
 	margin: 0 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 80%;
-	min-width: 270px;
+	width: 95%;
+	min-width: 250px;
 	border: 2px solid black;
 	border-radius: 24px;
 	background: #e0e0e0;
@@ -12,6 +27,12 @@
 	position: relative;
 	top: 20px;
 	overflow: hidden;
+}
+
+@media (min-width: 576px){
+	.filter-container{
+		width: 80%
+	}
 }
 
 .filter-container label{
@@ -52,7 +73,7 @@
 	color: orange;
 }
 .filter {
-	max-height: 490px;
+	max-height: 570px;
 	padding: 0 5px;
 	display: flex;
 	flex-direction: column;
@@ -74,15 +95,19 @@ fieldset {
 	display: flex;
 	flex-wrap: wrap;
 }
-.filter input{
+/* .filter input{
 	
 	width: 55px;
-	height: 20px;
+	height: 12px;
 	margin: 5px;
 	font-size: 18px;
+} */
+
+.slider-title{
+	display: block;
+	text-align: center;
+	margin: 15px 0 3px;
 }
-
-
 .ingredients input{
 	margin: 0;
 	width: 25px;
@@ -92,25 +117,7 @@ fieldset {
 	width: 20px;
 }
 
-/* input[type=checkbox] {
-	height:0px;
-	width:0px;
-  }
-  input[type=checkbox]::after {
-	height:25px;
-	width:25px;
-	content:"\00a0\00a0\00a0\00a0";
-	border:1px solid black;
-  } */
-  /* The magic below */
-  /* input[type=checkbox]:checked::after {
-	height:25px;
-	width:25px;
-	background-color:#322c3a;
-	content:"✓";
-	color: #fff;
-	border:1px solid black;
-  } */
+
 
 .weight,
 .persons,
@@ -135,9 +142,7 @@ fieldset {
 	flex-wrap: wrap;
 }
 .ingredients-checkbox{
-	
 	margin: 3px 10px;
-	/* background-color: #fff; */
 	display: flex;
 	justify-content: end;
 	
@@ -161,12 +166,20 @@ fieldset {
 	color: orange;
 }
  
+.slider-section {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 400;
+	margin: 0 auto
+}
 
 /*SLIDER STYLING START*/
 
 
 .slider-container{
-	/* border: 1px solid black */
+	display: flex;
+	flex-direction: column;
 	width: 300px;
 	max-width: 80%;
   }
@@ -174,6 +187,7 @@ fieldset {
   .horizontal-slider {
 	  height: 30px;
 	  border: 0;
+	  margin: 3px;
 	  padding: 5px 0;;
 	  
   }

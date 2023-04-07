@@ -12,6 +12,7 @@ import { productsService } from '../../services/products.service';
 import { onSnapshot, collection } from 'firebase/firestore';
 import { db } from '../..';
 import { TablePagination } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const ProductsList = () => {
 	const {
@@ -34,10 +35,14 @@ const ProductsList = () => {
 		const ids = filteredProducts.map(({ id }) => id);
 		return { data: filteredProducts, productIds: ids };
 	}, [filterCriteria, products, ingredientsFilterMethod]);
-
+	const { t } = useTranslation();
 	//Pagination start//
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
+
+	useEffect(() => {
+		setPage(0);
+	}, [data]);
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -163,9 +168,11 @@ const ProductsList = () => {
 				))}
 			</div>
 			<TablePagination
+				color='primary'
 				component='div'
 				count={sortedProducts.length}
 				page={page}
+				labelRowsPerPage={t('ROWS_PER_PAGE')}
 				onPageChange={handleChangePage}
 				rowsPerPage={rowsPerPage}
 				onRowsPerPageChange={handleChangeRowsPerPage}

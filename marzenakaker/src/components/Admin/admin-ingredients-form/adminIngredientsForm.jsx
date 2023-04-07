@@ -31,16 +31,16 @@ export const AdminIngredientsForm = () => {
 		setNewIngredient({ ...tempState });
 	};
 	const localIngredients = useMemo(() => ingredients, [ingredients]);
-	const checkIngredientDuplicates = ingredient => {
-		if (localIngredients.some(item => item.label.toLowerCase() === ingredient.label.toLowerCase())) {
-			setModalContent({
-				h2: `Istnieje już składnik o takiej samej polskiej nazwie`,
-				list: '',
-			});
-			onOpenModal();
-			return;
-		}
-	};
+	// const checkIngredientDuplicates = ingredient => {
+	// 	if (localIngredients.some(item => item.label.toLowerCase() === ingredient.label.toLowerCase())) {
+	// 		setModalContent({
+	// 			h2: `Istnieje już składnik o takiej samej polskiej nazwie`,
+	// 			list: '',
+	// 		});
+	// 		onOpenModal();
+	// 		return true;
+	// 	}
+	// };
 	const onSubmit = async e => {
 		e.preventDefault();
 		if (newIngredient.firestoreId) {
@@ -62,7 +62,6 @@ export const AdminIngredientsForm = () => {
 			const data = await productsService.getIngredientsDictionary();
 			setIngredients(data);
 		} else if (newIngredient.label !== '' && newIngredient.value !== '') {
-			// checkIngredientDuplicates(newIngredient)
 			if (
 				localIngredients.some(
 					item =>
@@ -99,12 +98,10 @@ export const AdminIngredientsForm = () => {
 	};
 	const editItem = ingredientId => {
 		const ingredientChecked = checkIngredientInProducts(ingredientId);
-		console.log(ingredientChecked);
 		if (ingredientChecked.length !== 0) {
 			const listToRemove = ingredientChecked.map(item => (
 				<li>{item.name.pl}</li>
 			));
-			console.log(listToRemove);
 
 			setModalContent({
 				h2: `Nie możesz edytować tego składnika ponieważ został on użyty w produktach. Przed edycją tego składnika usuń go najpierw z następujących produktów:`,

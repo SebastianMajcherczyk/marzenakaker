@@ -197,7 +197,6 @@ const editIngredientById = async (id, ingredient) => {
 			const appRef = doc(db, 'app', 'config');
 			const snapshots = await getDoc(appRef);
 			const data = snapshots.data();
-			console.log(data);
 			return snapshots.data();
 		} catch (error) {
 			console.log(error);

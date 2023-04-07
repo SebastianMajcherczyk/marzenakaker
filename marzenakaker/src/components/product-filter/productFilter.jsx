@@ -6,31 +6,38 @@ import { AppContext } from '../../ContextProvider';
 import { productsService } from '../../services/products.service';
 import ReactSlider from 'react-slider';
 import { getDefaultFilterCriteria } from '../../App';
+import TextField from '@mui/material/TextField';
 
+import { InputAdornment } from '@mui/material';
 export const ProductFilter = ({
 	handleChange,
 	filterCriteria,
 	setFilterCriteria,
 	ingredientsFilterMethod,
 	setIngredientsFilterMethod,
-	
 }) => {
-	const { ingredients, sortingCriteria, setSortingCriteria } = useContext(AppContext);
+	const defaultHiddenOption = localStorage.getItem('hidden') || 'hidden';
+	const [filterHidden, setfilterHidden] = useState(defaultHiddenOption);
+	const { ingredients, sortingCriteria, setSortingCriteria } =
+		useContext(AppContext);
 	const { t, i18n } = useTranslation();
-	const [filterHidden, setfilterHidden] = useState(null);
 	const showHideFilter = e => {
 		e.preventDefault();
-		setfilterHidden(filterHidden ? null : 'hidden');
+		const selectedHiddenOption =
+			filterHidden === 'hidden' ? 'visible' : 'hidden';
+		localStorage.setItem('hidden', selectedHiddenOption);
+		setfilterHidden(selectedHiddenOption);
 	};
 	const resetFilter = e => {
 		e.preventDefault();
 		setFilterCriteria(getDefaultFilterCriteria());
 		setSortingCriteria({
 			sortingValue: 'createdAt',
-			method: 'asc'
-		})
+			method: 'asc',
+		});
 	};
-
+	const filterButtonText =
+		filterHidden === 'hidden' ? t('SHOW_FILTER') : t('HIDE');
 	const getTranslatedLabel = (key, defaultValue) =>
 		i18n.exists(key) ? t(key) : defaultValue;
 
@@ -39,13 +46,57 @@ export const ProductFilter = ({
 			<button onClick={showHideFilter} className='btn-hide'>
 				{' '}
 				<FaChevronCircleUp className={`leftUp ${filterHidden}`} />
-				{filterHidden ? t('SHOW_FILTER') : t('HIDE')}
+				{filterButtonText}
 				<FaChevronCircleUp className={`rightUp ${filterHidden}`} />{' '}
 			</button>
 			<form className={`filter ${filterHidden}`}>
 				<div className='slider-container'>
 					<section>
-						<p>{t('CHOOSE_WEIGHT')} (kg)</p>
+						<span className='slider-title'>{t('CHOOSE_WEIGHT')}</span>
+
+						<div className='slider-section'>
+							<TextField
+								sx={{ width: '95px' }}
+								label='max'
+								size='small'
+								color='common'
+								type='number'
+								inputProps={{
+									min: '0.5',
+									max: '100',
+									step: '0.5',
+								}}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='end'>kg</InputAdornment>
+									),
+								}}
+								name='weight'
+								value={filterCriteria?.weight?.value}
+								onChange={handleChange}
+							/>
+							<TextField
+								sx={{ width: '95px' }}
+								label='max'
+								size='small'
+								color='common'
+								type='number'
+								inputProps={{
+									min: '0.5',
+									max: '100',
+									step: '0.5',
+								}}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='end'>kg</InputAdornment>
+									),
+								}}
+								name='weight_max'
+								value={filterCriteria?.weight_max?.value}
+								onChange={handleChange}
+							/>
+						</div>
+
 						<ReactSlider
 							className='horizontal-slider'
 							thumbClassName='thumb'
@@ -79,14 +130,48 @@ export const ProductFilter = ({
 										value: max,
 									},
 								};
-
 								handleChange(eventMax, filterCriteriaChanged);
 							}}
 							withTracks={true}
 						/>
 					</section>
 					<section>
-						<p>{t('NUMBER_OF_PERSONS')}</p>
+						<p className='slider-title'>{t('NUMBER_OF_PERSONS')}</p>
+
+						<div className='slider-section'>
+							<TextField
+								sx={{ width: '70px' }}
+								fullWidth='true'
+								label='min'
+								size='small'
+								color='common'
+								type='number'
+								inputProps={{
+									min: '1',
+									max: '100',
+									step: '1',
+								}}
+								name='persons'
+								value={filterCriteria?.persons?.value}
+								onChange={handleChange}
+							/>
+							<TextField
+								sx={{ width: '70px' }}
+								fullWidth='true'
+								label='max'
+								size='small'
+								color='common'
+								type='number'
+								inputProps={{
+									min: '1',
+									max: '100',
+									step: '1',
+								}}
+								name='persons_max'
+								value={filterCriteria?.persons_max?.value}
+								onChange={handleChange}
+							/>
+						</div>
 						<ReactSlider
 							className='horizontal-slider'
 							thumbClassName='thumb'
@@ -203,8 +288,8 @@ export const ProductFilter = ({
 					<legend>{t('CHOOSE INGREDIENTS')}</legend>
 					<section className='section'>
 						<div className='list'>
-							{ingredients.map(item => (
-								<div key={item.id} className='ingredients-checkbox'>
+							{ingredients.map((item, index) => (
+								<div key={index} className='ingredients-checkbox'>
 									<label htmlFor={item.value}>
 										{getTranslatedLabel(item.translationKey, item.label)}
 									</label>
