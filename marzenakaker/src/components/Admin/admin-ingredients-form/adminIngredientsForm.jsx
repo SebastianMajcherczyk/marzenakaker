@@ -15,10 +15,9 @@ export const AdminIngredientsForm = () => {
 	const onCloseModal = () => setModalOpen(false);
 	const [modalContent, setModalContent] = useState({});
 
-	const [newIngredient, setNewIngredient] = useState({
-		label: '',
-		value: '',
-		firestoreId: '',
+	const [newIngredientForm, setNewIngredientForm] = useState({
+		pl: '',
+		en: '',
 	});
 	const { ingredients, setIngredients } = useContext(AppContext);
 	const { products, getProducts } = useContext(AdminContext);
@@ -27,45 +26,37 @@ export const AdminIngredientsForm = () => {
 	const handleChange = e => {
 		const { value, name } = e.target;
 		let tempState = {};
-		tempState = { ...newIngredient, [name]: value };
-		setNewIngredient({ ...tempState });
+		tempState = { ...newIngredientForm, [name]: value };
+		setNewIngredientForm({ ...tempState });
 	};
-	const localIngredients = useMemo(() => ingredients, [ingredients]);
-	// const checkIngredientDuplicates = ingredient => {
-	// 	if (localIngredients.some(item => item.label.toLowerCase() === ingredient.label.toLowerCase())) {
-	// 		setModalContent({
-	// 			h2: `Istnieje już składnik o takiej samej polskiej nazwie`,
-	// 			list: '',
-	// 		});
-	// 		onOpenModal();
-	// 		return true;
-	// 	}
-	// };
+	const localIngredients = useMemo(() => [...ingredients], [ingredients]);
+
 	const onSubmit = async e => {
 		e.preventDefault();
-		if (newIngredient.firestoreId) {
-			if (newIngredient.label !== '' && newIngredient.value !== '') {
+		if (newIngredientForm.firestoreId) {
+			if (newIngredientForm.label !== '' && newIngredientForm.value !== '') {
 				setLoading(true);
 				const data = {
-					label: newIngredient.label,
-					value: newIngredient.value,
+					pl: newIngredientForm.pl,
+					en: newIngredientForm.en,
 				};
 				await productsService.editIngredientById(
-					newIngredient.firestoreId,
+					newIngredientForm.firestoreId,
 					data
 				);
-				setNewIngredient({ label: '', value: '' });
+				setNewIngredientForm({ pl: '', en: '' });
 
 				// setAddIngredientActive(false);
 				setLoading(false);
 			}
 			const data = await productsService.getIngredientsDictionary();
 			setIngredients(data);
-		} else if (newIngredient.label !== '' && newIngredient.value !== '') {
+		} else if (newIngredientForm.pl !== '' && newIngredientForm.en !== '') {
 			if (
 				localIngredients.some(
 					item =>
-						item.label.toLowerCase() === newIngredient.label.toLocaleLowerCase()
+						item.label.pl.toLowerCase() ===
+						newIngredientForm.pl.toLocaleLowerCase()
 				)
 			) {
 				setModalContent({
@@ -76,7 +67,8 @@ export const AdminIngredientsForm = () => {
 			} else if (
 				localIngredients.some(
 					item =>
-						item.value.toLowerCase() === newIngredient.value.toLocaleLowerCase()
+						item.label.en.toLowerCase() ===
+						newIngredientForm.en.toLocaleLowerCase()
 				)
 			) {
 				setModalContent({
@@ -86,8 +78,8 @@ export const AdminIngredientsForm = () => {
 				return;
 			} else {
 				setLoading(true);
-				await productsService.addIngredient(newIngredient);
-				setNewIngredient({ label: '', value: '' });
+				await productsService.addIngredient(newIngredientForm);
+				setNewIngredientForm({ pl: '', en: '' });
 				// setAddIngredientActive(false);
 				setLoading(false);
 			}
@@ -97,27 +89,14 @@ export const AdminIngredientsForm = () => {
 		getProducts();
 	};
 	const editItem = ingredientId => {
-		const ingredientChecked = checkIngredientInProducts(ingredientId);
-		if (ingredientChecked.length !== 0) {
-			const listToRemove = ingredientChecked.map(item => (
-				<li>{item.name.pl}</li>
-			));
-
-			setModalContent({
-				h2: `Nie możesz edytować tego składnika ponieważ został on użyty w produktach. Przed edycją tego składnika usuń go najpierw z następujących produktów:`,
-				list: listToRemove,
-			});
-			onOpenModal();
-		} else {
-			const ingredientToEdit = ingredients.filter(
-				item => item.firestoreId === ingredientId
-			);
-			setNewIngredient({
-				label: ingredientToEdit[0].label,
-				value: ingredientToEdit[0].value,
-				firestoreId: ingredientToEdit[0].firestoreId,
-			});
-		}
+		const ingredientToEdit = ingredients.filter(
+			item => item.firestoreId === ingredientId
+		);
+		setNewIngredientForm({
+			pl: ingredientToEdit[0].label.pl,
+			en: ingredientToEdit[0].label.en,
+			firestoreId: ingredientToEdit[0].firestoreId,
+		});
 	};
 
 	const deleteAlert = {
@@ -132,7 +111,7 @@ export const AdminIngredientsForm = () => {
 					const data = await productsService.getIngredientsDictionary();
 					setIngredients(data);
 					setLoading(false);
-					setNewIngredient({
+					setNewIngredientForm({
 						label: '',
 						value: '',
 						firestoreId: '',
@@ -153,11 +132,11 @@ export const AdminIngredientsForm = () => {
 	const checkIngredientInProducts = id => {
 		//finding actually clicked ingredient
 		const currentIngredient = ingredients.find(item => item.firestoreId === id);
-
+		console.log(currentIngredient.firestoreId);
 		// creating the list of products containig clicked ingredient
 		const productsWithIngredient = products.filter(product =>
 			product.ingredients.some(
-				ingredient => ingredient === currentIngredient.value
+				ingredient => ingredient === currentIngredient.id
 			)
 		);
 		return productsWithIngredient;
@@ -208,22 +187,22 @@ export const AdminIngredientsForm = () => {
 				<form onSubmit={onSubmit}>
 					<p> Dodaj nowy składnik: </p>
 					<div className='section'>
-						<label htmlFor='label'> Wpisz nazwę składnika po polsku:</label>
+						<label htmlFor='pl'> Wpisz nazwę składnika po polsku:</label>
 						<input
 							type='text'
-							id='label'
-							name='label'
-							value={newIngredient.label}
+							id='pl'
+							name='pl'
+							value={newIngredientForm.pl}
 							onChange={handleChange}
 						/>
 					</div>
 					<div className='section'>
-						<label htmlFor='value'> Wpisz nazwę składnika po angielsku:</label>
+						<label htmlFor='en'> Wpisz nazwę składnika po angielsku:</label>
 						<input
 							type='text'
-							id='value'
-							name='value'
-							value={newIngredient.value}
+							id='en'
+							name='en'
+							value={newIngredientForm.en}
 							onChange={handleChange}
 						/>
 					</div>
@@ -247,15 +226,8 @@ export const AdminIngredientsForm = () => {
 					<tbody>
 						{localIngredients.map(item => (
 							<tr>
-								<td>{item.label.toLowerCase()}</td>
-								<td>
-									{item.value
-
-										.split(/(?=[A-Z])/)
-										.map(s => s.toLowerCase())
-										.join(' ')
-										.replaceAll('_', ' ')}
-								</td>
+								<td>{item.label.pl.toLowerCase()}</td>
+								<td>{item.label.en.toLowerCase()}</td>
 								<td className='actions'>
 									<button
 										className='button'

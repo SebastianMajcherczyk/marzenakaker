@@ -1,0 +1,1085 @@
+{
+	"app": {
+		"config": {
+			"translations": {
+				"en": {
+					"BIRTHDAY": "Birthday",
+					"WEDDING": "Wedding",
+					"INGREDIENTS_DICT_NUTS": "Nuts",
+					"HIDE": "HIDE FILTER",
+					"INGREDIENTS_DICT_VANILLA_SUGAR": "Vanilla sugar",
+					"INGREDIENTS": "Ingredients",
+					"NEXT": "NEXT",
+					"INGREDIENTS_DICT_CREAM": "Cream",
+					"CHOOSE_CATEGORY": "Choose the category",
+					"WEIGHT": "Weight",
+					"SUBCATEGORY": "Subcategory",
+					"SHOW_FILTER": "SHOW FILTER",
+					"ASC": "Ascending",
+					"NUMBER_OF_PERSONS": "Number of persons:",
+					"ABOUT_CONTENT": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who choses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the",
+					"OTHER": "Other",
+					"ABOUT": "About me",
+					"INGREDIENTS_DICT_FLOUR": "Flour",
+					"INGREDIENTS_DICT_MILK": "Milk",
+					"CHOOSE INGREDIENTS": "Choose the ingredients",
+					"FOR": "For",
+					"CHOOSE_WEIGHT": "Choose the weight:",
+					"INGREDIENTS_DICT_MASCARPONE": "Mascarpone",
+					"AND": "AND",
+					"CREATED_AT": "Created at",
+					"DESC": "Descending",
+					"NAME": "Name",
+					"RETURN": "RETURN",
+					"RESET": "RESET FILTER",
+					"DESCRIPTION": "Description",
+					"PERSONS": "persons",
+					"OFFER": "OFFER",
+					"CATEGORY": "Category",
+					"PERSON": "person",
+					"CHOOSE_FILTER_METHOD": "Choose ingredients filtering method",
+					"INGREDIENTS_DICT_BUTTER": "Butter",
+					"INGREDIENTS_DICT_BISQUIT": "Bisquit",
+					"HOME": "HOME",
+					"OR": "OR",
+					"ROWS_PER_PAGE": "Products per page:",
+					"CHOOSE_SUBCATEGORY": "Choose the subcategory",
+					"INGREDIENTS_DICT_EGGS": "Eggs",
+					"PREVIOUS": "PREVIOUS"
+				},
+				"pl": {
+					"CATEGORY": "Kategoria",
+					"PREVIOUS": "POPRZEDNI",
+					"WEIGHT": "Waga",
+					"CHOOSE_CATEGORY": "Wybierz kategorię",
+					"RETURN": "POWRÓT",
+					"ABOUT": "O mnie",
+					"OFFER": "OFERTA",
+					"BIRTHDAY": "Urodzinowe",
+					"CHOOSE_FILTER_METHOD": "Wybierz sposób filtrowania składników",
+					"WEDDING": "Ślubne",
+					"INGREDIENTS_DICT_BISQUIT": "Biszkopt",
+					"INGREDIENTS_DICT_MASCARPONE": "Mascarpone",
+					"NAME": "Nazwa",
+					"INGREDIENTS_DICT_VANILLA_SUGAR": "Cukier wanilinowy",
+					"INGREDIENTS_DICT_NUTS": "Orzechy",
+					"CHOOSE_WEIGHT": "Wybierz wagę:",
+					"INGREDIENTS_DICT_EGGS": "Jajka",
+					"NUMBER_OF_PERSONS": "Ilość osób:",
+					"ASC": "Rosnąco",
+					"OR": "LUB",
+					"HOME": "START",
+					"HIDE": "UKRYJ FILTR",
+					"INGREDIENTS": "Składniki",
+					"PERSONS": "osób",
+					"CREATED_AT": "Data dodania",
+					"NEXT": "NASTĘPNY",
+					"PERSON": "osoby",
+					"ROWS_PER_PAGE": "Sztuk na stronie:",
+					"CHOOSE INGREDIENTS": "Wybierz składniki",
+					"INGREDIENTS_DICT_MILK": "Mleko",
+					"SHOW_FILTER": "POKAŻ FILTR",
+					"INGREDIENTS_DICT_BUTTER": "Masło",
+					"ABOUT_CONTENT": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod delectus doloremque inventore numquam quia, minima autem culpa rerum earum et, odit tenetur cum perferendis quisquam iste pariatur repellendus voluptatibus eaque rem beatae maxime modi. Accusamus, rem commodi laborum tenetur eligendi cumque libero non. Nisi, expedita debitis. Ipsum praesentium quibusdam dolorum repellendus ullam vero recusandae? Minus deserunt nisi inventore, hic iusto sequi! Aut harum tenetur fuga quod excepturi. Tempore architecto magni earum ratione nesciunt ex sunt repellendus optio deleniti aliquid, qui, rem sit neque illum reiciendis. Similique ad facilis incidunt molestias beatae, perferendis fugit deserunt voluptatibus expedita, quos quo veritatis sint at sapiente nobis? Ipsum repudiandae libero omnis recusandae nostrum et consequuntur, natus dolor, ut sequi provident quod amet eligendi. Provident similique esse vel cumque voluptatibus aut possimus, eveniet necessitatibus maiores non fugit a enim consectetur incidunt at vitae assumenda, omnis quidem totam.",
+					"FOR": "Dla",
+					"DESCRIPTION": "Opis",
+					"DESC": "Malejąco",
+					"AND": "I",
+					"RESET": "WYCZYŚĆ FILTR",
+					"CHOOSE_SUBCATEGORY": "Wybierz podkategorię",
+					"SUBCATEGORY": "Podkategoria",
+					"OTHER": "Inne",
+					"INGREDIENTS_DICT_CREAM": "Śmietana",
+					"INGREDIENTS_DICT_FLOUR": "Mąka"
+				}
+			}
+		}
+	},
+	"categoryDict": [
+		{
+			"translationKey": "CATEGORY_DICT_OTHER",
+			"label": "Inne",
+			"value": "Other"
+		},
+		{
+			"label": "Urodzinowe",
+			"value": "Birthday",
+			"translationKey": "CATEGORY_DICT_BIRTHDAY"
+		},
+		{
+			"value": "Wedding",
+			"label": "Ślubne",
+			"translationKey": "CATEGORY_DICT_WEDDING"
+		}
+	],
+	"ingredientsDict": [
+		{
+			"label": {
+				"pl": "mąka",
+				"en": "flour"
+			},
+			"id": "flourabcd"
+		},
+		{
+			"label": {
+				"pl": "śmietana",
+				"en": "cream"
+			},
+
+			"id": "creamabcd"
+		},
+		{
+			"label": {
+				"pl": "kakao",
+				"en": "cocoa"
+			},
+			"id": "cocoaabcd"
+		},
+
+		{
+			"label": {
+				"pl": "masło",
+				"en": "butter"
+			},
+
+			"id": "butterabcd"
+		},
+
+		{
+			"label": {
+				"pl": "biszkopt",
+				"en": "bisquit"
+			},
+			"id": "bisquitabcd"
+		},
+
+		{
+			"label": {
+				"pl": "jajka",
+				"en": "eggs"
+			},
+			"id": "eggsabcd"
+		},
+		{
+			"label": {
+				"pl": "mascarpone",
+				"en": "mascarpone"
+			},
+			"id": "mascarponeabcd"
+		},
+		{
+			"label": {
+				"pl": "cukier",
+				"en": "sugar"
+			},
+			"id": "sugarabcd"
+		},
+		{
+			"label": {
+				"pl": "mleko",
+				"en": "milk"
+			},
+
+			"id": "milkabcd"
+		},
+		{
+			"label": {
+				"pl": "cukier waniliowy",
+				"en": "vanilla sugar"
+			},
+
+			"id": "vanillasugarabcd"
+		},
+		{
+			"label": {
+				"pl": "orzechy",
+				"en": "nuts"
+			},
+
+			"id": "nutsabcd"
+		}
+	],
+	"products": [
+		{
+			"state": "active",
+			"description": {
+				"en": "opis dogowego in english",
+				"pl": "opis dogowego"
+			},
+			"createdAt": {
+				"seconds": 1675100628,
+				"nanoseconds": 683000000
+			},
+			"subcategory": "C",
+			"name": {
+				"en": "Paw Patrol",
+				"pl": "Psi patrol"
+			},
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+
+			"category": "Birthday",
+			"photos": [
+				{
+					"fileName": "4c8.jpg",
+					"name": "Test",
+					"type": "main"
+				},
+				{
+					"name": "Cake",
+					"type": "standard",
+					"fileName": "2c03.jpg"
+				},
+				{
+					"type": "standard",
+					"fileName": "3d38.jpg",
+					"name": "Cake"
+				}
+			],
+			"id": "34c",
+			"weight": "17",
+			"persons": "43"
+		},
+		{
+			"category": "",
+			"name": {
+				"pl": "Świnka Peppa",
+				"en": "Peppa Pig"
+			},
+			"photos": [
+				{
+					"fileName": "50ec.jpg",
+					"name": "Test",
+					"type": "main"
+				}
+			],
+			"description": {
+				"pl": "",
+				"en": ""
+			},
+			"weight": "",
+			"ingredients": [],
+			"state": "active",
+			"id": "d550",
+			"createdAt": {
+				"seconds": 1678125708,
+				"nanoseconds": 361000000
+			},
+			"persons": "",
+			"subcategory": ""
+		},
+		{
+			"state": "active",
+			"weight": "1.5",
+			"category": "Birthday",
+			"description": {
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human",
+				"pl": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae."
+			},
+			"name": {
+				"pl": "Krysia",
+				"en": "Kristine "
+			},
+			"subcategory": "A",
+			"persons": "4",
+			"id": "db0",
+			"photos": [
+				{
+					"fileName": "59bd.jpg",
+					"type": "standard",
+					"name": "Cake"
+				},
+				{
+					"name": "Cake",
+					"fileName": "e3a7.jpg",
+					"type": "standard"
+				},
+				{
+					"fileName": "5421.jpg",
+					"type": "main",
+					"name": "Cake"
+				}
+			],
+			"createdAt": {
+				"seconds": 1675280876,
+				"nanoseconds": 862000000
+			},
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			]
+		},
+		{
+			"name": {
+				"en": "Vito Bella Show",
+				"pl": "Vito Bella Show"
+			},
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"subcategory": "A",
+			"persons": "8",
+			"createdAt": {
+				"seconds": 1675100730,
+				"nanoseconds": 794000000
+			},
+			"state": "active",
+			"weight": "3.5",
+			"id": "c80",
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque.",
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder o"
+			},
+			"photos": [
+				{
+					"fileName": "804.jpg",
+					"name": "Test",
+					"type": "main"
+				},
+				{
+					"name": "Cake",
+					"fileName": "5f47.jpg",
+					"type": "standard"
+				}
+			],
+			"category": "Other"
+		},
+		{
+			"name": {
+				"en": "Spidey",
+				"pl": "Spidey"
+			},
+			"description": {
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae."
+			},
+			"id": "4fe",
+			"state": "active",
+			"persons": "2",
+			"createdAt": {
+				"seconds": 1675100404,
+				"nanoseconds": 988000000
+			},
+			"weight": "2",
+			"subcategory": "B",
+			"photos": [
+				{
+					"type": "main",
+					"fileName": "fe2.jpg",
+					"name": "Test"
+				}
+			],
+			"category": "Other",
+			"ingredients": [
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd"
+			]
+		},
+		{
+			"name": {
+				"en": "Arsenal",
+				"pl": "Arsenal"
+			},
+			"persons": 7,
+			"ingredients": [
+				"flourabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"subcategory": "medium",
+			"photos": [
+				{
+					"type": "main",
+					"name": "Cake",
+					"fileName": "232d8c700b5.jpg"
+				}
+			],
+			"category": "Other",
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.",
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human "
+			},
+			"weight": 4,
+			"id": "4",
+			"state": "active",
+			"createdAt": {
+				"seconds": 1673712798,
+				"nanoseconds": 67000000
+			}
+		},
+		{
+			"persons": 13,
+			"createdAt": {
+				"seconds": 1673712835,
+				"nanoseconds": 667000000
+			},
+			"firebaseId": "NGFQwL9LhuyvHjgmkuoY",
+			"id": "8",
+			"weight": 1,
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"bisquitabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"vanillasugarabcd"
+			],
+			"state": "active",
+			"name": {
+				"pl": "Franek",
+				"en": "Frank"
+			},
+			"photos": [
+				{
+					"fileName": "1e4544daa95.jpg",
+					"type": "main",
+					"name": "Cake"
+				}
+			],
+			"description": {
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae."
+			},
+			"subcategory": "large",
+			"category": "Birthday"
+		},
+		{
+			"subcategory": "large",
+			"state": "active",
+			"category": "Birthday",
+			"weight": 3,
+			"ingredients": [
+				"flourabcd",
+				"cocoaabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"description": {
+				"en": "This is another jing of cake",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing "
+			},
+			"persons": 9,
+			"id": "16",
+			"createdAt": {
+				"seconds": 1673712852,
+				"nanoseconds": 269000000
+			},
+			"photos": [
+				{
+					"type": "standard",
+					"name": "Cake",
+					"fileName": "4a9f0560309.jpg"
+				},
+				{
+					"name": "Cake",
+					"type": "main",
+					"fileName": "b699.jpg"
+				}
+			],
+			"name": {
+				"pl": "Bartek",
+				"en": "Bart"
+			}
+		},
+		{
+			"state": "active",
+			"category": "Birthday",
+			"description": {
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae."
+			},
+			"subcategory": "C",
+			"persons": "8",
+			"weight": "1.5",
+			"name": {
+				"en": "Amelia",
+				"pl": "Amelia"
+			},
+			"createdAt": {
+				"seconds": 1675100503,
+				"nanoseconds": 777000000
+			},
+			"id": "e23",
+			"photos": [
+				{
+					"name": "Cake",
+					"fileName": "ddb.jpg",
+					"type": "main"
+				}
+			],
+			"ingredients": [
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"mascarponeabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			]
+		},
+		{
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd"
+			],
+			"name": {
+				"en": "Deimans",
+				"pl": "Deimans"
+			},
+			"subcategory": "medium",
+			"photos": [
+				{
+					"type": "main",
+					"name": "Cake",
+					"fileName": "f8270dd8d4b.jpg"
+				}
+			],
+			"state": "active",
+			"persons": 8,
+			"createdAt": {
+				"seconds": 1673712934,
+				"nanoseconds": 500000000
+			},
+			"id": 14,
+			"description": {
+				"en": "This is another jing of cake",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing "
+			},
+			"category": "Birthday",
+			"weight": 3
+		},
+		{
+			"persons": 10,
+			"photos": [
+				{
+					"fileName": "9907e9bf731.jpg",
+					"type": "main",
+					"name": "Cake"
+				}
+			],
+			"subcategory": "large",
+			"createdAt": {
+				"seconds": 1673710925,
+				"nanoseconds": 409000000
+			},
+			"state": "active",
+			"description": {
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human ",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae."
+			},
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"category": "Birthday",
+			"weight": 2,
+			"name": {
+				"en": "Anders",
+				"pl": "Anders"
+			},
+			"id": "7"
+		},
+		{
+			"createdAt": {
+				"seconds": 1673710904,
+				"nanoseconds": 302000000
+			},
+			"ingredients": [
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd"
+			],
+			"photos": [
+				{
+					"name": "Cake",
+					"type": "main",
+					"fileName": "65d35dcd977.jpg"
+				}
+			],
+			"id": 15,
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing ",
+				"en": "This is another jing of cake"
+			},
+			"category": "Birthday",
+			"name": {
+				"pl": "Emilia",
+				"en": "Emily"
+			},
+			"state": "active",
+			"weight": 3,
+			"subcategory": "large",
+			"persons": 11
+		},
+		{
+			"id": 13,
+			"name": {
+				"pl": "SK",
+				"en": "SK"
+			},
+			"subcategory": "small",
+			"weight": 3,
+			"description": {
+				"en": "This is another kind of cake",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing "
+			},
+			"ingredients": ["flourabcd", "creamabcd"],
+			"category": "Wedding",
+			"photos": [
+				{
+					"name": "Cake",
+					"type": "main",
+					"fileName": "77e.jpg"
+				}
+			],
+			"createdAt": {
+				"seconds": 1673712955,
+				"nanoseconds": 387000000
+			},
+			"state": "active",
+			"persons": 5
+		},
+		{
+			"weight": "0.5",
+			"description": {
+				"pl": "lj",
+				"en": "lj"
+			},
+			"persons": "1",
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"createdAt": {
+				"seconds": 1675435657,
+				"nanoseconds": 466000000
+			},
+			"subcategory": "",
+			"photos": [
+				{
+					"type": "standard",
+					"fileName": "a3d7.jpg",
+					"name": "Cake"
+				},
+				{
+					"fileName": "3d72.jpg",
+					"name": "Cake",
+					"type": "standard"
+				},
+				{
+					"name": "Cake",
+					"type": "main",
+					"fileName": "72ea.jpg"
+				},
+				{
+					"type": "standard",
+					"fileName": "2ea4.jpg",
+					"name": "Cake"
+				}
+			],
+			"name": {
+				"pl": "Tort bez main",
+				"en": "ssa"
+			},
+			"category": "Birthday",
+			"id": "88b0",
+			"state": "active"
+		},
+		{
+			"ingredients": [],
+			"createdAt": {
+				"seconds": 1678125366,
+				"nanoseconds": 422000000
+			},
+			"photos": [
+				{
+					"type": "main",
+					"name": "Test",
+					"fileName": "362e.jpg"
+				}
+			],
+			"description": {
+				"en": "",
+				"pl": ""
+			},
+			"subcategory": "",
+			"weight": "",
+			"category": "",
+			"persons": "",
+			"state": "active",
+			"name": {
+				"en": "Mechanic",
+				"pl": "Mechanik"
+			},
+			"id": "4036"
+		},
+		{
+			"id": "268c",
+			"description": {
+				"en": "",
+				"pl": ""
+			},
+			"persons": "",
+			"category": "",
+			"weight": "",
+			"createdAt": {
+				"seconds": 1678125722,
+				"nanoseconds": 413000000
+			},
+			"name": {
+				"pl": "Zwierz",
+				"en": ""
+			},
+			"state": "active",
+			"ingredients": [],
+			"subcategory": "",
+			"photos": [
+				{
+					"fileName": "8c12.jpg",
+					"name": "Test",
+					"type": "main"
+				}
+			]
+		},
+		{
+			"state": "active",
+			"persons": 9,
+			"photos": [
+				{
+					"fileName": "410fe9b2ac7.jpg",
+					"type": "main",
+					"name": "Cake"
+				}
+			],
+			"ingredients": [
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing ",
+				"en": "This is another kind of cake"
+			},
+			"subcategory": "large",
+			"category": "Birthday",
+			"id": 11,
+			"name": {
+				"en": "Aleksander - edit",
+				"pl": "Aleksander - edit"
+			},
+			"createdAt": {
+				"seconds": 1673713629,
+				"nanoseconds": 405000000
+			},
+			"weight": 4
+		},
+		{
+			"state": "active",
+			"persons": 5,
+			"category": "Birthday",
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.",
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human "
+			},
+			"subcategory": "small",
+			"ingredients": ["flourabcd", "vanillasugarabcd", "nutsabcd"],
+			"name": {
+				"pl": "Suitcase",
+				"en": "Suitcase"
+			},
+			"createdAt": {
+				"seconds": 1673713647,
+				"nanoseconds": 134000000
+			},
+			"weight": 2,
+			"id": "6",
+			"photos": [
+				{
+					"type": "main",
+					"fileName": "af15322ad0b.jpg",
+					"name": "Cake"
+				}
+			]
+		},
+		{
+			"state": "active",
+			"category": "Birthday",
+			"photos": [
+				{
+					"type": "standard",
+					"name": "Cake",
+					"fileName": "3f14.jpg"
+				}
+			],
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+				"en": " But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure"
+			},
+			"id": "7e6f",
+			"subcategory": "B",
+			"name": {
+				"en": "Susan",
+				"pl": "Zuzia"
+			},
+			"ingredients": ["flourabcd", "creamabcd"],
+			"weight": "1",
+			"persons": "2",
+			"createdAt": {
+				"seconds": 1673710369,
+				"nanoseconds": 245000000
+			}
+		},
+		{
+			"subcategory": "medium",
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing ",
+				"en": "This is another jing of cake"
+			},
+			"name": {
+				"pl": "Golf",
+				"en": "Golf"
+			},
+			"photos": [
+				{
+					"type": "main",
+					"fileName": "03abd85a126.jpg",
+					"name": "Cake"
+				}
+			],
+			"persons": 5,
+			"state": "active",
+			"id": "2",
+			"createdAt": {
+				"seconds": 1674226119,
+				"nanoseconds": 747000000
+			},
+			"category": "Other",
+			"weight": 2,
+			"ingredients": [
+				"flourabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"nutsabcd"
+			]
+		},
+		{
+			"subcategory": "large",
+			"weight": 5,
+			"ingredients": [
+				"flourabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"nutsabcd"
+			],
+			"state": "active",
+			"photos": [
+				{
+					"type": "main",
+					"fileName": "f65f151c8f5.jpg",
+					"name": "Cake"
+				}
+			],
+			"name": {
+				"pl": "Kuba",
+				"en": "James"
+			},
+			"category": "Birthday",
+			"persons": 14,
+			"id": "9",
+			"createdAt": {
+				"seconds": 1673713685,
+				"nanoseconds": 859000000
+			},
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.",
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human "
+			}
+		},
+		{
+			"state": "active",
+			"id": "d88",
+			"ingredients": [
+				"flour",
+				"cream",
+				"butter",
+				"bisquit",
+				"eggs",
+				"mascarpone",
+				"sugar",
+				"milk",
+				"vanillaSugar",
+				"nuts"
+			],
+			"name": {
+				"pl": "To chłopiec",
+				"en": "It's a boy"
+			},
+			"category": "Other",
+			"createdAt": {
+				"seconds": 1675101974,
+				"nanoseconds": 96000000
+			},
+			"weight": "2",
+			"persons": "3",
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.",
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human "
+			},
+			"photos": [
+				{
+					"type": "main",
+					"fileName": "88f.jpg",
+					"name": "Test"
+				}
+			],
+			"subcategory": "A"
+		},
+		{
+			"state": "active",
+			"id": "1",
+			"createdAt": {
+				"seconds": 1673713703,
+				"nanoseconds": 398000000
+			},
+			"subcategory": "small",
+			"ingredients": [
+				"flourabcd",
+				"creamabcd",
+				"cocoaabcd",
+				"butterabcd",
+				"bisquitabcd",
+				"eggsabcd",
+				"mascarponeabcd",
+				"sugarabcd",
+				"milkabcd",
+				"vanillasugarabcd",
+				"nutsabcd"
+			],
+			"description": {
+				"en": "Something in English",
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing "
+			},
+			"category": "Birthday",
+			"name": {
+				"en": "Cake with camper ",
+				"pl": "Tort z kamperem "
+			},
+			"photos": [
+				{
+					"fileName": "65f3.jpg",
+					"type": "main",
+					"name": "Cake"
+				},
+				{
+					"type": "standard",
+					"fileName": "c85b.jpg",
+					"name": "Cake"
+				},
+				{
+					"fileName": "85b2.jpg",
+					"name": "Cake",
+					"type": "standard"
+				}
+			],
+			"weight": 1,
+			"persons": 3
+		},
+		{
+			"name": {
+				"en": "Rolbox",
+				"pl": "Roblox"
+			},
+			"createdAt": {
+				"seconds": 1673713720,
+				"nanoseconds": 994000000
+			},
+			"id": "5",
+			"category": "Birthday",
+			"weight": 3,
+			"state": "active",
+			"description": {
+				"pl": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illum reiciendis delectus adipisci esse, possimus numquam at expedita eaque recusandae.",
+				"en": "But I must explain to you how all this mistaken idea of denouncing of a pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human "
+			},
+			"subcategory": "large",
+			"photos": [
+				{
+					"type": "main",
+					"name": "Cake",
+					"fileName": "c068b57609b.jpg"
+				}
+			],
+			"ingredients": ["milkabcd", "vanillasugarabcd", "nutsabcd"],
+			"persons": 6
+		}
+	]
+}

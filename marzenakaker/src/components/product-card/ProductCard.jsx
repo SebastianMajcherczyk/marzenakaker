@@ -17,7 +17,7 @@ import { storageService } from '../../services/storage.service';
 
 export const ProductCard = () => {
 	const ref = useRef();
-	const { filteredProductIds, language } = useContext(AppContext);
+	const { filteredProductIds, language, ingredients } = useContext(AppContext);
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const [product, setProduct] = useState(null);
@@ -28,7 +28,20 @@ export const ProductCard = () => {
 	const [touchStart, setTouchStart] = useState(null);
 	const [touchEnd, setTouchEnd] = useState(null);
 	const minSwipeDistance = 50;
+	const ingredientsValue = useMemo(() => {
+		return product?.ingredients.map(ingredientId => {
+			// zmalezc ingrident ...
+			// wziac odpowiedli label wzgledem jezyka
+			//zwrococ go 
+			const found = ingredients.find(ingredient => ingredientId === ingredient.id)
+			return found?.label[language] || ''
 
+
+		}) || []
+
+
+
+	}, [ingredients, product, language])
 	const onTouchStart = e => {
 		setTouchEnd(null); // otherwise the swipe is fired even with usual touch events
 		setTouchStart(e.targetTouches[0].clientX);
@@ -195,7 +208,7 @@ export const ProductCard = () => {
 						{t('FOR')} {product?.persons} {t('PERSONS')}
 					</p>
 					<p>
-						{t('INGREDIENTS')}: {product?.ingredients.join(', ')}{' '}
+						{t('INGREDIENTS')}: {ingredientsValue.join(', ')}{' '}
 					</p>
 				</div>
 			</div>

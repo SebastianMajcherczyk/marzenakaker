@@ -18,7 +18,7 @@ export const ProductFilter = ({
 }) => {
 	const defaultHiddenOption = localStorage.getItem('hidden') || 'hidden';
 	const [filterHidden, setfilterHidden] = useState(defaultHiddenOption);
-	const { ingredients, sortingCriteria, setSortingCriteria } =
+	const { language, ingredients, sortingCriteria, setSortingCriteria } =
 		useContext(AppContext);
 	const { t, i18n } = useTranslation();
 	const showHideFilter = e => {
@@ -290,16 +290,16 @@ export const ProductFilter = ({
 						<div className='list'>
 							{ingredients.map((item, index) => (
 								<div key={index} className='ingredients-checkbox'>
-									<label htmlFor={item.value}>
-										{getTranslatedLabel(item.translationKey, item.label)}
+									<label htmlFor={item.id}>
+									{item.label[language]}
 									</label>
 									<input
 										type='checkbox'
-										id={item.value}
+										id={item.id}
 										checked={filterCriteria?.ingredients.value.includes(
-											item.value
+											item.id
 										)}
-										name={'ingredients-' + item.value}
+										name={'ingredients-' + item.id}
 										onChange={handleChange}
 									/>
 								</div>

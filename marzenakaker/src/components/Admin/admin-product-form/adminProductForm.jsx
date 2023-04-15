@@ -41,7 +41,7 @@ export const AdminProductForm = () => {
 		state: 'inactive',
 	});
 	const [activeFoto, setActiveFoto] = useState(null);
-	const [addIngerientActive, setAddIngredientActive] = useState(false);
+	
 	const loadProduct = async () => {
 		const data = await productsService.getProductById(id);
 		setOriginalProduct(data);
@@ -355,12 +355,12 @@ export const AdminProductForm = () => {
 					<div className='ingred-list'>
 						{ingredients.map(item => (
 							<div className='ingredient'>
-								<label htmlFor={item.value}>{item.label}</label>
+								<label htmlFor={item.id}>{item.label.pl}</label>
 								<input
 									type='checkbox'
-									id={item.value}
-									checked={product.ingredients?.indexOf(item.value) > -1}
-									name={'ingredients-' + item.value}
+									id={item.id}
+									checked={product.ingredients?.indexOf(item.id) > -1}
+									name={'ingredients-' + item.id}
 									onChange={handleChange}
 								/>
 							</div>
@@ -539,7 +539,7 @@ export const AdminProductForm = () => {
 					Zapisz i wyjdź
 				</button>
 			</form>
-			{/* <AdminIngredientsForm /> */}
+			<AdminIngredientsForm />
 		</div>
 	);
 };

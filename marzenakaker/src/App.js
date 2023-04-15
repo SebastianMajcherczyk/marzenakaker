@@ -153,12 +153,12 @@ getTranslations()
 				</Routes>
 				<Footer isOnAdminPath={isOnAdminPath} />
 			</AppContext.Provider>
-			{/* <button
+			<button
 				onClick={() => {
-					productsService.createIngredientsDictMock()
+					productsService.sendDataToFirebase()
 				}}>
 				Create mock
-			</button> */}
+			</button>
 		</div>
 	);
 }
