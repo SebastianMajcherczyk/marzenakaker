@@ -230,7 +230,7 @@ export const AdminProductForm = () => {
 		await saveProduct(e);
 		await loadProduct();
 		setImages([]);
-		debugger;
+		
 		setLoading(false);
 	};
 	const saveAndExit = async e => {

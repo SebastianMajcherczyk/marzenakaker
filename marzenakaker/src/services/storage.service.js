@@ -2,6 +2,7 @@ import {
 	deleteObject,
 	getDownloadURL,
 	ref,
+	updateMetadata,
 	uploadBytes,
 } from 'firebase/storage';
 import { storage } from '..';
@@ -20,6 +21,9 @@ const storageServiceDef = () => {
 		try {
 			const storageRef = ref(storage, path);
 			await uploadBytes(storageRef, file);
+			await updateMetadata(storageRef, {
+				cacheControl: 'public, max-age=6000000',
+			});
 		} catch (error) {
 			console.log(error);
 		}
